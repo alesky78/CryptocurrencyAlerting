@@ -4,7 +4,6 @@ package it.spaghettisource.cryptocurrencyalerting.exception;
 import java.util.Locale;
 
 import it.spaghettisource.cryptocurrencyalerting.i18n.I18NMessageHelper;
-import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
 
 /**
  * Superclass of all Exceptions used
@@ -32,7 +31,7 @@ public class BaseException extends RuntimeException {
 		this.messageParameters = messageParameters;
 	}
 
-	public void setMessageHelper(StringMessageHelper messageHelper) {
+	public void setMessageHelper(I18NMessageHelper messageHelper) {
 		this.messageHelper = messageHelper;
 	}
 
