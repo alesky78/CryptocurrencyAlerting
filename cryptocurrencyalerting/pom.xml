@@ -1,0 +1,114 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>it.spaghettisource.cryptocurrencyalerting</groupId>
+	<artifactId>cryptocurrencyalerting</artifactId>
+	<version>1.0</version>
+	<name>cryptocurrencyalerting</name>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>alesky</id>
+			<name>Alessndro D'Ottavio</name>
+			<email>alessandro.dottavio@gmail.com</email>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>Bruxelles</timezone>
+		</developer>
+	</developers>
+
+
+
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.2</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.6</version>
+					<configuration>
+						<finalName>cryptocurrencyalerting</finalName>
+						<excludes>
+							<exclude>**/log4j.xml</exclude>
+							<exclude>**/config.properties</exclude>							
+						</excludes>
+						<archive>
+							<index>true</index>
+							<manifest>
+								<addClasspath>false</addClasspath>
+							</manifest>
+							<manifestEntries>
+								<name>${project.name}</name>
+								<version>${project.version}</version>
+							</manifestEntries>
+						</archive>
+
+					</configuration>
+				</plugin>
+				
+				<!-- BUILD CONFIGURATION -->
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.5.3</version>
+					<configuration>
+						<appendAssemblyId>false</appendAssemblyId>
+						<finalName>cryptocurrencyalerting</finalName>
+						<descriptor>src/assembly/assembly.xml</descriptor>
+					</configuration>
+					<executions>
+						<execution>
+							<id>create-archive</id>
+							<phase>package</phase>
+							<goals>
+								<goal>single</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>
