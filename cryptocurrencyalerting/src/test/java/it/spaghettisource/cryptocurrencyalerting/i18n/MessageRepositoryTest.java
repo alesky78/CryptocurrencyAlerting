@@ -2,6 +2,7 @@ package it.spaghettisource.cryptocurrencyalerting.i18n;
 
 import java.util.Locale;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class MessageRepositoryTest {
@@ -12,7 +13,9 @@ public class MessageRepositoryTest {
 		MessageRepository repository =new MessageRepository();
 		repository.setMessageRepositoryBundleBaseName("it.spaghettisource.cryptocurrencyalerting.i18n.MessageRepositoryTest");
 		String key = repository.getMessageById("key.1");
+
 		System.out.println(key);
+		Assert.assertNotNull(key);
 		
 	}
 	
@@ -23,9 +26,10 @@ public class MessageRepositoryTest {
 		repository.setMessageRepositoryBundleBaseName("it.spaghettisource.cryptocurrencyalerting.i18n.MessageRepositoryTest");
 		
 		Locale currentLocale = new Locale("en");
-		
 		String key = repository.getMessageById("key.1",currentLocale);
+		
 		System.out.println(key);
+		Assert.assertNotNull(key);
 		
 	}
 	

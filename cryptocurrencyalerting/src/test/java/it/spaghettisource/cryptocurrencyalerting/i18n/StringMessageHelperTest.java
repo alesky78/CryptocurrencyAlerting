@@ -2,6 +2,7 @@ package it.spaghettisource.cryptocurrencyalerting.i18n;
 
 import java.util.Locale;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +26,9 @@ public class StringMessageHelperTest {
 		
 		Object[] parameters = {new String("primo parametro")};
 		String key = helper.getFormattedMessageI18N("key.1", parameters);
+		
 		System.out.println(key);
+		Assert.assertNotNull(key);
 		
 	}
 
@@ -40,7 +43,9 @@ public class StringMessageHelperTest {
 		
 		Object[] parameters = {new String("first parameter")};
 		String key = helper.getFormattedMessageI18N(currentLocale,"key.1", parameters);
+		
 		System.out.println(key);
+		Assert.assertNotNull(key);
 		
 	}	
 }
