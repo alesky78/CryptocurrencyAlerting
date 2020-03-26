@@ -10,8 +10,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import it.spaghettisource.cryptocurrencyalerting.repository.CommonEntity;
-
 /**
  * MailAction
  * 
@@ -19,19 +17,19 @@ import it.spaghettisource.cryptocurrencyalerting.repository.CommonEntity;
  * @author Alessandro D'Ottavio
  * @version 1.0
  */
-public class MailAction extends CommonEntity implements Action {
+public class MailAction extends BaseAction {
 
 	
-	public EncryptType encryptType; 
+	private EncryptType encryptType; 
 	
-	public String username;
-	public String password;
-	public String host;
-	public String port;	
-	public String authentication;
+	private String username;
+	private String password;
+	private String host;
+	private String port;	
+	private String authentication;
 	
 	//message data
-	public String subject;
+	private String subject;
 	
 
 	public String getUsername() {
