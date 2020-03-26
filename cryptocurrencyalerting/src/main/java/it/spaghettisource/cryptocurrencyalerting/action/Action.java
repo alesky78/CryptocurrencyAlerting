@@ -11,7 +11,6 @@ public interface Action {
 	/**
 	 * execute this action
 	 */
-	public void trigger();
-	
+	public void trigger(String message);
 	
 }
