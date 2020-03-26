@@ -8,7 +8,7 @@ public class MailActionTest {
 
 	//confgure the provider to make the test or it will fail
 	//@Test
-	public void sendMail() {
+	public void test_OK_sendMail() {
 		
 		MailAction action = new MailAction();
 		

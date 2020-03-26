@@ -63,7 +63,7 @@ public class JsonConverterTest {
 	
 	
 	@Test(expected = BaseException.class)
-	public void test_NOK_JsonToObject() {
+	public void test_KO_JsonToObject() {
 		
 		String json = "{\"encryptType\":\"NONE\",\"username\":\"user\",\"password\":\"pwd\",\"host\":\"mail.host.com\",\"port\":null,\"authentication\":\"true\",\"subject\":null}";
 		converter.jsonToObject(exceptionFactory, json, ArrayList.class);			

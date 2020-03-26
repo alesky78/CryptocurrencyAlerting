@@ -14,31 +14,33 @@ import it.spaghettisource.cryptocurrencyalerting.i18n.I18NMessageHelper;
  */
 public class ExceptionFactory {
 
-
+	private static Object[] EMPTY_PARAMETERS = new Object[] {};
+	
 	private I18NMessageHelper messageHelper;
 	
 	public void setMessageHelper(I18NMessageHelper messageHelper) {
 		this.messageHelper = messageHelper;
 	}
 
-	/**
-	 * generated when we found an unexpected exception in the code
-	 * 
-	 * @param cause
-	 * @return
-	 */
 	public BaseException getUnexpectedException(Throwable cause){		
-		return getException(cause, "exception.UnexpectedException", null);
+		return getException(cause, "exception.UnexpectedException", EMPTY_PARAMETERS);
 	}
 
 	public BaseException getJavaToJsonException(Throwable cause){		
-		return getException(cause, "exception.JavaToJson", null);
+		return getException(cause, "exception.JavaToJson", EMPTY_PARAMETERS);
 	}
 	
 	public BaseException getJsonToJavaException(Throwable cause){		
-		return getException(cause, "exception.JsonToJava", null);
+		return getException(cause, "exception.JsonToJava", EMPTY_PARAMETERS);
 	}		
+
+	public BaseException getImpossibleReadFileException(Exception cause, String fileName,String filePath) {
+		return getException(cause, "exception.readFile", new Object[]{fileName, filePath});
+	}
 	
+	public BaseException getImpossibleWriteFileException(Exception cause, String fileName,String filePath) {
+		return getException(cause, "exception.writeFile", new Object[]{fileName, filePath});
+	}	
 	
 	private BaseException getException(String errorCode,Object... messageParameters ){
 		BaseException ex = new BaseException(errorCode, messageParameters);
@@ -52,6 +54,8 @@ public class ExceptionFactory {
 		ex.setMessageHelper(messageHelper);
 		return ex;
 	}
+
+
 
 			
 }
