@@ -10,7 +10,6 @@ import it.spaghettisource.cryptocurrencyalerting.i18n.I18NMessageHelper;
  * 
  * @author Alessandro D'Ottavio
  * @version 1.0
- *
  */
 public class BaseException extends RuntimeException {
 

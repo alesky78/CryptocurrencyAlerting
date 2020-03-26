@@ -10,12 +10,16 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import it.spaghettisource.cryptocurrencyalerting.repository.CommonEntity;
+
 /**
+ * MailAction
  * 
- * @author Alessandro
- *
+ * 
+ * @author Alessandro D'Ottavio
+ * @version 1.0
  */
-public class MailAction implements Action {
+public class MailAction extends CommonEntity implements Action {
 
 	
 	public EncryptType encryptType; 

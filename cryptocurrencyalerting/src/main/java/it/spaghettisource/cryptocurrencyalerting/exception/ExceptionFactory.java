@@ -5,12 +5,11 @@ import it.spaghettisource.cryptocurrencyalerting.i18n.I18NMessageHelper;
 
 
 /**
- * 
  * Factory class used to create exception, this class allow to format the correct error message and hide the error code 
  * avoiding to put the error code in the business code
  * 
  * @author Alessando D'Ottavio
- *
+ * @version 1.0
  */
 public class ExceptionFactory {
 

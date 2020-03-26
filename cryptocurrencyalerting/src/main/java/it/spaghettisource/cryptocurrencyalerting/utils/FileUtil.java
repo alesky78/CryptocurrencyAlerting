@@ -1,6 +1,7 @@
 package it.spaghettisource.cryptocurrencyalerting.utils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -9,9 +10,28 @@ import java.io.PrintStream;
 
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 
+/**
+ * Utility for File operations 
+ * 
+ * 
+ * @author Alessandro D'Ottavio
+ * @version 1.0
+ */
 public class FileUtil {
 
 
+	
+	public boolean isFileExsist(String filePath,String fileName) {		
+		File file = new File(filePath+System.getProperty("file.separator")+fileName);
+		return file.exists();
+	}
+	
+	public boolean deleteFile(String filePath,String fileName) {
+		File file = new File(filePath+System.getProperty("file.separator")+fileName);
+		return file.delete();
+	}
+	
+	
 	public String readFileToString(ExceptionFactory exceptionFactory,String filePath,String fileName){
 		
 		try {
@@ -40,6 +60,7 @@ public class FileUtil {
 		try {
 			PrintStream out = new PrintStream(new FileOutputStream(filePath+System.getProperty("file.separator")+fileName));
 			out.print(fileContent);
+			out.close();
 			
 		}catch (Exception cause) {
 			throw exceptionFactory.getImpossibleWriteFileException(cause, fileName, filePath);

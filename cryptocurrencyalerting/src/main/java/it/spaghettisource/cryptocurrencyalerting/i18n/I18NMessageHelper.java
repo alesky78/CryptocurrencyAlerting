@@ -2,6 +2,14 @@ package it.spaghettisource.cryptocurrencyalerting.i18n;
 
 import java.util.Locale;
 
+/**
+ * <code>I18NHelper</code> provides interface to get messages by an id and passing the parameters to valorize it
+ *
+ * 
+ * @author Alessandro D'Ottavio
+ * @version 1.0
+ *
+ */
 public interface I18NMessageHelper {
 
 	/**

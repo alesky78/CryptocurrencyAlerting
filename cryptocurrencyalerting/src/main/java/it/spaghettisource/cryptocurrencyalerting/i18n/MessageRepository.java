@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 
 /**
- * <code>I18NHelper</code> provides utilities to get messages from a resource bundle element.
+ * <code>MessageRepository</code> provides utilities to get messages from a resource bundle element.
  *
  * 
  * @author Alessandro D'Ottavio
