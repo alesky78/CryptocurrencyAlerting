@@ -31,6 +31,14 @@ public class ExceptionFactory {
 		return getException(cause, "exception.UnexpectedException", null);
 	}
 
+	public BaseException getJavaToJsonException(Throwable cause){		
+		return getException(cause, "exception.JavaToJson", null);
+	}
+	
+	public BaseException getJsonToJavaException(Throwable cause){		
+		return getException(cause, "exception.JsonToJava", null);
+	}		
+	
 	
 	private BaseException getException(String errorCode,Object... messageParameters ){
 		BaseException ex = new BaseException(errorCode, messageParameters);

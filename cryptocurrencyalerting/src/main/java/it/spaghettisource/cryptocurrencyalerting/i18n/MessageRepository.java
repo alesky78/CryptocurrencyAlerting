@@ -36,10 +36,8 @@ public class MessageRepository {
 
 		Locale currentLocale;
         ResourceBundle messages;
-
-        currentLocale = Locale.getDefault();
         
-        messages = ResourceBundle.getBundle(resourceBundleFile,currentLocale);
+        messages = ResourceBundle.getBundle(resourceBundleFile);
         
 		return messages.getString(messageId);
 		
