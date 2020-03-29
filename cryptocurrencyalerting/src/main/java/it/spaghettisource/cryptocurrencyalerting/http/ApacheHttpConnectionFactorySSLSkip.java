@@ -20,7 +20,7 @@ import org.apache.http.impl.conn.SingleClientConnManager;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 
 /**
- * legacy implementation of the SSL httpClient that skip any certificate control over the https and consider any call calid
+ * legacy implementation of the SSL httpClient that skip any certificate control over the https and consider any call secure
  * 
  * @author Alessandro
  *
