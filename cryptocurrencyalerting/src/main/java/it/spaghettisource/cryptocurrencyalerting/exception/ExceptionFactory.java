@@ -41,6 +41,36 @@ public class ExceptionFactory {
 		return getException(cause, "exception.writeFile", new Object[]{fileName, filePath});
 	}	
 	
+	
+	///////////HTTP ERRORS/////////////////
+	
+	public BaseException getSSLProtocolNotSupported(Exception cause) {
+		return getException(cause, "exception.http.ssl.notsupported", EMPTY_PARAMETERS);
+	}
+
+	
+	/////////COIN MARKET CAP ERRORS////////////////
+	public BaseException getCoinMarketCapHttp400() {
+		return getException("exception.http.coinmarketcap.code.400", EMPTY_PARAMETERS);
+	}	
+	public BaseException getCoinMarketCapHttp401() {
+		return getException("exception.http.coinmarketcap.code.401", EMPTY_PARAMETERS);
+	}	
+	public BaseException getCoinMarketCapHttp402() {
+		return getException("exception.http.coinmarketcap.code.402", EMPTY_PARAMETERS);
+	}	
+	public BaseException getCoinMarketCapHttp403() {
+		return getException("exception.http.coinmarketcap.code.403", EMPTY_PARAMETERS);
+	}	
+	public BaseException getCoinMarketCapHttp429() {
+		return getException("exception.http.coinmarketcap.code.429", EMPTY_PARAMETERS);
+	}	
+	public BaseException getCoinMarketCapHttp500() {
+		return getException("exception.http.coinmarketcap.code.500", EMPTY_PARAMETERS);
+	}	
+	
+	
+	///////////internal methods/////////////////
 	private BaseException getException(String errorCode,Object... messageParameters ){
 		BaseException ex = new BaseException(errorCode, messageParameters);
 		ex.setMessageHelper(messageHelper);

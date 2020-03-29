@@ -1,7 +1,5 @@
 package it.spaghettisource.cryptocurrencyalerting.action;
 
-import org.junit.Test;
-
 import it.spaghettisource.cryptocurrencyalerting.action.MailAction.EncryptType;
 
 public class MailActionTest {

@@ -54,6 +54,15 @@ public class FileUtil {
 
 	}
 
+	public InputStream readFileToInputStream(ExceptionFactory exceptionFactory,String filePath,String fileName){
+		
+		try {
+			return new FileInputStream(filePath+System.getProperty("file.separator")+fileName); 		
+		}catch (Exception cause) {
+			throw exceptionFactory.getImpossibleReadFileException(cause, fileName, filePath);
+		}
+
+	}
 
 	public void writeStringToFile(ExceptionFactory exceptionFactory,String filePath,String fileName,String fileContent){
 		

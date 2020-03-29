@@ -29,7 +29,10 @@
 		</developer>
 	</developers>
 
-
+	<properties>
+		<com.sun.jersey>1.19.4</com.sun.jersey>
+		<apache-httpclient>4.5.12</apache-httpclient>
+	</properties>
 
 
 	<dependencies>
@@ -41,11 +44,30 @@
 			<version>1.6.2</version>
 		</dependency>
 		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		    <version>2.10.3</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.10.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>${com.sun.jersey}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey.contribs</groupId>
+			<artifactId>jersey-apache-client4</artifactId>
+			<version>${com.sun.jersey}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>${com.sun.jersey}</version>
 		</dependency>		
-		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${apache-httpclient}</version>
+		</dependency>
 
 		<!-- test dependences here -->
 		<dependency>
