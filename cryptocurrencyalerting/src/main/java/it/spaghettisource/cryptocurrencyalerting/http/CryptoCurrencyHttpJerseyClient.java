@@ -19,7 +19,6 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.client.apache4.ApacheHttpClient4Handler;
 
 import it.spaghettisource.cryptocurrencyalerting.exception.BaseException;
@@ -120,7 +119,6 @@ public abstract class  CryptoCurrencyHttpJerseyClient implements CryptoCurrencyH
 
 		if(pojoMapping){
 			ClientConfig clientConfig = new DefaultClientConfig();
-			clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
 			return new Client(root,clientConfig);
 
 		}else{

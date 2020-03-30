@@ -42,22 +42,6 @@ public class HttpClientCoinMarketCapTest {
 		
 	}
 	
-	
-	//@Test
-	public void test_OK_ExampleCall() {
-		
-		Map<String,String> params = new HashMap<>();
-		params.put("start","1");
-		params.put("limit","5000");
-		params.put("convert","USD");		
-			
-		String response = client.doGet("https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest", params);
-
-		writeResponseToFile(response, "HttpClientCoinMarketCapTestCall.json");
-		Assert.assertNotNull(response);
-		
-	}
-	
  
 	//@Test
 	public void test_OK_FiatMap() {
@@ -69,7 +53,7 @@ public class HttpClientCoinMarketCapTest {
 		
 		String response = client.doGet("https://pro-api.coinmarketcap.com/v1/fiat/map",params);
 
-		writeResponseToFile(response, "HttpClientCoinMarketCapTest_FiatMap.json");
+		//writeResponseToFile(response, "HttpClientCoinMarketCapTest_FiatMap.json");
 		Assert.assertNotNull(response);
 		
 	}
@@ -84,13 +68,13 @@ public class HttpClientCoinMarketCapTest {
 		
 		String response = client.doGet("https://pro-api.coinmarketcap.com/v1/cryptocurrency/map",params);
 
-		writeResponseToFile(response, "HttpClientCoinMarketCapTest_CryptocurrencyMap.json");
+		//writeResponseToFile(response, "HttpClientCoinMarketCapTest_CryptocurrencyMap.json");
 		Assert.assertNotNull(response);
 		
 	}
 
 	
-	@Test
+	//@Test
 	public void test_OK_CryptocurrencyQuatoLatest() {
 					
 		Map<String,String> params = new HashMap<>();
@@ -101,7 +85,7 @@ public class HttpClientCoinMarketCapTest {
 		
 		//the model is not properly generic, then we substitute two variable name 
 
-		writeResponseToFile(response, "HttpClientCoinMarketCapTest_CryptocurrencyQuatoLatest.json");
+		//writeResponseToFile(response, "HttpClientCoinMarketCapTest_CryptocurrencyQuatoLatest.json");
 		Assert.assertNotNull(response);
 		
 	}	
