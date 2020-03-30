@@ -13,58 +13,58 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Quote {
 
-	private double price;
-	private double volume_24h;	
-	private double percent_change_1h;	
-	private double percent_change_24h;
-	private double percent_change_7d;
-	private double market_cap;
+	private Double price;
+	private Double volume_24h;	
+	private Double percent_change_1h;	
+	private Double percent_change_24h;
+	private Double percent_change_7d;
+	private Double market_cap;
 	
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
-	public double getVolume_24h() {
+	public Double getVolume_24h() {
 		return volume_24h;
 	}
 
-	public void setVolume_24h(double volume_24h) {
+	public void setVolume_24h(Double volume_24h) {
 		this.volume_24h = volume_24h;
 	}
 
-	public double getPercent_change_1h() {
+	public Double getPercent_change_1h() {
 		return percent_change_1h;
 	}
 
-	public void setPercent_change_1h(double percent_change_1h) {
+	public void setPercent_change_1h(Double percent_change_1h) {
 		this.percent_change_1h = percent_change_1h;
 	}
 
-	public double getPercent_change_24h() {
+	public Double getPercent_change_24h() {
 		return percent_change_24h;
 	}
 
-	public void setPercent_change_24h(double percent_change_24h) {
+	public void setPercent_change_24h(Double percent_change_24h) {
 		this.percent_change_24h = percent_change_24h;
 	}
 
-	public double getPercent_change_7d() {
+	public Double getPercent_change_7d() {
 		return percent_change_7d;
 	}
 
-	public void setPercent_change_7d(double percent_change_7d) {
+	public void setPercent_change_7d(Double percent_change_7d) {
 		this.percent_change_7d = percent_change_7d;
 	}
 
-	public double getMarket_cap() {
+	public Double getMarket_cap() {
 		return market_cap;
 	}
 
-	public void setMarket_cap(double market_cap) {
+	public void setMarket_cap(Double market_cap) {
 		this.market_cap = market_cap;
 	}
 

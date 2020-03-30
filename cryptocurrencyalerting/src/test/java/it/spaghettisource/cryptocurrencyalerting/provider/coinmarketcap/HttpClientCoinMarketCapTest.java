@@ -28,7 +28,7 @@ public class HttpClientCoinMarketCapTest {
 	public void beforeTest() {
 		
 		//prepare the exception factory
-		MessageRepository messageRepository =new MessageRepository();
+		MessageRepository messageRepository = new MessageRepository();
 		messageRepository.setMessageRepositoryBundleBaseName("it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap.HttpClientCoinMarketCapTest");
 		StringMessageHelper helper = new StringMessageHelper();
 		helper.setMessageRepository(messageRepository);
@@ -75,7 +75,7 @@ public class HttpClientCoinMarketCapTest {
 
 	
 	//@Test
-	public void test_OK_CryptocurrencyQuatoLatest() {
+	public void test_OK_CryptocurrencyQuoteLatest() {
 					
 		Map<String,String> params = new HashMap<>();
 		params.put("symbol","BTC");

@@ -29,10 +29,7 @@ public class HttpClientCoinMarketCap extends CryptoCurrencyHttpJerseyClient {
 		this.exceptionFactory = exceptionFactory;
 		this.httpsConnectorFactory = new ApacheHttpConnectionFactoryDefault();
 		
-		String cofigFilePath=System.getProperty("user.dir")+ System.getProperty("file.separator")+"configuration\\marketprovider\\coinmarketcap";
-		String cofigFileName= "CoinMarketCap.properties";		
-		
-		init(cofigFilePath,cofigFileName);
+		init(ConstantCoinMarketCap.CONFIG_FILE_PATH ,ConstantCoinMarketCap.CONFIG_FILE_NAME);
 	}
 
 	public HttpClientCoinMarketCap(ExceptionFactory exceptionFactory,String cofigFilePath,String cofigFileName) {
