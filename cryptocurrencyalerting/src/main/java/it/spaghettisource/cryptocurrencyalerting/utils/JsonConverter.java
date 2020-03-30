@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.CollectionType;
 
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
@@ -49,6 +52,26 @@ public class JsonConverter {
 
 	}
 
+	
+	public <T> T jsonToObject(ExceptionFactory exceptionFactory, String json, Class<T> target,StdDeserializer deserialized,Class deserializedClass) {
+
+		ObjectMapper mapper = new ObjectMapper(); 
+		
+		SimpleModule module =new SimpleModule("CustomCarDeserializer", new Version(1, 0, 0, null, null, null));
+		module.addDeserializer(deserializedClass, deserialized);
+		mapper.registerModule(module);		
+
+		try { 
+			// covert the object as a json string 
+			T object = mapper.readValue(json, target); 
+			return object;
+		} catch (JsonProcessingException cause) { 
+			throw exceptionFactory.getJsonToJavaException(cause);
+		} 
+
+	}
+	
+	
 	public <T> List<T> jsonAToObjectList(ExceptionFactory exceptionFactory, String json, Class<T> tClass){
 
 		ObjectMapper mapper = new ObjectMapper();

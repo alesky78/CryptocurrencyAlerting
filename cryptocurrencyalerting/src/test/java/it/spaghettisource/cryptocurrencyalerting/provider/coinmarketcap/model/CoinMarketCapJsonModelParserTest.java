@@ -7,6 +7,7 @@ import org.junit.Test;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.i18n.MessageRepository;
 import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
+import it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap.model.Quote.CustomQuoteDeserializer;
 import it.spaghettisource.cryptocurrencyalerting.utils.FileUtil;
 import it.spaghettisource.cryptocurrencyalerting.utils.JsonConverter;
 
@@ -57,5 +58,22 @@ public class CoinMarketCapJsonModelParserTest {
 		
 		Assert.assertNotNull(data);	
 	}
+
+	
+	@Test
+	public void test_OK_ResponseCriptocurrencyQuoteLatest() {
+	
+		String json = utils.readFileToString(exceptionFactory, filePath, "ResponseCryptocurrencyQuatoLatest.json");
+		
+		CustomQuoteDeserializer deserializer = new CustomQuoteDeserializer();
+		deserializer.setQuotePropertyName("EUR");
+		
+		ResponseCriptocurrencyQuoteLatest data = converter.jsonToObject(exceptionFactory, json, ResponseCriptocurrencyQuoteLatest.class,deserializer,deserializer.getDeserializerClass());
+		System.out.print(data.getData().getPrice());
+		
+		Assert.assertNotNull(data);	
+
+	}	
+	
 	
 }
