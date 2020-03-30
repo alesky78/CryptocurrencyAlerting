@@ -1,10 +1,11 @@
-package it.spaghettisource.cryptocurrencyalerting.http;
+package it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.i18n.MessageRepository;
@@ -21,7 +22,7 @@ public class HttpClientCoinMarketCapTest {
 		
 		//prepare the exception factory
 		MessageRepository messageRepository =new MessageRepository();
-		messageRepository.setMessageRepositoryBundleBaseName("it.spaghettisource.cryptocurrencyalerting.http.HttpClientCoinMarketCapTest");
+		messageRepository.setMessageRepositoryBundleBaseName("it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap.HttpClientCoinMarketCapTest");
 		StringMessageHelper helper = new StringMessageHelper();
 		helper.setMessageRepository(messageRepository);
 		exceptionFactory = new ExceptionFactory();
@@ -30,10 +31,10 @@ public class HttpClientCoinMarketCapTest {
 	}
 	
 	//confgure the sandbox apiKey that you received bofeore to enable this test or it will fail 
-	//@Test
+	@Test
 	public void testExampleCall() {
 
-		String cofigFilePath = System.getProperty("user.dir") +"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\http";
+		String cofigFilePath = System.getProperty("user.dir") +"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\provider\\coinmarketcap";
 		String cofigFileName = "CoinMarketCapSandbox.properties";
 		
 		HttpClientCoinMarketCap client = new HttpClientCoinMarketCap(exceptionFactory, cofigFilePath, cofigFileName);

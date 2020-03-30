@@ -1,4 +1,4 @@
-package it.spaghettisource.cryptocurrencyalerting.http;
+package it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap;
 
 import java.util.Properties;
 
@@ -7,6 +7,8 @@ import com.sun.jersey.api.client.WebResource.Builder;
 
 import it.spaghettisource.cryptocurrencyalerting.exception.BaseException;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
+import it.spaghettisource.cryptocurrencyalerting.http.ApacheHttpConnectionFactoryDefault;
+import it.spaghettisource.cryptocurrencyalerting.http.CryptoCurrencyHttpJerseyClient;
 import it.spaghettisource.cryptocurrencyalerting.utils.FileUtil;
 
 public class HttpClientCoinMarketCap extends CryptoCurrencyHttpJerseyClient {
@@ -15,10 +17,15 @@ public class HttpClientCoinMarketCap extends CryptoCurrencyHttpJerseyClient {
 	private String apiKey;
 
 
+
 	public HttpClientCoinMarketCap(ExceptionFactory exceptionFactory) {
 		this.exceptionFactory = exceptionFactory;
 		this.httpsConnectorFactory = new ApacheHttpConnectionFactoryDefault();
-		init(System.getProperty("user.dir")+ System.getProperty("file.separator"),"CoinMarketCap.properties");
+		
+		String cofigFilePath=System.getProperty("user.dir")+ System.getProperty("file.separator")+"configuration\\marketprovider\\coinmarketcap";
+		String cofigFileName= "CoinMarketCap.properties";		
+		
+		init(cofigFilePath,cofigFileName);
 	}
 
 	public HttpClientCoinMarketCap(ExceptionFactory exceptionFactory,String cofigFilePath,String cofigFileName) {
