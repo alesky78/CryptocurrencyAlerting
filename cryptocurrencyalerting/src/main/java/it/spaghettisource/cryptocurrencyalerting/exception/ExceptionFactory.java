@@ -43,10 +43,12 @@ public class ExceptionFactory {
 	
 	
 	///////////HTTP ERRORS/////////////////
-	
 	public BaseException getSSLProtocolNotSupported(Exception cause) {
 		return getException(cause, "exception.http.ssl.notsupported", EMPTY_PARAMETERS);
 	}
+	public BaseException getHttp400() {
+		return getException("exception.http.code.400", EMPTY_PARAMETERS);
+	}	
 
 	
 	/////////COIN MARKET CAP ERRORS////////////////

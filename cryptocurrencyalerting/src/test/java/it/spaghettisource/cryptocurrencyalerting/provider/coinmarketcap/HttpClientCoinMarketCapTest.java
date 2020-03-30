@@ -15,7 +15,8 @@ import it.spaghettisource.cryptocurrencyalerting.utils.FileUtil;
 public class HttpClientCoinMarketCapTest {
 
 	
-	ExceptionFactory exceptionFactory = new ExceptionFactory();
+	private ExceptionFactory exceptionFactory = new ExceptionFactory();
+	private HttpClientCoinMarketCap client;
 	
 	@Before
 	public void beforeTest() {
@@ -26,18 +27,18 @@ public class HttpClientCoinMarketCapTest {
 		StringMessageHelper helper = new StringMessageHelper();
 		helper.setMessageRepository(messageRepository);
 		exceptionFactory = new ExceptionFactory();
-		exceptionFactory.setMessageHelper(helper);	
+		exceptionFactory.setMessageHelper(helper);
+		
+		//create the CoinMarketCap client
+		String cofigFilePath = System.getProperty("user.dir") +"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\provider\\coinmarketcap";
+		String cofigFileName = "CoinMarketCapSandbox.properties";
+		client = new HttpClientCoinMarketCap(exceptionFactory, cofigFilePath, cofigFileName);
 		
 	}
 	
 	//confgure the sandbox apiKey that you received bofeore to enable this test or it will fail 
 	@Test
 	public void testExampleCall() {
-
-		String cofigFilePath = System.getProperty("user.dir") +"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\provider\\coinmarketcap";
-		String cofigFileName = "CoinMarketCapSandbox.properties";
-		
-		HttpClientCoinMarketCap client = new HttpClientCoinMarketCap(exceptionFactory, cofigFilePath, cofigFileName);
 		
 		Map<String,String> params = new HashMap<>();
 		params.put("start","1");
@@ -46,17 +47,18 @@ public class HttpClientCoinMarketCapTest {
 		
 		
 		String response = client.doGet("https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest", params);
-		System.out.println(response);
-		
-		FileUtil utils = new FileUtil();
 
-		utils.writeStringToFile(exceptionFactory, cofigFilePath, "response.json",response);
-		
-		Assert.assertTrue(true);
+		writeResponseToFile(response, "HttpClientCoinMarketCapTestCall.json");
+		Assert.assertNotNull(response);
 		
 	}
 	
 	
+	private void writeResponseToFile(String response,String fileName) {
+		FileUtil utils = new FileUtil();
+		String cofigFilePath = System.getProperty("user.dir") +"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\provider\\coinmarketcap";		
+		utils.writeStringToFile(exceptionFactory, cofigFilePath, "HttpClientCoinMarketCapTestResponse.json",response);		
+	}
 	
 	
 	
