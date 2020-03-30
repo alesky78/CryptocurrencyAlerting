@@ -50,76 +50,63 @@ public abstract class  CryptoCurrencyHttpJerseyClient implements CryptoCurrencyH
 	public String doGet(String service) throws BaseException{
 		
 		client = buildClient(false);
-
-		WebResource webResource = null;
-		webResource = client.resource(service);
-
-		return executeRequest(webResource,GET,null);
+		WebResource webResource = buildWebResource(service);
 		
+		return executeRequest(webResource,GET,null);
 	}
+
 	
 	public String doGet(String service,Map<String,String> queryParams) throws BaseException{
 
 		client = buildClient(false);
-
-		WebResource webResource = null;
-		webResource = client.resource(service);
+		WebResource webResource = buildWebResource(service);
 
 		for (String key : queryParams.keySet()) {
 			webResource = webResource.queryParam(key, queryParams.get(key));
 		}
 
 		return executeRequest(webResource,GET,null);
-
 	}	
+	
 	
 	public String doDelete(String service,Map<String,String> queryParams) throws BaseException{
 
 		client = buildClient(false);
-
-		WebResource webResource = null;
-		webResource = client.resource(service);
-
+		WebResource webResource = buildWebResource(service);
+		
 		for (String key : queryParams.keySet()) {
 			webResource = webResource.queryParam(key, queryParams.get(key));
 		}
 
 		return executeRequest(webResource,DELETE,null);
-
 	}
 
+	
 	public String doDelete(String service) throws BaseException{
 
 		client = buildClient(false);
-
-		WebResource webResource = null;
-		webResource = client.resource(service);
+		WebResource webResource = buildWebResource(service);
 
 		return executeRequest(webResource,DELETE,null);
 	}
 	
+	
 	public String doPost(String service,String body) throws BaseException{
 
 		client = buildClient(false);
-
-		WebResource webResource = null;
-		webResource = client.resource(service);
+		WebResource webResource = buildWebResource(service);
 
 		return executeRequest(webResource,POST,body);
-
 	}	
+	
 	
 	public String doPut(String service,String body) throws BaseException{
 
 		client = buildClient(false);
-
-		WebResource webResource = null;
-		webResource = client.resource(service);
+		WebResource webResource = buildWebResource(service);
 
 		return executeRequest(webResource,PUT,body);
-
 	}	
-	
 	
 	
 	private Client buildClient(boolean pojoMapping) throws BaseException{
@@ -141,11 +128,19 @@ public abstract class  CryptoCurrencyHttpJerseyClient implements CryptoCurrencyH
 		}
 	}	
 	
+	
+	private WebResource buildWebResource(String service) {
+		try {
+			return client.resource(service);			
+		}catch (Exception cause) {
+			throw exceptionFactory.getInvalidURL(cause,service);
+		}
+	}	
+	
 
 	private String executeRequest(WebResource webResource,int type, String body) throws BaseException {
 
 		ClientResponse response = null;
-
 
 		if(type == GET){
 			response = configureRequest(webResource).get(ClientResponse.class);
@@ -157,11 +152,9 @@ public abstract class  CryptoCurrencyHttpJerseyClient implements CryptoCurrencyH
 			response = configureRequest(webResource).put(ClientResponse.class,body);
 		}
 
-
 		//check if there is an error in the response and in case throw the specific BaseException
 		checkResponseStatusCode(response.getStatus());
 		
-
 		return responseAsString(response);
 	}	
 	

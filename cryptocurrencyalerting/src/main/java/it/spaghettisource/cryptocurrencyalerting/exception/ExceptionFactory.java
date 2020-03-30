@@ -49,7 +49,10 @@ public class ExceptionFactory {
 	public BaseException getHttp400() {
 		return getException("exception.http.code.400", EMPTY_PARAMETERS);
 	}	
-
+	public BaseException getInvalidURL(Exception cause,String url) {
+		return getException(cause,"exception.http.invalid.url", new Object[]{url});
+	}	
+	
 	
 	/////////COIN MARKET CAP ERRORS////////////////
 	public BaseException getCoinMarketCapHttp400() {
