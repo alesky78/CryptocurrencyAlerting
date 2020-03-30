@@ -38,6 +38,7 @@ public class CoinMarketCapJsonModelParserTest {
 		
 	}
 	
+	
 	@Test
 	public void test_OK_ResponseFiatMap() {
 	
@@ -46,6 +47,15 @@ public class CoinMarketCapJsonModelParserTest {
 		
 		Assert.assertNotNull(data);	
 	}
+
 	
+	@Test
+	public void test_OK_ResponseCriptocurrencyMap() {
+	
+		String json = utils.readFileToString(exceptionFactory, filePath, "ResponseCriptocurrencyMap.json");
+		ResponseCriptocurrencyMap data = converter.jsonToObject(exceptionFactory, json, ResponseCriptocurrencyMap.class);
+		
+		Assert.assertNotNull(data);	
+	}
 	
 }

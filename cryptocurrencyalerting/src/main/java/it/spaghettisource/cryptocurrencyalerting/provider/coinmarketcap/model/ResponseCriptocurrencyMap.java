@@ -6,12 +6,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ResponseFiatMap {
+public class ResponseCriptocurrencyMap {
 
 	private Status status;
-	private List<Fiat> data;
+	private List<Criptocurrency> data;
 	
-	public ResponseFiatMap() {
+	public ResponseCriptocurrencyMap() {
 		super();
 	}
 
@@ -23,11 +23,11 @@ public class ResponseFiatMap {
 		this.status = status;
 	}
 
-	public List<Fiat> getData() {
+	public List<Criptocurrency> getData() {
 		return data;
 	}
 
-	public void setData(List<Fiat> data) {
+	public void setData(List<Criptocurrency> data) {
 		this.data = data;
 	}
 	

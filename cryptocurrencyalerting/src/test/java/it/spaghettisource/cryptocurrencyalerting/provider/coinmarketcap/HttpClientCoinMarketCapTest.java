@@ -60,17 +60,6 @@ public class HttpClientCoinMarketCapTest {
 	
  
 	//@Test
-	public void test_OK_FindAllExchange() {
-			
-		String response = client.doGet("https://sandbox-api.coinmarketcap.com/v1/exchange/map");
-		
-		writeResponseToFile(response, "HttpClientCoinMarketCapTest_FindAllExchange.json");
-		Assert.assertNotNull(response);
-		
-	}
-
-	
-	//@Test
 	public void test_OK_FindAllFiat() {
 					
 		Map<String,String> params = new HashMap<>();
@@ -81,6 +70,21 @@ public class HttpClientCoinMarketCapTest {
 		String response = client.doGet("https://pro-api.coinmarketcap.com/v1/fiat/map",params);
 
 		writeResponseToFile(response, "HttpClientCoinMarketCapTest_FindAllFiat.json");
+		Assert.assertNotNull(response);
+		
+	}
+
+	
+	//@Test
+	public void test_OK_FindAllCryptocurrency() {
+					
+		Map<String,String> params = new HashMap<>();
+		params.put("start","1");
+		params.put("limit","5000");
+		
+		String response = client.doGet("https://pro-api.coinmarketcap.com/v1/cryptocurrency/map",params);
+
+		writeResponseToFile(response, "HttpClientCoinMarketCapTest_FindAllCryptocurrency.json");
 		Assert.assertNotNull(response);
 		
 	}

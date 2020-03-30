@@ -2,6 +2,10 @@ package it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Status {
 
 	private Date timestamp;
@@ -9,7 +13,6 @@ public class Status {
 	private String error_message;
 	private int elapsed;
 	private int credit_count;
-	private String notice;
 	
 	public Date getTimestamp() {
 		return timestamp;
@@ -41,11 +44,6 @@ public class Status {
 	public void setCredit_count(int credit_count) {
 		this.credit_count = credit_count;
 	}
-	public String getNotice() {
-		return notice;
-	}
-	public void setNotice(String notice) {
-		this.notice = notice;
-	}
+
 
 }

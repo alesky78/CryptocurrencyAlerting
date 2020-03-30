@@ -3,12 +3,13 @@ package it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Fiat {
-	
+public class Criptocurrency {
+
 	private int id;
 	private String name;
-	private String sign;
+	private String slug;
 	private String symbol;
+	private boolean is_active;
 	
 	public int getId() {
 		return id;
@@ -22,11 +23,11 @@ public class Fiat {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getSign() {
-		return sign;
+	public String getSlug() {
+		return slug;
 	}
-	public void setSign(String sign) {
-		this.sign = sign;
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 	public String getSymbol() {
 		return symbol;
@@ -34,8 +35,13 @@ public class Fiat {
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
+	public boolean isIs_active() {
+		return is_active;
+	}
+	public void setIs_active(boolean is_active) {
+		this.is_active = is_active;
+	}
 	
 	
-    
 	
 }
