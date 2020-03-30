@@ -22,6 +22,7 @@ public class JsonConverter {
 	public String objectToJson(ExceptionFactory exceptionFactory, Object object) {
 
 		ObjectMapper mapper = new ObjectMapper(); 
+		//mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
 		try { 
 			// covert the object as a json string 

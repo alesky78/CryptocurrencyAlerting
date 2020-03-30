@@ -11,6 +11,13 @@ import it.spaghettisource.cryptocurrencyalerting.http.ApacheHttpConnectionFactor
 import it.spaghettisource.cryptocurrencyalerting.http.CryptoCurrencyHttpJerseyClient;
 import it.spaghettisource.cryptocurrencyalerting.utils.FileUtil;
 
+/**
+ * Implementation of the http client that support the integration with CoinMarketCap 
+ *
+ * 
+ * @author Alessandro D'Ottavio
+ * @version 1.0
+ */
 public class HttpClientCoinMarketCap extends CryptoCurrencyHttpJerseyClient {
 
 

@@ -16,8 +16,8 @@ import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
 public class JsonConverterTest {
 
 	
-	JsonConverter converter;
-	ExceptionFactory exceptionFactory = new ExceptionFactory();
+	private JsonConverter converter;
+	private ExceptionFactory exceptionFactory = new ExceptionFactory();
 	
 	@Before
 	public void beforeTest() {
