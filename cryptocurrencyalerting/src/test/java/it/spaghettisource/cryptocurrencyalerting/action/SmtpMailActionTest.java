@@ -1,14 +1,14 @@
 package it.spaghettisource.cryptocurrencyalerting.action;
 
-import it.spaghettisource.cryptocurrencyalerting.action.MailAction.EncryptType;
+import it.spaghettisource.cryptocurrencyalerting.action.SmtpMailAction.EncryptType;
 
-public class MailActionTest {
+public class SmtpMailActionTest {
 
 	//confgure the provider to make the test or it will fail
 	//@Test
 	public void test_OK_sendMail() {
 		
-		MailAction action = new MailAction();
+		SmtpMailAction action = new SmtpMailAction();
 		
 		action.setHost("smtp.gmail.com");
 		action.setPort("587");

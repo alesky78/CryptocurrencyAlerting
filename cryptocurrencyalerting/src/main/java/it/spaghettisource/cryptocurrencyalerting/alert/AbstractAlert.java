@@ -1,5 +1,16 @@
 package it.spaghettisource.cryptocurrencyalerting.alert;
 
+import it.spaghettisource.cryptocurrencyalerting.provider.MarketAdapter;
+
+
+/**
+ * basic implementation of the Alert that implemented the common logic of cooldown and disable/enable mechanism
+ * 
+ * 
+ * 
+ * @author Alessandro D'Ottavio
+ * @version 1.0
+ */
 public abstract class AbstractAlert implements Alert {
 
 	protected boolean disable;
@@ -11,8 +22,9 @@ public abstract class AbstractAlert implements Alert {
 	protected long lastTriggerSecond;
 	protected long timePassSinceLastTriggerSecond;	
 	
+	protected MarketAdapter adapter;
 	
-	public AbstractAlert() {
+	public AbstractAlert(MarketAdapter adapter) {
 		super();
 		disable = false;
 		disableAfterTrigger = false;
@@ -21,6 +33,7 @@ public abstract class AbstractAlert implements Alert {
 		
 		lastTriggerSecond=-1;
 		
+		this.adapter = adapter;
 	}
 	
 	
@@ -40,11 +53,11 @@ public abstract class AbstractAlert implements Alert {
 				
 				boolean triggered = checkAndTrigger();
 				
+				lastTriggerSecond = System.currentTimeMillis()/1000L;
+				
 				if(enableCoolDown) {
-					lastTriggerSecond = System.currentTimeMillis()/1000L;
 					coolDown = true;
 				}
-
 				
 				if(triggered && disableAfterTrigger) {
 					disable = true;

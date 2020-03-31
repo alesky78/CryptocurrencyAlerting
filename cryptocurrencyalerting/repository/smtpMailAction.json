@@ -1,0 +1,10 @@
+[ {
+  "id" : 1585254132298,
+  "encryptType" : "TLS",
+  "username" : "user@domain.com",
+  "password" : "pwd",
+  "host" : "smtp.gmail.com",
+  "port" : "587",
+  "authentication" : "true",
+  "subject" : "subject"
+}]

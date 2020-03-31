@@ -6,8 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.spaghettisource.cryptocurrencyalerting.action.MailAction;
-import it.spaghettisource.cryptocurrencyalerting.action.MailAction.EncryptType;
+import it.spaghettisource.cryptocurrencyalerting.action.SmtpMailAction;
+import it.spaghettisource.cryptocurrencyalerting.action.SmtpMailAction.EncryptType;
 import it.spaghettisource.cryptocurrencyalerting.exception.BaseException;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.i18n.MessageRepository;
@@ -38,7 +38,7 @@ public class JsonConverterTest {
 	@Test
 	public void test_OK_convertObjectToJson() {
 		
-		MailAction action = new MailAction();
+		SmtpMailAction action = new SmtpMailAction();
 		action.setAuthentication("true");
 		action.setUsername("user");
 		action.setPassword("pwd");
@@ -56,7 +56,7 @@ public class JsonConverterTest {
 	public void test_OK_JsonToObject() {
 		
 		String json = "{\"encryptType\":\"NONE\",\"username\":\"user\",\"password\":\"pwd\",\"host\":\"mail.host.com\",\"port\":null,\"authentication\":\"true\",\"subject\":null}";
-		MailAction action = converter.jsonToObject(exceptionFactory, json, MailAction.class);
+		SmtpMailAction action = converter.jsonToObject(exceptionFactory, json, SmtpMailAction.class);
 		System.out.println(action);
 		Assert.assertNotNull(action);
 	}

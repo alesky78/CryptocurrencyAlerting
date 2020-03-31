@@ -3,35 +3,35 @@ package it.spaghettisource.cryptocurrencyalerting.repository;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.spaghettisource.cryptocurrencyalerting.action.MailAction;
-import it.spaghettisource.cryptocurrencyalerting.action.MailAction.EncryptType;
+import it.spaghettisource.cryptocurrencyalerting.action.SmtpMailAction;
+import it.spaghettisource.cryptocurrencyalerting.action.SmtpMailAction.EncryptType;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.i18n.MessageRepository;
 import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
 import junit.framework.Assert;
 
-public class MailActionRepositoryTest {
+public class SmtpMailActionRepositoryTest {
 
 	ExceptionFactory exceptionFactory = new ExceptionFactory();
-	MailActionRepository repository;
+	SmtpMailActionRepository repository;
 	
 	@Before
 	public void beforeTest() {
 		
 		//prepare the exception factory
 		MessageRepository messageRepository =new MessageRepository();
-		messageRepository.setMessageRepositoryBundleBaseName("it.spaghettisource.cryptocurrencyalerting.repository.MailActionRepositoryTest");
+		messageRepository.setMessageRepositoryBundleBaseName("it.spaghettisource.cryptocurrencyalerting.repository.SmtpMailActionRepositoryTest");
 		StringMessageHelper helper = new StringMessageHelper();
 		helper.setMessageRepository(messageRepository);
 		exceptionFactory = new ExceptionFactory();
 		exceptionFactory.setMessageHelper(helper);
 		
-		repository = new MailActionRepository(exceptionFactory);	
+		repository = new SmtpMailActionRepository(exceptionFactory);	
 		
 		//overwrite to put the data in the test resources\
 		//this is not needed in the code, the repository keep internally its configuration
 		repository.setFilePath(System.getProperty("user.dir")+"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\repository");
-		repository.setFileName("MailActionRepositoryTest.json");		
+		repository.setFileName("SmtpMailActionRepositoryTest.json");		
 		
 	}
 	
@@ -40,7 +40,7 @@ public class MailActionRepositoryTest {
 	public void test_OK_SaveAndGetById() {
 		
 		repository.deleteAll();
-		MailAction action = repository.save(buildMailAction());
+		SmtpMailAction action = repository.save(buildMailAction());
 		Assert.assertNotNull(repository.get(action.getId()));
 		
 	}
@@ -61,9 +61,9 @@ public class MailActionRepositoryTest {
 	public void test_OK_Delete() {
 
 		repository.deleteAll();
-		MailAction id1 = repository.save(buildMailAction());
-		MailAction id2 = repository.save(buildMailAction());
-		MailAction id3 = repository.save(buildMailAction());
+		SmtpMailAction id1 = repository.save(buildMailAction());
+		SmtpMailAction id2 = repository.save(buildMailAction());
+		SmtpMailAction id3 = repository.save(buildMailAction());
 	
 		repository.delete(id1);
 		repository.delete(id3);		
@@ -74,8 +74,8 @@ public class MailActionRepositoryTest {
 		
 	}
 	
-	private MailAction buildMailAction() {
-		MailAction action = new MailAction();
+	private SmtpMailAction buildMailAction() {
+		SmtpMailAction action = new SmtpMailAction();
 		action.setHost("smtp.gmail.com");
 		action.setPort("587");
 		action.setAuthentication("true");
