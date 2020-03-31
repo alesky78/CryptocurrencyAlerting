@@ -41,6 +41,15 @@ public class ExceptionFactory {
 		return getException(cause, "exception.writeFile", new Object[]{fileName, filePath});
 	}	
 	
+	///////////REPOSITORY//////////////////
+	public BaseException getDuplicatePrimariKey(Object pk) {
+		return getException("exception.repostiory.duplicatePrimaryKey",  new Object[]{pk});
+	}
+
+	public BaseException getEntityNotExsist() {
+		return getException("exception.repostiory.entityNotExsist", EMPTY_PARAMETERS);
+	}
+	
 	
 	///////////HTTP ERRORS/////////////////
 	public BaseException getSSLProtocolNotSupported(Exception cause) {

@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import it.spaghettisource.cryptocurrencyalerting.action.SmtpMailAction;
 import it.spaghettisource.cryptocurrencyalerting.action.SmtpMailAction.EncryptType;
+import it.spaghettisource.cryptocurrencyalerting.exception.BaseException;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.i18n.MessageRepository;
 import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
@@ -45,6 +46,35 @@ public class SmtpMailActionRepositoryTest {
 		
 	}
 
+	@Test(expected = BaseException.class)
+	public void test_KO_DuplicatePK() {
+		
+		repository.deleteAll();
+		SmtpMailAction action = repository.save(buildMailAction());
+		repository.save(action);		
+	}	
+	
+	@Test
+	public void test_OK_Update() {
+		
+		repository.deleteAll();
+		SmtpMailAction action = repository.save(buildMailAction());
+		String oldName = action.getName();
+		
+		action.setName("new name");
+		repository.update(action);
+		action = repository.get(action.getId());
+		
+		Assert.assertTrue(!oldName.equals(action.getName()));		
+	}		
+	
+	@Test(expected = BaseException.class)
+	public void test_KO_EntityNotFound() {
+		
+		repository.deleteAll();
+		repository.update(buildMailAction());
+	}		
+	
 	@Test
 	public void test_OK_GetAll() {
 
@@ -77,6 +107,7 @@ public class SmtpMailActionRepositoryTest {
 	private SmtpMailAction buildMailAction() {
 		SmtpMailAction action = new SmtpMailAction();
 		action.setHost("smtp.gmail.com");
+		action.setName("name");
 		action.setPort("587");
 		action.setAuthentication("true");
 		action.setUsername("user@domain.com");

@@ -1,26 +1,6 @@
 [ {
-  "id" : 1585647085080,
-  "name" : null,
-  "encryptType" : "TLS",
-  "username" : "user@domain.com",
-  "password" : "pwd",
-  "host" : "smtp.gmail.com",
-  "port" : "587",
-  "authentication" : "true",
-  "subject" : "subject"
-}, {
-  "id" : 1585647085086,
-  "name" : null,
-  "encryptType" : "TLS",
-  "username" : "user@domain.com",
-  "password" : "pwd",
-  "host" : "smtp.gmail.com",
-  "port" : "587",
-  "authentication" : "true",
-  "subject" : "subject"
-}, {
-  "id" : 1585647085092,
-  "name" : null,
+  "id" : 1585660670826,
+  "name" : "name",
   "encryptType" : "TLS",
   "username" : "user@domain.com",
   "password" : "pwd",

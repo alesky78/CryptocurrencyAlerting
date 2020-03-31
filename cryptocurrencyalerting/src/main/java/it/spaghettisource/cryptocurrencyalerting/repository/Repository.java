@@ -3,6 +3,8 @@ package it.spaghettisource.cryptocurrencyalerting.repository;
 import java.io.Serializable;
 import java.util.List;
 
+import it.spaghettisource.cryptocurrencyalerting.exception.BaseException;
+
 
 /**
  * Interface that represents all the basic operation for the classic Repostiory.
@@ -36,13 +38,24 @@ public interface Repository<T extends Entity<PK>, PK extends Serializable> {
    	public List<T> getAll();
     
     
+   	/**
+   	 * insert the new object
+   	 * 
+   	 * @param entity
+   	 * @return
+   	 * @throws BaseException if the object already exsist
+   	 */
+    public T save(T entity) throws BaseException;
+
+
     /**
-     * Save all changes made to objects or insert the objects if they doesn't exists.
+     * update an object that already exsist
      *
      * @param objects objects
+   	 * @throws BaseException if there is not entity to update
      */    
-    public T save(T entity);
-
+    public void update(T entity) throws BaseException;
+    
     
     /**
      * Delete the specific object

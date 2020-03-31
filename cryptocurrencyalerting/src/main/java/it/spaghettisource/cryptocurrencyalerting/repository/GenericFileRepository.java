@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import it.spaghettisource.cryptocurrencyalerting.exception.BaseException;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.utils.FileUtil;
 import it.spaghettisource.cryptocurrencyalerting.utils.JsonConverter;
@@ -76,35 +77,32 @@ public abstract class GenericFileRepository<T extends Entity<PK>, PK extends Ser
 
 
 	@Override
-	public T save(T entity) {
+	public T save(T entity) throws BaseException {
 		List<T> data = readAllFromFileSystem();
 		
 		if(entity.getId()==null) {
 			entity.setId(generateKey());
-			data.add(entity);
-			saveAllToFileSystem(data);
-			return entity;
 		}else {
-			
-			T toRemove = null;
-			Iterator<T> itr = data.iterator();
-			boolean found = false;
-			while(itr.hasNext() && !found) {
-				toRemove = itr.next();
-				if(toRemove.getId().equals(entity.getId()) ) {
-					found = true;
-				}
+			if(get(entity.getId())!=null) {
+				throw exceptionFactory.getDuplicatePrimariKey(entity.getId());
 			}
-			
-			if(found) {
-				data.remove(toRemove);
-			}
-			data.add(entity);
-			saveAllToFileSystem(data);		
-			return entity;
 		}
 		
+		data.add(entity);
+		saveAllToFileSystem(data);
+		return entity;
+		
 	}
+	
+    public void update(T entity) throws BaseException{
+    	T oldEntity = get(entity.getId());
+    	if(oldEntity==null) {
+			throw exceptionFactory.getEntityNotExsist();    		
+    	}else {
+    		delete(oldEntity);
+    		save(entity);
+    	}
+    }
 
 
 	@Override
