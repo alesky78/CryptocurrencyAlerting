@@ -72,17 +72,31 @@ public class PriceVariationGlobalMarketAlert extends AbstractAlert{
 		Double actualQuote = adapter.quoteLatest(criptocurency, fiat);
 		if(mode==ABOVE) {
 			if(actualQuote>price) {
-				getAction().trigger("the message");
+				getAction().trigger(createAlertMessage(actualQuote));
 				return true;
 			}
 		}else if(mode==BELOW) {
 			if(actualQuote<price) {
-				getAction().trigger("the message");
+				getAction().trigger(createAlertMessage(actualQuote));
 				return true;
 			}
 		}
 		
 		return false;
+	}
+	
+	private String createAlertMessage(Double actualQuote) {
+		
+		String modeMessage = null;
+		
+		if(mode==ABOVE) {
+			modeMessage = messageHelper.getFormattedMessageI18N("alert.pricevariationglobalmarketalert.abow", null); 
+		}else {
+			modeMessage = messageHelper.getFormattedMessageI18N("alert.pricevariationglobalmarketalert.below", null); 			
+		}
+		
+		Object[] parameters = new Object[] {criptocurency,fiat,actualQuote,modeMessage,price};
+		return messageHelper.getFormattedMessageI18N("alert.pricevariationglobalmarketalert.message", parameters);
 	}
 	
 }

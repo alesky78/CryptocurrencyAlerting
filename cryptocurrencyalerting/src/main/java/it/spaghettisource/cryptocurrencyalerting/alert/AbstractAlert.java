@@ -3,6 +3,7 @@ package it.spaghettisource.cryptocurrencyalerting.alert;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import it.spaghettisource.cryptocurrencyalerting.action.Action;
+import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
 import it.spaghettisource.cryptocurrencyalerting.provider.MarketAdapter;
 import it.spaghettisource.cryptocurrencyalerting.repository.CommonEntity;
 import it.spaghettisource.cryptocurrencyalerting.services.ActionService;
@@ -31,6 +32,8 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	protected MarketAdapter adapter;
 	@JsonIgnore
 	protected ActionService actionManager;
+	@JsonIgnore	
+	protected StringMessageHelper messageHelper;
 	
 	protected String actionType;
 	protected String actionName;	
@@ -51,6 +54,10 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 
 	public void setActionManager(ActionService actionManager) {
 		this.actionManager = actionManager;
+	}
+	
+	public void setMessageHelper(StringMessageHelper messageHelper) {
+		this.messageHelper = messageHelper;
 	}
 
 
