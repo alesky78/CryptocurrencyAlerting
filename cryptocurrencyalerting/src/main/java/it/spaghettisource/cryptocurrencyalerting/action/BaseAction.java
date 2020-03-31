@@ -10,7 +10,7 @@ import it.spaghettisource.cryptocurrencyalerting.repository.CommonEntity;
  */
 public abstract class BaseAction extends CommonEntity implements Action {
 
-	private String name;
+	protected String name;
 
 	public String getName() {
 		return name;

@@ -1,6 +1,11 @@
 package it.spaghettisource.cryptocurrencyalerting.alert;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import it.spaghettisource.cryptocurrencyalerting.action.Action;
 import it.spaghettisource.cryptocurrencyalerting.provider.MarketAdapter;
+import it.spaghettisource.cryptocurrencyalerting.repository.CommonEntity;
+import it.spaghettisource.cryptocurrencyalerting.services.ActionService;
 
 
 /**
@@ -11,7 +16,7 @@ import it.spaghettisource.cryptocurrencyalerting.provider.MarketAdapter;
  * @author Alessandro D'Ottavio
  * @version 1.0
  */
-public abstract class AbstractAlert implements Alert {
+public abstract class AbstractAlert extends CommonEntity implements Alert {
 
 	protected boolean disable;
 	protected boolean disableAfterTrigger;	
@@ -22,21 +27,33 @@ public abstract class AbstractAlert implements Alert {
 	protected long lastTriggerSecond;
 	protected long timePassSinceLastTriggerSecond;	
 	
+	@JsonIgnore
 	protected MarketAdapter adapter;
+	@JsonIgnore
+	protected ActionService actionManager;
 	
-	public AbstractAlert(MarketAdapter adapter) {
+	protected String actionType;
+	protected String actionName;	
+	
+	public AbstractAlert() {
 		super();
 		disable = false;
 		disableAfterTrigger = false;
 		coolDown = true;
-		coolDownSeconds = 900L; //15 minuts by default
-		
+		coolDownSeconds = 900L; //15 minuts by default		
 		lastTriggerSecond=-1;
-		
-		this.adapter = adapter;
 	}
 	
 	
+	public void setAdapter(MarketAdapter adapter) {
+		this.adapter = adapter;
+	}
+
+	public void setActionManager(ActionService actionManager) {
+		this.actionManager = actionManager;
+	}
+
+
 	public void checkAlert() {
 		
 		if(!disable) {
@@ -67,6 +84,10 @@ public abstract class AbstractAlert implements Alert {
 
 	}
 	
+	
+	protected Action getAction() {
+		return actionManager.getAction(actionType, actionName);
+	}
 
 	@Override
 	public boolean isDisable() {
@@ -96,7 +117,87 @@ public abstract class AbstractAlert implements Alert {
 		enableCoolDown = false;
 		coolDownSeconds = -1;
 	}
-	
+		
+	public boolean isDisableAfterTrigger() {
+		return disableAfterTrigger;
+	}
+
+
+	public void setDisableAfterTrigger(boolean disableAfterTrigger) {
+		this.disableAfterTrigger = disableAfterTrigger;
+	}
+
+
+	public boolean isCoolDown() {
+		return coolDown;
+	}
+
+
+	public void setCoolDown(boolean coolDown) {
+		this.coolDown = coolDown;
+	}
+
+
+	public boolean isEnableCoolDown() {
+		return enableCoolDown;
+	}
+
+
+	public void setEnableCoolDown(boolean enableCoolDown) {
+		this.enableCoolDown = enableCoolDown;
+	}
+
+
+	public long getCoolDownSeconds() {
+		return coolDownSeconds;
+	}
+
+
+	public void setCoolDownSeconds(long coolDownSeconds) {
+		this.coolDownSeconds = coolDownSeconds;
+	}
+
+
+	public long getLastTriggerSecond() {
+		return lastTriggerSecond;
+	}
+
+
+	public void setLastTriggerSecond(long lastTriggerSecond) {
+		this.lastTriggerSecond = lastTriggerSecond;
+	}
+
+
+	public long getTimePassSinceLastTriggerSecond() {
+		return timePassSinceLastTriggerSecond;
+	}
+
+
+	public void setTimePassSinceLastTriggerSecond(long timePassSinceLastTriggerSecond) {
+		this.timePassSinceLastTriggerSecond = timePassSinceLastTriggerSecond;
+	}
+
+
+	public String getActionType() {
+		return actionType;
+	}
+
+
+	public void setActionType(String actionType) {
+		this.actionType = actionType;
+	}
+
+
+	public String getActionName() {
+		return actionName;
+	}
+
+
+	public void setActionName(String actionName) {
+		this.actionName = actionName;
+	}
+
+
 	/**
 	 * 
 	 * 
