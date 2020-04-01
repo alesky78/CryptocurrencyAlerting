@@ -37,7 +37,7 @@ public class MarketAdapterCoinMarketCap extends MarketAdapterAbstract {
 		//Create the specific adapter
 		httpClient = new HttpClientCoinMarketCap(exceptionFactory);
 
-		//load the specific configuration
+		//load the specific property configuration file
 		prop = new Properties();
 		try {
 			prop.load(FileUtil.readFileToInputStream(exceptionFactory, ConstantCoinMarketCap.CONFIG_FILE_PATH, ConstantCoinMarketCap.CONFIG_FILE_NAME));	
@@ -45,10 +45,26 @@ public class MarketAdapterCoinMarketCap extends MarketAdapterAbstract {
 			throw exceptionFactory.getImpossibleReadFileException(cause, ConstantCoinMarketCap.CONFIG_FILE_PATH, ConstantCoinMarketCap.CONFIG_FILE_NAME);
 		}
 		
+		//configure the properties
 		refreshRateMilliseconds = Integer.parseInt(prop.getProperty("refreshRate")); 
 		
 	}
 
+	public MarketAdapterCoinMarketCap(ExceptionFactory exceptionFactory,HttpClientCoinMarketCap httpClient,Properties prop) {
+		super(exceptionFactory);
+		
+		//set the specific adapter
+		this.httpClient = httpClient;
+
+		//set the specific configuration
+		this.prop = prop;
+		
+		//configure the properties
+		refreshRateMilliseconds = Integer.parseInt(prop.getProperty("refreshRate")); 
+		
+	}	
+	
+	
 	@Override
 	public List<String> findAllFiat() throws BaseException {
 
@@ -86,7 +102,7 @@ public class MarketAdapterCoinMarketCap extends MarketAdapterAbstract {
 			response.add(criptocurrency.getSymbol());
 		}
 		
-		return null;
+		return response;
 	}
 
 	@Override
