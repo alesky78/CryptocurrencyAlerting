@@ -16,7 +16,6 @@ public class CoinMarketCapJsonModelParserTest {
 	
 	private JsonConverter converter;
 	private ExceptionFactory exceptionFactory = new ExceptionFactory();
-	private FileUtil utils;
 	
 	private String filePath;
 	
@@ -32,7 +31,6 @@ public class CoinMarketCapJsonModelParserTest {
 		exceptionFactory.setMessageHelper(helper);
 		
 		converter = new JsonConverter();
-		utils = new FileUtil();
 		
 		filePath = System.getProperty("user.dir")+"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\provider\\coinmarketcap\\model";
 
@@ -43,7 +41,7 @@ public class CoinMarketCapJsonModelParserTest {
 	@Test
 	public void test_OK_ResponseFiatMap() {
 	
-		String json = utils.readFileToString(exceptionFactory, filePath, "ResponseFiatMap.json");
+		String json = FileUtil.readFileToString(exceptionFactory, filePath, "ResponseFiatMap.json");
 		ResponseFiatMap data = converter.jsonToObject(exceptionFactory, json, ResponseFiatMap.class);
 		
 		Assert.assertNotNull(data);	
@@ -53,7 +51,7 @@ public class CoinMarketCapJsonModelParserTest {
 	@Test
 	public void test_OK_ResponseCriptocurrencyMap() {
 	
-		String json = utils.readFileToString(exceptionFactory, filePath, "ResponseCriptocurrencyMap.json");
+		String json = FileUtil.readFileToString(exceptionFactory, filePath, "ResponseCriptocurrencyMap.json");
 		ResponseCriptocurrencyMap data = converter.jsonToObject(exceptionFactory, json, ResponseCriptocurrencyMap.class);
 		
 		Assert.assertNotNull(data);	
@@ -63,7 +61,7 @@ public class CoinMarketCapJsonModelParserTest {
 	@Test
 	public void test_OK_ResponseCriptocurrencyQuoteLatest() {
 	
-		String json = utils.readFileToString(exceptionFactory, filePath, "ResponseCryptocurrencyQuatoLatest.json");
+		String json = FileUtil.readFileToString(exceptionFactory, filePath, "ResponseCryptocurrencyQuatoLatest.json");
 		
 		CustomQuoteDeserializer deserializer = new CustomQuoteDeserializer();
 		deserializer.setQuotePropertyName("EUR");

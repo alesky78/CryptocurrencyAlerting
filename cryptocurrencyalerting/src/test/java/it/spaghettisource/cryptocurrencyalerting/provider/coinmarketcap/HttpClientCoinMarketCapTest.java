@@ -93,9 +93,8 @@ public class HttpClientCoinMarketCapTest {
 	
 	
 	private void writeResponseToFile(String response,String fileName) {
-		FileUtil utils = new FileUtil();
 		String cofigFilePath = System.getProperty("user.dir") +"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\provider\\coinmarketcap";		
-		utils.writeStringToFile(exceptionFactory, cofigFilePath, fileName,response);		
+		FileUtil.writeStringToFile(exceptionFactory, cofigFilePath, fileName,response);		
 	}
 	
 	

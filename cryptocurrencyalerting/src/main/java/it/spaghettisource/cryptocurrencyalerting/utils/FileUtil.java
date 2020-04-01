@@ -19,20 +19,24 @@ import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
  */
 public class FileUtil {
 
+	
+	private FileUtil() {
+		super();
+	}
 
 	
-	public boolean isFileExsist(String filePath,String fileName) {		
+	public static boolean isFileExsist(String filePath,String fileName) {		
 		File file = new File(filePath+System.getProperty("file.separator")+fileName);
 		return file.exists();
 	}
 	
-	public boolean deleteFile(String filePath,String fileName) {
+	public static boolean deleteFile(String filePath,String fileName) {
 		File file = new File(filePath+System.getProperty("file.separator")+fileName);
 		return file.delete();
 	}
 	
 	
-	public String readFileToString(ExceptionFactory exceptionFactory,String filePath,String fileName){
+	public static String readFileToString(ExceptionFactory exceptionFactory,String filePath,String fileName){
 		
 		try {
 			InputStream is = new FileInputStream(filePath+System.getProperty("file.separator")+fileName); 
@@ -54,7 +58,7 @@ public class FileUtil {
 
 	}
 
-	public InputStream readFileToInputStream(ExceptionFactory exceptionFactory,String filePath,String fileName){
+	public static InputStream readFileToInputStream(ExceptionFactory exceptionFactory,String filePath,String fileName){
 		
 		try {
 			return new FileInputStream(filePath+System.getProperty("file.separator")+fileName); 		
@@ -64,7 +68,7 @@ public class FileUtil {
 
 	}
 
-	public void writeStringToFile(ExceptionFactory exceptionFactory,String filePath,String fileName,String fileContent){
+	public static void writeStringToFile(ExceptionFactory exceptionFactory,String filePath,String fileName,String fileContent){
 		
 		try {
 			PrintStream out = new PrintStream(new FileOutputStream(filePath+System.getProperty("file.separator")+fileName));

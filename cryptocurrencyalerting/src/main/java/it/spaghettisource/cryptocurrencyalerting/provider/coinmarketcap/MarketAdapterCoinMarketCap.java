@@ -40,8 +40,7 @@ public class MarketAdapterCoinMarketCap extends MarketAdapterAbstract {
 		//load the specific configuration
 		prop = new Properties();
 		try {
-			FileUtil fileUtil = new FileUtil();
-			prop.load(fileUtil.readFileToInputStream(exceptionFactory, ConstantCoinMarketCap.CONFIG_FILE_PATH, ConstantCoinMarketCap.CONFIG_FILE_NAME));	
+			prop.load(FileUtil.readFileToInputStream(exceptionFactory, ConstantCoinMarketCap.CONFIG_FILE_PATH, ConstantCoinMarketCap.CONFIG_FILE_NAME));	
 		}catch (Exception cause) {
 			throw exceptionFactory.getImpossibleReadFileException(cause, ConstantCoinMarketCap.CONFIG_FILE_PATH, ConstantCoinMarketCap.CONFIG_FILE_NAME);
 		}

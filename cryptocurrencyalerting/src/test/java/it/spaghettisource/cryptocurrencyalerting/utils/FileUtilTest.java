@@ -1,5 +1,6 @@
 package it.spaghettisource.cryptocurrencyalerting.utils;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,11 +31,16 @@ public class FileUtilTest {
 		
 	}
 	
+	@After
+	public void afterTest() {
+		FileUtil.deleteFile(filePath, "FileUtilTest_OK_WriteFile.txt");
+	}		
+	
+	
 	@Test
 	public void test_OK_readFile() {
 		
-		FileUtil utils = new FileUtil();
-		String content = utils.readFileToString(exceptionFactory, filePath, "FileUtilTestReadFile.txt");
+		String content = FileUtil.readFileToString(exceptionFactory, filePath, "FileUtilTestReadFile.txt");
 		
 		System.out.println(content);
 		Assert.assertNotNull(content);
@@ -44,8 +50,7 @@ public class FileUtilTest {
 	@Test(expected= BaseException.class)
 	public void test_KO_readFile() {
 		
-		FileUtil utils = new FileUtil();
-		String content = utils.readFileToString(exceptionFactory, filePath, "NoFileName.txt");
+		String content = FileUtil.readFileToString(exceptionFactory, filePath, "NoFileName.txt");
 		
 		System.out.println(content);
 		Assert.assertNotNull(content);
@@ -55,8 +60,7 @@ public class FileUtilTest {
 	@Test
 	public void test_OK_writeFile() {
 		
-		FileUtil utils = new FileUtil();
-		utils.writeStringToFile(exceptionFactory, filePath, "FileUtilTestWriteFile.txt",System.currentTimeMillis()+" time");
+		FileUtil.writeStringToFile(exceptionFactory, filePath, "FileUtilTest_OK_WriteFile.txt",System.currentTimeMillis()+" time");
 		
 		Assert.assertTrue(true);
 		

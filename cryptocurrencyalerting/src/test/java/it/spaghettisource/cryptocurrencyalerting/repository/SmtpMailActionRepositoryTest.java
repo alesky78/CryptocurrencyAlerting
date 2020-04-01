@@ -47,8 +47,7 @@ public class SmtpMailActionRepositoryTest {
 	
 	@After
 	public void afterTest() {
-		FileUtil fileUtil = new FileUtil();
-		fileUtil.deleteFile(repositoryFilePath, repositoryFileName);
+		FileUtil.deleteFile(repositoryFilePath, repositoryFileName);
 	}		
 	
 	

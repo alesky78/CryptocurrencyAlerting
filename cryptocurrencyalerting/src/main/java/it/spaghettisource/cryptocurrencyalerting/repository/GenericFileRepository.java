@@ -29,13 +29,12 @@ public abstract class GenericFileRepository<T extends Entity<PK>, PK extends Ser
 	protected ExceptionFactory exceptionFactory;
 
 	private List<T> readAllFromFileSystem(){
-		FileUtil fileUtil = new FileUtil();
 		
-		if(!fileUtil.isFileExsist(filePath, fileName)) {
+		if(!FileUtil.isFileExsist(filePath, fileName)) {
 			return new ArrayList<T>();
 		}
 		
-		String json = fileUtil.readFileToString(exceptionFactory, filePath, fileName);
+		String json = FileUtil.readFileToString(exceptionFactory, filePath, fileName);
 		JsonConverter converter = new JsonConverter();
 		Class<T> targetClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 		List<T> data = converter.jsonAToObjectList(exceptionFactory, json,targetClass);
@@ -45,13 +44,11 @@ public abstract class GenericFileRepository<T extends Entity<PK>, PK extends Ser
 	private void saveAllToFileSystem(List<T> data){
 		JsonConverter converter = new JsonConverter();		
 		String json = converter.objectToJson(exceptionFactory, data);
-		FileUtil fileUtil = new FileUtil();
-		fileUtil.writeStringToFile(exceptionFactory, filePath, fileName, json);
+		FileUtil.writeStringToFile(exceptionFactory, filePath, fileName, json);
 	}
 	
 	private boolean deleteFileFromFileSystem() {
-		FileUtil fileUtil = new FileUtil();
-		return fileUtil.deleteFile(filePath, fileName);
+		return FileUtil.deleteFile(filePath, fileName);
 	}
 	
 	public abstract PK generateKey();

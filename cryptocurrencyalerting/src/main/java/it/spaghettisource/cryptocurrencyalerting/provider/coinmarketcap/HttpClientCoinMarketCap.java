@@ -42,11 +42,10 @@ public class HttpClientCoinMarketCap extends CryptoCurrencyHttpJerseyClient {
 		
 		httpsConnectorFactory = new ApacheHttpConnectionFactoryDefault();
 		
-		FileUtil fileUtil = new FileUtil();
 		
 		Properties prop = new Properties();
 		try {
-			prop.load(fileUtil.readFileToInputStream(exceptionFactory, cofigFilePath, cofigFileName));	
+			prop.load(FileUtil.readFileToInputStream(exceptionFactory, cofigFilePath, cofigFileName));	
 			apiKey = prop.getProperty("apiKey");
 		}catch (Exception cause) {
 			throw exceptionFactory.getImpossibleReadFileException(cause, cofigFileName, cofigFilePath);
