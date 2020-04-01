@@ -8,6 +8,6 @@ import it.spaghettisource.cryptocurrencyalerting.repository.CommonEntity;
  * @author Alessandro D'Ottavio
  * @version 1.0
  */
-public abstract class BaseAction extends CommonEntity implements Action {
+public abstract class AbstractAction extends CommonEntity implements Action {
 	
 }

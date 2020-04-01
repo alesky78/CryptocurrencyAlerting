@@ -22,11 +22,12 @@ import it.spaghettisource.cryptocurrencyalerting.repository.SmtpMailActionReposi
 public class ActionService {
 	
 	private ExceptionFactory exceptionFactory;
+	private SmtpMailActionRepository repository;
 	
 	public ActionService(ExceptionFactory exceptionFactory) {
 		this.exceptionFactory = exceptionFactory;
+		repository = new SmtpMailActionRepository(exceptionFactory);
 	}
-	
 	
 	public List<String> getActionId(ActionType actionType) {
 		

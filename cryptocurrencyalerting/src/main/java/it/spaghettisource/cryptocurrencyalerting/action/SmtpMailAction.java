@@ -17,7 +17,7 @@ import javax.mail.internet.MimeMessage;
  * @author Alessandro D'Ottavio
  * @version 1.0
  */
-public class SmtpMailAction extends BaseAction {
+public class SmtpMailAction extends AbstractAction {
 
 	
 	private EncryptType encryptType; 
