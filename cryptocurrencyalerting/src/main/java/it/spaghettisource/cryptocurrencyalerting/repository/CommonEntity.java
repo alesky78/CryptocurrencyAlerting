@@ -8,19 +8,18 @@ package it.spaghettisource.cryptocurrencyalerting.repository;
  * @version 1.0
  *
  */
-public class CommonEntity implements Entity<Long> {
+public class CommonEntity implements Entity<String> {
 
-	private Long id;
+	private String id;
 	
 	@Override
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
 	@Override
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
-		
 	}
 
 }

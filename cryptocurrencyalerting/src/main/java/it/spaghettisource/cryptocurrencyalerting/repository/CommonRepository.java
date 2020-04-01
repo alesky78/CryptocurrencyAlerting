@@ -10,7 +10,7 @@ import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
  * @version 1.0
  *
  */
-public class CommonRepository<T extends Entity<Long>> extends GenericFileRepository<T, Long> {
+public class CommonRepository<T extends Entity<String>> extends GenericFileRepository<T, String> {
 
 	public CommonRepository(ExceptionFactory exceptionFactory) {
 		this.exceptionFactory = exceptionFactory;
@@ -25,10 +25,9 @@ public class CommonRepository<T extends Entity<Long>> extends GenericFileReposit
 	}	
 	
 	@Override
-	public Long generateKey() {
-		return System.currentTimeMillis();
+	public String generateKey() {
+		return  Long.toString(System.currentTimeMillis());
 	}
-	
 	
 
 }

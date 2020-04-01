@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.spaghettisource.cryptocurrencyalerting.action.Action;
+import it.spaghettisource.cryptocurrencyalerting.action.ActionType;
 import it.spaghettisource.cryptocurrencyalerting.action.SmtpMailAction;
 import it.spaghettisource.cryptocurrencyalerting.exception.BaseException;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
@@ -19,8 +20,6 @@ import it.spaghettisource.cryptocurrencyalerting.repository.SmtpMailActionReposi
  * @version 1.0
  */
 public class ActionService {
-
-	public static String ACTION_TYPE_SMTP_MAIL = "action.type.smtpmail";	
 	
 	private ExceptionFactory exceptionFactory;
 	
@@ -29,34 +28,29 @@ public class ActionService {
 	}
 	
 	
-	public List<String> getActionName(String actionType) {
+	public List<String> getActionId(ActionType actionType) {
 		
-		List<String> names = new ArrayList<String>();
+		List<String> id = new ArrayList<String>();
 		
-		if(actionType.equals(ACTION_TYPE_SMTP_MAIL)) {
+		if(actionType.equals(ActionType.SmtpMailAction)) {
 			SmtpMailActionRepository repository = new SmtpMailActionRepository(exceptionFactory) ;
 			 List<SmtpMailAction> mailsAction = repository.getAll();
 			 for (SmtpMailAction smtpMailAction : mailsAction) {
-				 names.add(smtpMailAction.getName());
+				 id.add(smtpMailAction.getId());
 			}	
 		}
 		
-		return names;
+		return id;
 	}
 	
 	
-	public Action getAction(String actionType,String name) {
+	public Action getAction(ActionType actionType,String id) {
 		
 		Action action = null;
 		
-		if(actionType.equals(ACTION_TYPE_SMTP_MAIL)) {
+		if(actionType.equals(ActionType.SmtpMailAction)) {
 			SmtpMailActionRepository repository = new SmtpMailActionRepository(exceptionFactory) ;
-			 List<SmtpMailAction> mailsAction = repository.getAll();
-			 for (SmtpMailAction smtpMailAction : mailsAction) {
-				 if(smtpMailAction.getName().equals(name)) {
-					 action = smtpMailAction;
-				 }
-			}	
+			action = repository.get(id);
 		}
 		
 		return action;

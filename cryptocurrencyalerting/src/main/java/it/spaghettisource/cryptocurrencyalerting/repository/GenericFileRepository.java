@@ -49,7 +49,7 @@ public abstract class GenericFileRepository<T extends Entity<PK>, PK extends Ser
 		fileUtil.writeStringToFile(exceptionFactory, filePath, fileName, json);
 	}
 	
-	private boolean deleteDeleteFileFromFileSystem() {
+	private boolean deleteFileFromFileSystem() {
 		FileUtil fileUtil = new FileUtil();
 		return fileUtil.deleteFile(filePath, fileName);
 	}
@@ -95,12 +95,16 @@ public abstract class GenericFileRepository<T extends Entity<PK>, PK extends Ser
 	}
 	
     public void update(T entity) throws BaseException{
-    	T oldEntity = get(entity.getId());
-    	if(oldEntity==null) {
-			throw exceptionFactory.getEntityNotExsist();    		
+    	if(entity.getId()==null) {
+    		throw exceptionFactory.getEntityNotExsist();
     	}else {
-    		delete(oldEntity);
-    		save(entity);
+        	T oldEntity = get(entity.getId());
+        	if(oldEntity==null) {
+    			throw exceptionFactory.getEntityNotExsist();    		
+        	}else {
+        		delete(oldEntity);
+        		save(entity);
+        	}    		
     	}
     }
 
@@ -122,7 +126,7 @@ public abstract class GenericFileRepository<T extends Entity<PK>, PK extends Ser
 	
 	@Override	
 	public void deleteAll() {
-		deleteDeleteFileFromFileSystem();
+		deleteFileFromFileSystem();
 	}
 	
 }

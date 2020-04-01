@@ -4,8 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.spaghettisource.cryptocurrencyalerting.action.SmtpMailAction;
-import it.spaghettisource.cryptocurrencyalerting.action.SmtpMailAction.EncryptType;
+import it.spaghettisource.cryptocurrencyalerting.action.ActionType;
+import it.spaghettisource.cryptocurrencyalerting.alert.PriceVariationGlobalMarketAlert;
 import it.spaghettisource.cryptocurrencyalerting.exception.BaseException;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.i18n.MessageRepository;
@@ -13,51 +13,51 @@ import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
 import it.spaghettisource.cryptocurrencyalerting.utils.FileUtil;
 import junit.framework.Assert;
 
-public class SmtpMailActionRepositoryTest {
+public class PriceVariationGlobalMarketAlertRepositoryTest {
 
 	ExceptionFactory exceptionFactory = new ExceptionFactory();
-	SmtpMailActionRepository repository;
+	PriceVariationGlobalMarketAlertRepository repository;
 	
 	String repositoryFilePath;
-	String repositoryFileName;
+	String repositoryFileName;	
+	
 	
 	@Before
 	public void beforeTest() {
 		
 		//prepare the exception factory
 		MessageRepository messageRepository =new MessageRepository();
-		messageRepository.setMessageRepositoryBundleBaseName("it.spaghettisource.cryptocurrencyalerting.repository.SmtpMailActionRepositoryTest");
+		messageRepository.setMessageRepositoryBundleBaseName("it.spaghettisource.cryptocurrencyalerting.repository.PriceVariationGlobalMarketAlertRepositoryTest");
 		StringMessageHelper helper = new StringMessageHelper();
 		helper.setMessageRepository(messageRepository);
 		exceptionFactory = new ExceptionFactory();
 		exceptionFactory.setMessageHelper(helper);
 		
-		repository = new SmtpMailActionRepository(exceptionFactory);	
+		repository = new PriceVariationGlobalMarketAlertRepository(exceptionFactory);	
 		
 		//overwrite to put the data in the test resources
 		//this is not needed in the code, the repository keep internally its configuration
 		repositoryFilePath = System.getProperty("user.dir")+"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\repository";
-		repositoryFileName = "SmtpMailActionRepositoryTest.json";
+		repositoryFileName = "PriceVariationGlobalMarketAlertRepositoryTest.json";
 				
 		repository.setFilePath(repositoryFilePath);
-		repository.setFileName(repositoryFileName);	
-				
+		repository.setFileName(repositoryFileName);		
+		
 	}
-	
 	
 	@After
 	public void afterTest() {
 		FileUtil fileUtil = new FileUtil();
 		fileUtil.deleteFile(repositoryFilePath, repositoryFileName);
-	}		
+	}	
 	
 	
 	@Test
 	public void test_OK_SaveAndGetById() {
 		
 		repository.deleteAll();
-		SmtpMailAction action = repository.save(buildMailAction(null));
-		Assert.assertNotNull(repository.get(action.getId()));
+		PriceVariationGlobalMarketAlert alert = repository.save(buildAlert(null));
+		Assert.assertNotNull(repository.get(alert.getId()));
 		
 	}
 
@@ -65,38 +65,38 @@ public class SmtpMailActionRepositoryTest {
 	public void test_KO_DuplicatePK() {
 		
 		repository.deleteAll();
-		SmtpMailAction action = repository.save(buildMailAction(null));
-		repository.save(action);		
+		PriceVariationGlobalMarketAlert alert = repository.save(buildAlert(null));
+		repository.save(alert);		
 	}	
 	
 	@Test
 	public void test_OK_Update() {
 		
 		repository.deleteAll();
-		SmtpMailAction action = repository.save(buildMailAction("id"));
-		String userName= action.getUsername();
+		PriceVariationGlobalMarketAlert alert = repository.save(buildAlert("id"));
+		String criptocurrency= alert.getCriptocurency();
 		
-		action.setUsername("new userName");
-		repository.update(action);
-		action = repository.get(action.getId());
+		alert.setCriptocurency("XRP");
+		repository.update(alert);
+		alert = repository.get(alert.getId());
 		
-		Assert.assertTrue(!userName.equals(action.getUsername()));		
+		Assert.assertTrue(!criptocurrency.equals(alert.getCriptocurency()));		
 	}		
 	
 	@Test(expected = BaseException.class)
 	public void test_KO_EntityNotFound() {
 		
 		repository.deleteAll();
-		repository.update(buildMailAction(null));
+		repository.update(buildAlert(null));
 	}		
 	
 	@Test
 	public void test_OK_GetAll() {
 
 		repository.deleteAll();
-		repository.save(buildMailAction(null));
-		repository.save(buildMailAction(null));
-		repository.save(buildMailAction(null));		
+		repository.save(buildAlert(null));
+		repository.save(buildAlert(null));
+		repository.save(buildAlert(null));		
 	
 		Assert.assertEquals(3, repository.getAll().size());
 		
@@ -106,9 +106,9 @@ public class SmtpMailActionRepositoryTest {
 	public void test_OK_Delete() {
 
 		repository.deleteAll();
-		SmtpMailAction id1 = repository.save(buildMailAction(null));
-		SmtpMailAction id2 = repository.save(buildMailAction(null));
-		SmtpMailAction id3 = repository.save(buildMailAction(null));
+		PriceVariationGlobalMarketAlert id1 = repository.save(buildAlert(null));
+		PriceVariationGlobalMarketAlert id2 = repository.save(buildAlert(null));
+		PriceVariationGlobalMarketAlert id3 = repository.save(buildAlert(null));
 	
 		repository.delete(id1);
 		repository.delete(id3);		
@@ -119,18 +119,16 @@ public class SmtpMailActionRepositoryTest {
 		
 	}
 	
-	private SmtpMailAction buildMailAction(String id) {
-		SmtpMailAction action = new SmtpMailAction();
-		action.setHost("smtp.gmail.com");
-		action.setId(id);
-		action.setPort("587");
-		action.setAuthentication("true");
-		action.setUsername("user@domain.com");
-		action.setPassword("pwd");
-		action.setSubject("subject");
-		action.setEncryptType(EncryptType.TLS);	//set the encrypt to use		
-		
-		return action;
+	private PriceVariationGlobalMarketAlert buildAlert(String id) {
+		PriceVariationGlobalMarketAlert alert = new PriceVariationGlobalMarketAlert();
+		alert.setActionType(ActionType.SmtpMailAction);
+		alert.setActionName("Action Test");
+		alert.setCriptocurency("BTC");
+		alert.setFiat("EUR");
+		alert.setPrice(5006.8967);		
+		alert.setMode(PriceVariationGlobalMarketAlert.ABOVE);
+
+		return alert;
 	}
 	
 	

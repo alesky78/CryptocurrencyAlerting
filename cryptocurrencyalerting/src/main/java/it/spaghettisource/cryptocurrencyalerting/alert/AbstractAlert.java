@@ -3,6 +3,7 @@ package it.spaghettisource.cryptocurrencyalerting.alert;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import it.spaghettisource.cryptocurrencyalerting.action.Action;
+import it.spaghettisource.cryptocurrencyalerting.action.ActionType;
 import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
 import it.spaghettisource.cryptocurrencyalerting.provider.MarketAdapter;
 import it.spaghettisource.cryptocurrencyalerting.repository.CommonEntity;
@@ -35,16 +36,18 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	@JsonIgnore	
 	protected StringMessageHelper messageHelper;
 	
-	protected String actionType;
+	protected ActionType actionType;
 	protected String actionName;	
 	
 	public AbstractAlert() {
 		super();
 		disable = false;
 		disableAfterTrigger = false;
-		coolDown = true;
+		coolDown = false;
+		enableCoolDown = true;
 		coolDownSeconds = 900L; //15 minuts by default		
 		lastTriggerSecond=-1;
+		timePassSinceLastTriggerSecond=-1;
 	}
 	
 	
@@ -184,13 +187,12 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 		this.timePassSinceLastTriggerSecond = timePassSinceLastTriggerSecond;
 	}
 
-
-	public String getActionType() {
+	public ActionType getActionType() {
 		return actionType;
 	}
 
 
-	public void setActionType(String actionType) {
+	public void setActionType(ActionType actionType) {
 		this.actionType = actionType;
 	}
 
