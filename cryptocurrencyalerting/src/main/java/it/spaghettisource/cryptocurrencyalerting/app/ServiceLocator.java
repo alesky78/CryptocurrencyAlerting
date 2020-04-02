@@ -39,12 +39,12 @@ public class ServiceLocator {
 
 	private ServiceLocator() {
 		super();
-		init();
 	}
 
 	public static ServiceLocator getInstance() {
 		if(serviceLocator==null) {
 			serviceLocator = new ServiceLocator();
+			serviceLocator.init();
 		}
 		return serviceLocator;
 	}
@@ -57,7 +57,7 @@ public class ServiceLocator {
 		//load the specific property configuration file
 		configuration = new Properties();
 		try {
-			configuration.load(FileUtil.readFileToInputStream(exceptionFactory, ConstantCoinMarketCap.CONFIG_FILE_PATH, ConstantCoinMarketCap.CONFIG_FILE_NAME));	
+			configuration.load(FileUtil.readFileToInputStream(exceptionFactory, CONFIG_FILE_PATH, CONFIG_FILE_NAME));	
 		}catch (Exception cause) {
 			throw exceptionFactory.getImpossibleReadFileException(cause, ConstantCoinMarketCap.CONFIG_FILE_PATH, ConstantCoinMarketCap.CONFIG_FILE_NAME);
 		}
@@ -74,7 +74,8 @@ public class ServiceLocator {
 
 		//prepare the adapter to use
 		try {
-			Class clazz = Class.forName(configuration.getProperty("marketAdapter.class"));
+			String marketAdapterClass = configuration.getProperty("marketAdapter.class");
+			Class clazz = this.getClass().forName(marketAdapterClass);
 			Constructor constructor = clazz.getConstructor(ExceptionFactory.class);
 			marketAdapter =	(MarketAdapter) constructor.newInstance(exceptionFactory);
 
