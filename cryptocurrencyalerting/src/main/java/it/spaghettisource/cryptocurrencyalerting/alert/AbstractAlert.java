@@ -96,7 +96,7 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	
 	
 	protected Action getAction() {
-		return actionManager.getAction(actionType, actionName);
+		return actionManager.findAction(actionType, actionName);
 	}
 
 	@Override

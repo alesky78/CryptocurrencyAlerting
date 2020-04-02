@@ -25,16 +25,23 @@ public class ActionService {
 	private SmtpMailActionRepository repository;
 	
 	public ActionService(ExceptionFactory exceptionFactory) {
+		super();
 		this.exceptionFactory = exceptionFactory;
 		repository = new SmtpMailActionRepository(exceptionFactory);
 	}
 	
-	public List<String> getActionId(ActionType actionType) {
+	public ActionService(ExceptionFactory exceptionFactory, SmtpMailActionRepository repository) {
+		super();
+		this.exceptionFactory = exceptionFactory;
+		this.repository = repository;
+	}
+
+	
+	public List<String> findAllActionId(ActionType actionType) {
 		
 		List<String> id = new ArrayList<String>();
 		
 		if(actionType.equals(ActionType.SmtpMailAction)) {
-			SmtpMailActionRepository repository = new SmtpMailActionRepository(exceptionFactory) ;
 			 List<SmtpMailAction> mailsAction = repository.getAll();
 			 for (SmtpMailAction smtpMailAction : mailsAction) {
 				 id.add(smtpMailAction.getId());
@@ -45,12 +52,11 @@ public class ActionService {
 	}
 	
 	
-	public Action getAction(ActionType actionType,String id) {
+	public Action findAction(ActionType actionType,String id) {
 		
 		Action action = null;
 		
 		if(actionType.equals(ActionType.SmtpMailAction)) {
-			SmtpMailActionRepository repository = new SmtpMailActionRepository(exceptionFactory) ;
 			action = repository.get(id);
 		}
 		
@@ -59,12 +65,10 @@ public class ActionService {
 	
 	
 	public void saveNewAction(SmtpMailAction action)  throws BaseException {
-		SmtpMailActionRepository repository = new SmtpMailActionRepository(exceptionFactory) ;
 		repository.save(action);
 	}
 
 	public void updateAction(SmtpMailAction action)  throws BaseException {
-		SmtpMailActionRepository repository = new SmtpMailActionRepository(exceptionFactory) ;
 		repository.update(action);
 	}
 	
