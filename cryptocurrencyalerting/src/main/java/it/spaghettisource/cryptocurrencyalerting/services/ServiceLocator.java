@@ -1,4 +1,4 @@
-package it.spaghettisource.cryptocurrencyalerting.app;
+package it.spaghettisource.cryptocurrencyalerting.services;
 
 import java.lang.reflect.Constructor;
 import java.util.Properties;
@@ -8,8 +8,6 @@ import it.spaghettisource.cryptocurrencyalerting.i18n.MessageRepository;
 import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
 import it.spaghettisource.cryptocurrencyalerting.provider.MarketAdapter;
 import it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap.ConstantCoinMarketCap;
-import it.spaghettisource.cryptocurrencyalerting.services.ActionService;
-import it.spaghettisource.cryptocurrencyalerting.services.AlertService;
 import it.spaghettisource.cryptocurrencyalerting.utils.FileUtil;
 
 /**
