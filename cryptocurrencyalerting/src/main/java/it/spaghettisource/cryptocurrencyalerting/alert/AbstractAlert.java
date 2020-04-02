@@ -34,7 +34,7 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	@JsonIgnore
 	protected MarketAdapter adapter;
 	@JsonIgnore
-	protected ActionService actionManager;
+	protected ActionService actionService;
 	@JsonIgnore	
 	protected StringMessageHelper messageHelper;
 	
@@ -57,8 +57,8 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 		this.adapter = adapter;
 	}
 
-	public void setActionManager(ActionService actionManager) {
-		this.actionManager = actionManager;
+	public void setActionService(ActionService actionManager) {
+		this.actionService = actionManager;
 	}
 	
 	public void setMessageHelper(StringMessageHelper messageHelper) {
@@ -98,7 +98,7 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	
 	
 	protected Action getAction() {
-		return actionManager.findAction(actionType, actionId);
+		return actionService.findAction(actionType, actionId);
 	}
 
 	@Override
