@@ -25,9 +25,12 @@ public class PriceVariationGlobalMarketAlert extends AbstractAlert{
 	
 	public PriceVariationGlobalMarketAlert() {
 		super();
+		alertType = AlertType.PriceVariationGlobalMarketAlert;
 	}
 
 	public PriceVariationGlobalMarketAlert(String criptocurency, String fiat, double price, int mode) {
+		alertType = AlertType.PriceVariationGlobalMarketAlert;
+		
 		this.criptocurency = criptocurency;
 		this.fiat = fiat;
 		this.price = price;

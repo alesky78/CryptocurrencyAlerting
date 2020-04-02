@@ -13,4 +13,10 @@ public interface Action {
 	 */
 	public void trigger(String message);
 	
+	/**
+	 * 
+	 * @return the action type
+	 */
+	public ActionType getActionType();
+	
 }

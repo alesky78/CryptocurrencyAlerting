@@ -19,7 +19,11 @@ import javax.mail.internet.MimeMessage;
  */
 public class SmtpMailAction extends AbstractAction {
 
-	
+	public SmtpMailAction() {
+		super();
+		actionType = ActionType.SmtpMailAction;
+	}
+
 	private EncryptType encryptType; 
 	
 	private String username;

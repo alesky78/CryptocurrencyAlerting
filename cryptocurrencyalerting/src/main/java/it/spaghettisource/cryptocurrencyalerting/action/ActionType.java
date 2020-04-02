@@ -2,14 +2,16 @@ package it.spaghettisource.cryptocurrencyalerting.action;
 
 public enum ActionType {
 	
-	SmtpMailAction("same label");
+	SmtpMailAction("action.type.SmtpMailAction");
 	
-	private String i18nName;
+	private String i18nKey;
 	
-	
-	ActionType(String i18nName) {
-		this.i18nName = i18nName;
+	ActionType(String i18nKey) {
+		this.i18nKey = i18nKey;
 	}
-	
-	
+
+	public String getI18nKey() {
+		return i18nKey;
+	}
+
 }

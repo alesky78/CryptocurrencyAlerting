@@ -22,18 +22,18 @@ import it.spaghettisource.cryptocurrencyalerting.repository.SmtpMailActionReposi
 public class ActionService {
 	
 	private ExceptionFactory exceptionFactory;
-	private SmtpMailActionRepository repository;
+	private SmtpMailActionRepository smtpMailActionRepository;
 	
 	public ActionService(ExceptionFactory exceptionFactory) {
 		super();
 		this.exceptionFactory = exceptionFactory;
-		repository = new SmtpMailActionRepository(exceptionFactory);
+		smtpMailActionRepository = new SmtpMailActionRepository(exceptionFactory);
 	}
 	
 	public ActionService(ExceptionFactory exceptionFactory, SmtpMailActionRepository repository) {
 		super();
 		this.exceptionFactory = exceptionFactory;
-		this.repository = repository;
+		this.smtpMailActionRepository = repository;
 	}
 
 	
@@ -42,7 +42,7 @@ public class ActionService {
 		List<String> id = new ArrayList<String>();
 		
 		if(actionType.equals(ActionType.SmtpMailAction)) {
-			 List<SmtpMailAction> mailsAction = repository.getAll();
+			 List<SmtpMailAction> mailsAction = smtpMailActionRepository.getAll();
 			 for (SmtpMailAction smtpMailAction : mailsAction) {
 				 id.add(smtpMailAction.getId());
 			}	
@@ -57,7 +57,7 @@ public class ActionService {
 		Action action = null;
 		
 		if(actionType.equals(ActionType.SmtpMailAction)) {
-			action = repository.get(id);
+			action = smtpMailActionRepository.get(id);
 		}
 		
 		return action;
@@ -65,11 +65,11 @@ public class ActionService {
 	
 	
 	public void saveNewAction(SmtpMailAction action)  throws BaseException {
-		repository.save(action);
+		smtpMailActionRepository.save(action);
 	}
 
 	public void updateAction(SmtpMailAction action)  throws BaseException {
-		repository.update(action);
+		smtpMailActionRepository.update(action);
 	}
 	
 }

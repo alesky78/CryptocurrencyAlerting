@@ -9,6 +9,12 @@ package it.spaghettisource.cryptocurrencyalerting.alert;
 public interface Alert {
 
 	
+	/**
+	 * 
+	 * @return the alert type
+	 */
+	public AlertType getAlertType();
+	
 	
 	/**
 	 * verify if this alert is triggered

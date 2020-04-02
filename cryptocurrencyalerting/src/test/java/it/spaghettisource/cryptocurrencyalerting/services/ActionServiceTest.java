@@ -40,7 +40,7 @@ public class ActionServiceTest {
 		//overwrite to put the data in the test resources
 		//this is not needed in the code, the repository keep internally its configuration
 		repositoryFilePath = System.getProperty("user.dir")+"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\services";
-		repositoryFileName = "actionServiceTest.json";
+		repositoryFileName = "actionServiceTest_SmtpMailActionRepository.json";
 				
 		repository.setFilePath(repositoryFilePath);
 		repository.setFileName(repositoryFileName);	

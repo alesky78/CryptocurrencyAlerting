@@ -10,4 +10,18 @@ import it.spaghettisource.cryptocurrencyalerting.repository.CommonEntity;
  */
 public abstract class AbstractAction extends CommonEntity implements Action {
 	
+	
+	protected ActionType actionType;
+
+	
+	public ActionType getActionType() {
+		return actionType;
+	}
+
+	public void setActionType(ActionType actionType) {
+		this.actionType = actionType;
+	}
+	
+	
+	
 }

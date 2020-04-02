@@ -20,6 +20,8 @@ import it.spaghettisource.cryptocurrencyalerting.services.ActionService;
  */
 public abstract class AbstractAlert extends CommonEntity implements Alert {
 
+	protected AlertType alertType;
+	
 	protected boolean disable;
 	protected boolean disableAfterTrigger;	
 	protected boolean coolDown;	//is in coolDown mode
@@ -37,7 +39,7 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	protected StringMessageHelper messageHelper;
 	
 	protected ActionType actionType;
-	protected String actionName;	
+	protected String actionId;	
 	
 	public AbstractAlert() {
 		super();
@@ -96,7 +98,7 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	
 	
 	protected Action getAction() {
-		return actionManager.findAction(actionType, actionName);
+		return actionManager.findAction(actionType, actionId);
 	}
 
 	@Override
@@ -197,13 +199,22 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	}
 
 
-	public String getActionName() {
-		return actionName;
+	public String getActionId() {
+		return actionId;
 	}
 
 
-	public void setActionName(String actionName) {
-		this.actionName = actionName;
+	public void setActionId(String actionName) {
+		this.actionId = actionName;
+	}
+
+	public AlertType getAlertType() {
+		return alertType;
+	}
+
+
+	public void setAlertType(AlertType alertType) {
+		this.alertType = alertType;
 	}
 
 
