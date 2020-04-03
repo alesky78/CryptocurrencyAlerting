@@ -12,6 +12,18 @@ import java.util.Locale;
  */
 public interface I18NMessageHelper {
 
+	
+
+	/**
+	 * Utility to support {@link MessageFormat}
+	 * it return a formatted message internazionalized by the system locale 
+	 * 
+	 * @param messageId of the message to find from the error Messages bundle
+	 * @return the message formatted and internazionalized
+	 */
+	public String getFormattedMessageI18N(String messageId);
+
+	
 	/**
 	 * Utility to support {@link MessageFormat}
 	 * it return a formatted message internazionalized by the system locale 

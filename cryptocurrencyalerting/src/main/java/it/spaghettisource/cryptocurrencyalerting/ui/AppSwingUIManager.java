@@ -13,14 +13,16 @@ import javax.swing.event.ChangeListener;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
+import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
 import it.spaghettisource.cryptocurrencyalerting.utils.ImageIconFactory;
 
 /**
  * This is the manager of the UI swing application
- * is responsible to create the MainFrame and Thread for the application
+ * is responsible to create the MainFrame and the Thread for the UI application
  *
  * @author Alessandro D'Ottavio
- *
+ * @version 1.0
  */
 public class AppSwingUIManager{
 
@@ -29,12 +31,12 @@ public class AppSwingUIManager{
 	/**
 	 * this are the TAB used in the main page
 	 */
-	private final static String TAB_VERSION = "version";		
+	public final static String TAB_PRICEALERT_PRICE_VARIATION = "ui.panel.PanelPriceAlertPriceVariation.title";		
 
 
 	private JFrame mainFrame;
 	
-	private JPanel panelVersion;	
+	private JPanel PanelPriceAlertPriceVariation;	
 
 
 	public void startUI(){
@@ -52,6 +54,10 @@ public class AppSwingUIManager{
 
 	private JFrame buildFrame(){
 
+		///////////////////////////
+		//Utils to create the frame
+		///////////////////////////
+		StringMessageHelper messageHelper = ServiceLocator.getInstance().getMessageHelper();
 
 		////////////////////////
 		//prepare the main frame
@@ -59,7 +65,7 @@ public class AppSwingUIManager{
 		JFrame frame = new JFrame();
 		frame.setIconImage(ImageIconFactory.getAppImage());
 		frame.setTitle("cryptocurrency alerting");
-		frame.setSize(1000, 800);
+		frame.setSize(800, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
@@ -71,11 +77,11 @@ public class AppSwingUIManager{
 
 		tabbedPane.addChangeListener(new TabModelChangeListener());	//refresh the model when enter in the tab model
 
+		
+		PanelPriceAlertPriceVariation = new PanelPriceAlertPriceVariation();
 
-		panelVersion = new JPanel();
+		tabbedPane.addTab(messageHelper.getFormattedMessageI18N(TAB_PRICEALERT_PRICE_VARIATION), ImageIconFactory.getForTab("priceVariationValue.png"),PanelPriceAlertPriceVariation);	
 
-		//tabbedPane.addTab(TAB_VERSION, ImageIconFactory.getForTab("application.png"),panelVersion);	
-		//tabbedPane.addTab(TAB_VERSION, panelVersion);
 
 		frame.getContentPane().add(tabbedPane);
 
@@ -111,7 +117,7 @@ public class AppSwingUIManager{
 					String tabName = tabbedPane.getTitleAt(selectedTabIndex);
 
 
-					if(tabName.equals(TAB_VERSION)){
+					if(tabName.equals(TAB_PRICEALERT_PRICE_VARIATION)){
 					}
 
 

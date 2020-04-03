@@ -26,6 +26,7 @@ public class ImageIconFactory {
 	public final static int ICON_SIZE_TAB = 25;
 	public final static int ICON_SIZE_BUTTON = 25;
 	public final static int ICON_SIZE_LABEL = 40;
+	public final static int ICON_SIZE_TITLE = 20;		
 	public final static int ICON_SIZE_FRAME = 5;
 	public final static int ICON_SIZE_TABLE_CELL = 10;
 
@@ -64,6 +65,10 @@ public class ImageIconFactory {
 		return getImageIconByNameAndSize(name, ICON_SIZE_LABEL);
 	}
 
+	public static ImageIcon getForTitle(String name) {
+		return getImageIconByNameAndSize(name, ICON_SIZE_TITLE);
+	}	
+	
 	public static ImageIcon getForTableCell(String name) {
 		return getImageIconByNameAndSize(name, ICON_SIZE_TABLE_CELL);
 	}

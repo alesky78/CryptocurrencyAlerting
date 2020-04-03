@@ -17,6 +17,8 @@ public class StringMessageHelper implements I18NMessageHelper{
 	
 	private MessageRepository messageRepository;
 	
+	private static Object[] EMPTY_PARAMETERS = new Object[] {};
+	
 	/**
 	 * set the message repository
 	 * 
@@ -28,11 +30,24 @@ public class StringMessageHelper implements I18NMessageHelper{
 
 	/**
 	 * Utility to support {@link MessageFormat}
-	 * it return a formatted message internazionalized by the system locale 
+	 * it return a formatted message internationalized by the system locale 
+	 * 
+	 * @param messageId of the message to find from the error Messages bundle
+	 * @return the message formatted and internationalized
+	 */
+	public String getFormattedMessageI18N(String messageId)
+	{
+		String message = messageRepository.getMessageById(messageId);
+		return getFormattedMessage(message, EMPTY_PARAMETERS);
+	}	
+	
+	/**
+	 * Utility to support {@link MessageFormat}
+	 * it return a formatted message internationalized by the system locale 
 	 * 
 	 * @param messageId of the message to find from the error Messages bundle
 	 * @param arguments that will be injected in the message
-	 * @return the message formatted and internazionalized
+	 * @return the message formatted and internationalized
 	 */
 	public String getFormattedMessageI18N(String messageId, Object... arguments)
 	{
@@ -42,11 +57,11 @@ public class StringMessageHelper implements I18NMessageHelper{
 
 	/**
 	 * Utility to support {@link MessageFormat}
-	 * it return a formatted message internazionalized by the locale 
+	 * it return a formatted message internationalized by the locale 
 	 * 
 	 * @param messageId of the message to find from the error Messages bundle
 	 * @param arguments that will be injected in the message
-	 * @return the message formatted and internazionalized
+	 * @return the message formatted and internationalized
 	 */
 	public String getFormattedMessageI18N(Locale locale,String messageId, Object... arguments)
 	{

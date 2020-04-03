@@ -87,5 +87,12 @@ public class ServiceLocator {
 
 	}
 
+	
+	public StringMessageHelper getMessageHelper() {
+		return messageHelper;
+	}
+
+	
+	
 
 }
