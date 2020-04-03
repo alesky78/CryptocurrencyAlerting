@@ -1,11 +1,7 @@
 package it.spaghettisource.cryptocurrencyalerting.utils;
 
-
-
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -14,11 +10,18 @@ import javax.swing.ImageIcon;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * Utility used to create the icons in the UI 
+ * 
+ * 
+ * @author Alessandro D'Ottavio
+ * @version 1.0
+ */
 public class ImageIconFactory {
 
 	static Log log = LogFactory.getLog(ImageIconFactory.class.getName());
 
-	public final static String ICON_LOCATION = System.getProperty("user.dir")+"\\icon\\";
+	public final static String ICON_LOCATION = "/icon/";
 
 	public final static int ICON_SIZE_TAB = 25;
 	public final static int ICON_SIZE_BUTTON = 25;
@@ -34,7 +37,7 @@ public class ImageIconFactory {
 
 		try {
 			BufferedImage bufferedImage;
-			bufferedImage = ImageIO.read(new File(ICON_LOCATION+name));
+			bufferedImage = ImageIO.read(ImageIconFactory.class.getResourceAsStream(ICON_LOCATION+name));
 			return bufferedImage.getScaledInstance(size, size,  java.awt.Image.SCALE_SMOOTH);
 		} catch (IOException e) {
 			String message = "error loading the immange "+name+" for:"+e.getMessage();
@@ -67,7 +70,7 @@ public class ImageIconFactory {
 
 	public static Image getAppImage() {
 		try {
-			return ImageIO.read(new FileInputStream(System.getProperty("user.dir")+"\\icon\\application.png"));
+			return ImageIO.read(ImageIconFactory.class.getResourceAsStream(ICON_LOCATION+"application.png"));
 		} catch (IOException e) {
 			log.error("error loading the app image for:"+e.getMessage(),e );
 			throw new RuntimeException(e);

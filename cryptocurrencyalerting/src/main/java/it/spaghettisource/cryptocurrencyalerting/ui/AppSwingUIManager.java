@@ -74,8 +74,8 @@ public class AppSwingUIManager{
 
 		panelVersion = new JPanel();
 
-		//tabbedPane.addTab(TAB_VERSION, ImageIconFactory.getForTab("version.png"),panelVersion);	
-		tabbedPane.addTab(TAB_VERSION, panelVersion);
+		//tabbedPane.addTab(TAB_VERSION, ImageIconFactory.getForTab("application.png"),panelVersion);	
+		//tabbedPane.addTab(TAB_VERSION, panelVersion);
 
 		frame.getContentPane().add(tabbedPane);
 
