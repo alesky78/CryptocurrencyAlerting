@@ -259,6 +259,9 @@ public class PanelPriceAlertPriceVariation extends JPanel implements ActionListe
 																						(String)fiat.getSelectedItem(), 
 																						Double.valueOf(price.getText()) , 
 																						((KeyValueItem)condition.getSelectedItem()).getId());
+			
+			alert.setActionType(ActionType.fromId(((KeyValueItem)action.getSelectedItem()).getId()));
+			
 			alert.setDisable(disable.isSelected());
 			alert.disableAfterTrigger(disableAfterTrigger.isSelected());
 			alert.setCoolDown(enableCoolDown.isSelected());

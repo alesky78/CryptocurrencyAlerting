@@ -39,7 +39,6 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	protected StringMessageHelper messageHelper;
 	
 	protected ActionType actionType;
-	protected String actionId;	
 	
 	public AbstractAlert() {
 		super();
@@ -88,7 +87,7 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	
 	
 	protected Action getAction() {
-		return actionService.findAction(actionType, actionId);
+		return actionService.findAction(actionType);
 	}
 
 	
@@ -185,15 +184,6 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 		this.actionType = actionType;
 	}
 
-
-	public String getActionId() {
-		return actionId;
-	}
-
-
-	public void setActionId(String actionName) {
-		this.actionId = actionName;
-	}
 
 	public AlertType getAlertType() {
 		return alertType;

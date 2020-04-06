@@ -6,8 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.spaghettisource.cryptocurrencyalerting.action.SmtpMailAction;
-import it.spaghettisource.cryptocurrencyalerting.action.SmtpMailAction.EncryptType;
+import it.spaghettisource.cryptocurrencyalerting.alert.PriceVariationGlobalMarketAlert;
 import it.spaghettisource.cryptocurrencyalerting.exception.BaseException;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.i18n.MessageRepository;
@@ -38,12 +37,7 @@ public class JsonConverterTest {
 	@Test
 	public void test_OK_convertObjectToJson() {
 		
-		SmtpMailAction action = new SmtpMailAction();
-		action.setAuthentication("true");
-		action.setUsername("user");
-		action.setPassword("pwd");
-		action.setEncryptType(EncryptType.NONE);
-		action.setHost("mail.host.com");
+		PriceVariationGlobalMarketAlert action = new PriceVariationGlobalMarketAlert();
 	
 		String json = converter.objectToJson(exceptionFactory, action);
 		
@@ -55,8 +49,22 @@ public class JsonConverterTest {
 	@Test
 	public void test_OK_JsonToObject() {
 		
-		String json = "{\"encryptType\":\"NONE\",\"username\":\"user\",\"password\":\"pwd\",\"host\":\"mail.host.com\",\"port\":null,\"authentication\":\"true\",\"subject\":null}";
-		SmtpMailAction action = converter.jsonToObject(exceptionFactory, json, SmtpMailAction.class);
+		String json = "{ \"id\" : \"1586177973318\",\r\n" + 
+				"  \"alertType\" : \"PriceVariationGlobalMarketAlert\",\r\n" + 
+				"  \"disable\" : false,\r\n" + 
+				"  \"disableAfterTrigger\" : false,\r\n" + 
+				"  \"coolDown\" : false,\r\n" + 
+				"  \"enableCoolDown\" : true,\r\n" + 
+				"  \"coolDownMinuts\" : 60,\r\n" + 
+				"  \"actionType\" : null,\r\n" + 
+				"  \"criptocurency\" : \"BTC\",\r\n" + 
+				"  \"fiat\" : \"USD\",\r\n" + 
+				"  \"price\" : 0.0,\r\n" + 
+				"  \"mode\" : \"1\",\r\n" + 
+				"  \"lastTriggerSecond\" : -1,\r\n" + 
+				"  \"timePassSinceLastTriggerSecond\" : -1\r\n" + 
+				"}";
+		PriceVariationGlobalMarketAlert action = converter.jsonToObject(exceptionFactory, json, PriceVariationGlobalMarketAlert.class);
 		System.out.println(action);
 		Assert.assertNotNull(action);
 	}

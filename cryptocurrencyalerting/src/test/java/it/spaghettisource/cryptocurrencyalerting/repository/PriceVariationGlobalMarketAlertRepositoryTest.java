@@ -121,7 +121,6 @@ public class PriceVariationGlobalMarketAlertRepositoryTest {
 	private PriceVariationGlobalMarketAlert buildAlert(String id) {
 		PriceVariationGlobalMarketAlert alert = new PriceVariationGlobalMarketAlert();
 		alert.setActionType(ActionType.SmtpMailAction);
-		alert.setActionId("Action Test");
 		alert.setCriptocurency("BTC");
 		alert.setFiat("EUR");
 		alert.setPrice(5006.8967);		
