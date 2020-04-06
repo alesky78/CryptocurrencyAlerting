@@ -9,6 +9,7 @@ public enum ActionType {
 	
 	
 	ActionType(String id,String i18nKey) {
+		this.id = id;		
 		this.i18nKey = i18nKey;
 	}
 
