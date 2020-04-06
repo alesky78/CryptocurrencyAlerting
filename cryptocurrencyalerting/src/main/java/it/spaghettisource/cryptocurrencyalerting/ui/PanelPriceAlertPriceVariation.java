@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.PlainDocument;
 
 import it.spaghettisource.cryptocurrencyalerting.action.ActionType;
 import it.spaghettisource.cryptocurrencyalerting.alert.PriceVariationGlobalMarketAlert;
@@ -27,8 +28,10 @@ import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
 import it.spaghettisource.cryptocurrencyalerting.provider.MarketAdapter;
 import it.spaghettisource.cryptocurrencyalerting.repository.PriceVariationGlobalMarketAlertRepository;
 import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
-import it.spaghettisource.cryptocurrencyalerting.utils.FontFactory;
-import it.spaghettisource.cryptocurrencyalerting.utils.ImageIconFactory;
+import it.spaghettisource.cryptocurrencyalerting.ui.utils.FontFactory;
+import it.spaghettisource.cryptocurrencyalerting.ui.utils.ImageIconFactory;
+import it.spaghettisource.cryptocurrencyalerting.ui.utils.KeyValueItem;
+import it.spaghettisource.cryptocurrencyalerting.ui.utils.PriceFilter;
 
 /**
  * UI to manage the creation of the Price Alert for {@link#PriceVariationGlobalMarketAlert} 
@@ -141,7 +144,10 @@ public class PanelPriceAlertPriceVariation extends JPanel implements ActionListe
 		
 		
 		JLabel thePriceOf = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.priceOf"));
-		price = new JTextField("0,0");
+		price = new JTextField("0.0");
+		PlainDocument doc = (PlainDocument) price.getDocument();
+	    doc.setDocumentFilter(new PriceFilter());
+	     
 
 		fiat = new JComboBox<String>();
 		for (String actual : marketAdapter.findAllFiat()) {

@@ -15,7 +15,7 @@ import org.apache.commons.logging.LogFactory;
 
 import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
 import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
-import it.spaghettisource.cryptocurrencyalerting.utils.ImageIconFactory;
+import it.spaghettisource.cryptocurrencyalerting.ui.utils.ImageIconFactory;
 
 /**
  * This is the manager of the UI swing application

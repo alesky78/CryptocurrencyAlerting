@@ -1,4 +1,4 @@
-package it.spaghettisource.cryptocurrencyalerting.ui;
+package it.spaghettisource.cryptocurrencyalerting.ui.utils;
 
 /**
  * UI component used to store key values used for example in the JComboBox 

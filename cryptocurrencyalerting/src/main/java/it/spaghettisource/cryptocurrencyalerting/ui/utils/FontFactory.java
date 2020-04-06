@@ -1,4 +1,4 @@
-package it.spaghettisource.cryptocurrencyalerting.utils;
+package it.spaghettisource.cryptocurrencyalerting.ui.utils;
 
 import java.awt.Font;
 
