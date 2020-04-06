@@ -53,17 +53,7 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	}
 	
 	
-	public void setAdapter(MarketAdapter adapter) {
-		this.adapter = adapter;
-	}
 
-	public void setActionService(ActionService actionManager) {
-		this.actionService = actionManager;
-	}
-	
-	public void setMessageHelper(StringMessageHelper messageHelper) {
-		this.messageHelper = messageHelper;
-	}
 
 
 	public void checkAlert() {
@@ -101,18 +91,7 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 		return actionService.findAction(actionType, actionId);
 	}
 
-	@Override
-	public boolean isDisable() {
-		return disable;
-	}
-
 	
-	@Override
-	public void setDisable(boolean disable) {
-		this.disable = disable;
-	}
-
-
 	@Override
 	public void disableAfterTrigger(boolean status) {
 		disableAfterTrigger = status;
@@ -137,6 +116,15 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 
 	public void setDisableAfterTrigger(boolean disableAfterTrigger) {
 		this.disableAfterTrigger = disableAfterTrigger;
+	}
+
+	@Override
+	public boolean isDisable() {
+		return disable;
+	}
+	@Override
+	public void setDisable(boolean disable) {
+		this.disable = disable;
 	}
 
 

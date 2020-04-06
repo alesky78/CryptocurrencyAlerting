@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -20,8 +22,10 @@ import javax.swing.JTextField;
 
 import it.spaghettisource.cryptocurrencyalerting.action.ActionType;
 import it.spaghettisource.cryptocurrencyalerting.alert.PriceVariationGlobalMarketAlert;
+import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
 import it.spaghettisource.cryptocurrencyalerting.provider.MarketAdapter;
+import it.spaghettisource.cryptocurrencyalerting.repository.PriceVariationGlobalMarketAlertRepository;
 import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
 import it.spaghettisource.cryptocurrencyalerting.utils.FontFactory;
 import it.spaghettisource.cryptocurrencyalerting.utils.ImageIconFactory;
@@ -32,16 +36,31 @@ import it.spaghettisource.cryptocurrencyalerting.utils.ImageIconFactory;
  * @author Alessandro D'Ottavio
  * @version 1.0
  */
-public class PanelPriceAlertPriceVariation extends JPanel {
+public class PanelPriceAlertPriceVariation extends JPanel implements ActionListener{
 
+	private static String EVENT_SAVE="SAVE";
+	
 	private StringMessageHelper messageHelper;
 	private MarketAdapter marketAdapter;
+	private ExceptionFactory exceptionFactory;
+	
+	private JComboBox<KeyValueItem> action;
+	private JComboBox<String> criptocurrency;
+	private JComboBox<KeyValueItem> condition;
+	private JComboBox<String> fiat; 
+	private JTextField price;
+	private JCheckBox enableCoolDown;
+	private JTextField timeCoolDonw;
+	private JCheckBox disableAfterTrigger;
+	private JCheckBox disable;
+	
 	
 	public PanelPriceAlertPriceVariation() {
 		super();
 		
 		messageHelper = ServiceLocator.getInstance().getMessageHelper();
 		marketAdapter = ServiceLocator.getInstance().getMarketAdapter();
+		exceptionFactory = ServiceLocator.getInstance().getExceptionFactory();
 		
 		setLayout(new BorderLayout());
 		
@@ -101,14 +120,14 @@ public class PanelPriceAlertPriceVariation extends JPanel {
 		//elements		
 		JLabel send = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.send"));
 		
-		JComboBox<KeyValueItem> action = new JComboBox<KeyValueItem>();
+		action = new JComboBox<KeyValueItem>();
 		for (ActionType value : ActionType.values()) {
 			action.addItem(new KeyValueItem(value.getId(), messageHelper.getFormattedMessageI18N(value.getI18nKey())));
 		}
 		
 		JLabel asSoonAs = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.asSoonAs"));
 				
-		JComboBox<String> criptocurrency = new JComboBox<String>();
+		criptocurrency = new JComboBox<String>();
 		for (String actual : marketAdapter.findAllCryptocurrency()) {
 			criptocurrency.addItem(actual);
 		}
@@ -116,26 +135,26 @@ public class PanelPriceAlertPriceVariation extends JPanel {
 		
 		JLabel goes = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.goes"));
 		
-		JComboBox<KeyValueItem> condition = new JComboBox<KeyValueItem>();
+		condition = new JComboBox<KeyValueItem>();
 		condition.addItem(new KeyValueItem(PriceVariationGlobalMarketAlert.ABOVE, messageHelper.getFormattedMessageI18N(PriceVariationGlobalMarketAlert.ABOVE_I18N)));
 		condition.addItem(new KeyValueItem(PriceVariationGlobalMarketAlert.BELOW, messageHelper.getFormattedMessageI18N(PriceVariationGlobalMarketAlert.BELOW_I18N)));		
 		
 		
 		JLabel thePriceOf = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.priceOf"));
-		JTextField price = new JTextField("0,0");
+		price = new JTextField("0,0");
 
-		JComboBox<String> fiat = new JComboBox<String>();
+		fiat = new JComboBox<String>();
 		for (String actual : marketAdapter.findAllFiat()) {
 			fiat.addItem(actual);
 		}
 		
 		//allert control elemetns
-		JCheckBox enableCoolDown = new JCheckBox(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.enableCoolDown"));
-		JTextField timeCoolDonw = new JTextField("60");		
+		enableCoolDown = new JCheckBox(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.enableCoolDown"));
+		timeCoolDonw = new JTextField("60");		
 		JLabel minutes = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.minutes"));		
 		
-		JCheckBox disableAfterTrigger = new JCheckBox(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.disableAfterTrigger"));
-		JCheckBox disable = new JCheckBox(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.disable"));		
+		disableAfterTrigger = new JCheckBox(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.disableAfterTrigger"));
+		disable = new JCheckBox(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.disable"));		
 		
 		//add the font
 		Font font = FontFactory.getPanelBodyFont();
@@ -217,16 +236,42 @@ public class PanelPriceAlertPriceVariation extends JPanel {
 
 	
 	private JPanel createControl() {
-		//SOUTH set the controls here
-		//Lay out the buttons from left to right.
+
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
 		buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 		buttonPane.add(Box.createHorizontalGlue());
-		buttonPane.add(new JButton("Save"));
-//		buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
-//		buttonPane.add(new JButton("bottone 2"));
+		JButton save =  new JButton(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.save"));
+		save.addActionListener(this);
+		save.setActionCommand(EVENT_SAVE);
+		buttonPane.add(save);
+
+		
+		
 		return buttonPane;
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		if(event.getActionCommand().equals(EVENT_SAVE)) {
+			PriceVariationGlobalMarketAlert alert = new PriceVariationGlobalMarketAlert((String)criptocurrency.getSelectedItem(), 
+																						(String)fiat.getSelectedItem(), 
+																						Double.valueOf(price.getText()) , 
+																						((KeyValueItem)condition.getSelectedItem()).getId());
+			alert.setDisable(disable.isSelected());
+			alert.disableAfterTrigger(disableAfterTrigger.isSelected());
+			alert.setCoolDown(enableCoolDown.isSelected());
+			alert.setCoolDownMinuts( Long.valueOf(timeCoolDonw.getText()));
+			
+			PriceVariationGlobalMarketAlertRepository alertRepository = new PriceVariationGlobalMarketAlertRepository(exceptionFactory);
+			
+			alertRepository.save(alert);
+			
+			
+		}
+		
+
 	}
 
 

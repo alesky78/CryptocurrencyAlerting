@@ -88,6 +88,10 @@ public class ServiceLocator {
 	}
 
 	
+	public ExceptionFactory getExceptionFactory() {
+		return exceptionFactory;
+	}
+
 	public StringMessageHelper getMessageHelper() {
 		return messageHelper;
 	}
