@@ -14,21 +14,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class PriceVariationGlobalMarketAlert extends AbstractAlert{
 
 	@JsonIgnore
-	public static int ABOVE = 1;
+	public static String ABOVE = "1";
+	public static String ABOVE_I18N = "alert.pricevariationglobalmarketalert.abow";	
 	@JsonIgnore
-	public static int BELOW = 2;	
+	public static String BELOW = "2";
+	public static String BELOW_I18N = "alert.pricevariationglobalmarketalert.below";	
 	
 	private String criptocurency;
 	private String fiat;
 	private Double price;	
-	private Integer mode; //ABOVE or BELOW		
+	private String mode; //ABOVE or BELOW		
 	
 	public PriceVariationGlobalMarketAlert() {
 		super();
 		alertType = AlertType.PriceVariationGlobalMarketAlert;
 	}
 
-	public PriceVariationGlobalMarketAlert(String criptocurency, String fiat, double price, int mode) {
+	public PriceVariationGlobalMarketAlert(String criptocurency, String fiat, double price, String mode) {
+		super();
 		alertType = AlertType.PriceVariationGlobalMarketAlert;
 		
 		this.criptocurency = criptocurency;
@@ -61,11 +64,11 @@ public class PriceVariationGlobalMarketAlert extends AbstractAlert{
 		this.price = price;
 	}
 
-	public Integer getMode() {
+	public String getMode() {
 		return mode;
 	}
 
-	public void setMode(Integer mode) {
+	public void setMode(String mode) {
 		this.mode = mode;
 	}
 
@@ -73,12 +76,12 @@ public class PriceVariationGlobalMarketAlert extends AbstractAlert{
 	protected boolean checkAndTrigger() {
 
 		Double actualQuote = adapter.quoteLatest(criptocurency, fiat);
-		if(mode==ABOVE) {
+		if(mode.equals(ABOVE)) {
 			if(actualQuote>price) {
 				getAction().trigger(createAlertMessage(actualQuote));
 				return true;
 			}
-		}else if(mode==BELOW) {
+		}else if(mode.equals(BELOW)) {
 			if(actualQuote<price) {
 				getAction().trigger(createAlertMessage(actualQuote));
 				return true;
@@ -92,10 +95,10 @@ public class PriceVariationGlobalMarketAlert extends AbstractAlert{
 		
 		String modeMessage = null;
 		
-		if(mode==ABOVE) {
-			modeMessage = messageHelper.getFormattedMessageI18N("alert.pricevariationglobalmarketalert.abow", null); 
+		if(mode.equals(ABOVE)) {
+			modeMessage = messageHelper.getFormattedMessageI18N(ABOVE_I18N, null); 
 		}else {
-			modeMessage = messageHelper.getFormattedMessageI18N("alert.pricevariationglobalmarketalert.below", null); 			
+			modeMessage = messageHelper.getFormattedMessageI18N(BELOW_I18N, null); 			
 		}
 		
 		Object[] parameters = new Object[] {criptocurency,fiat,actualQuote,modeMessage,price};

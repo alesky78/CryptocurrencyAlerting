@@ -67,7 +67,6 @@ public class CoinMarketCapJsonModelParserTest {
 		deserializer.setQuotePropertyName("EUR");
 		
 		ResponseCriptocurrencyQuoteLatest data = converter.jsonToObject(exceptionFactory, json, ResponseCriptocurrencyQuoteLatest.class,deserializer,deserializer.getDeserializerClass());
-		System.out.print(data.getData().getPrice());
 		
 		Assert.assertNotNull(data);	
 

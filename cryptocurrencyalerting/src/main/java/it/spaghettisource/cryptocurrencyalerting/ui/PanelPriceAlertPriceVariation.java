@@ -3,32 +3,48 @@ package it.spaghettisource.cryptocurrencyalerting.ui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
+import it.spaghettisource.cryptocurrencyalerting.action.ActionType;
+import it.spaghettisource.cryptocurrencyalerting.alert.PriceVariationGlobalMarketAlert;
 import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
+import it.spaghettisource.cryptocurrencyalerting.provider.MarketAdapter;
 import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
 import it.spaghettisource.cryptocurrencyalerting.utils.FontFactory;
 import it.spaghettisource.cryptocurrencyalerting.utils.ImageIconFactory;
 
 /**
- * UI to manage the creation of the Price Alert for price variation
+ * UI to manage the creation of the Price Alert for {@link#PriceVariationGlobalMarketAlert} 
  *
  * @author Alessandro D'Ottavio
  * @version 1.0
  */
 public class PanelPriceAlertPriceVariation extends JPanel {
 
+	private StringMessageHelper messageHelper;
+	private MarketAdapter marketAdapter;
+	
 	public PanelPriceAlertPriceVariation() {
 		super();
+		
+		messageHelper = ServiceLocator.getInstance().getMessageHelper();
+		marketAdapter = ServiceLocator.getInstance().getMarketAdapter();
+		
 		setLayout(new BorderLayout());
-		StringMessageHelper messageHelper = ServiceLocator.getInstance().getMessageHelper();
+		
 		
 		//NOTH set title of the panel
 		JPanel northPane = createHeader(
@@ -40,20 +56,10 @@ public class PanelPriceAlertPriceVariation extends JPanel {
 
 		//CENTER set the body
 		JPanel centerPane = createBody();
-
-		
 		add(centerPane, BorderLayout.CENTER);
 		
-		//SOUTH set the controls here
-		//Lay out the buttons from left to right.
-		JPanel buttonPane = new JPanel();
-		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
-		buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-		buttonPane.add(Box.createHorizontalGlue());
-		buttonPane.add(new JButton("bottone 1"));
-		buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
-		buttonPane.add(new JButton("bottone 2"));
-
+		//SOUTH control panel
+		JPanel buttonPane = createControl();
 		add(buttonPane, BorderLayout.SOUTH);
 	}
 
@@ -64,9 +70,11 @@ public class PanelPriceAlertPriceVariation extends JPanel {
 		
 		JLabel titleIcon = new JLabel(title,ImageIconFactory.getForTitle(titleImmage),JLabel.CENTER);
 		JLabel descr = new JLabel(description);
-		
-		titleIcon.setFont(FontFactory.getPanelTitleFont());
-		descr.setFont(FontFactory.getPanelTitleFont());		
+
+		//add the font
+		Font font = FontFactory.getPanelTitleFont();
+		titleIcon.setFont(font);
+		descr.setFont(font);		
 		
 		titleIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
 		descr.setAlignmentX(Component.CENTER_ALIGNMENT);		
@@ -75,7 +83,7 @@ public class PanelPriceAlertPriceVariation extends JPanel {
 		northPane.add(titleIcon);
 		northPane.add(Box.createRigidArea(new Dimension(0,10)));		
 		northPane.add(descr);
-		northPane.add(Box.createRigidArea(new Dimension(0,20)));		
+		northPane.add(Box.createRigidArea(new Dimension(0,30)));		
 
 		return northPane;
 	}
@@ -83,21 +91,142 @@ public class PanelPriceAlertPriceVariation extends JPanel {
 
 	private JPanel createBody() {
 
-		FlowLayout flowLayout = new FlowLayout();
+		messageHelper = ServiceLocator.getInstance().getMessageHelper();
+		
+		//panel and layout
 		JPanel centerPane = new JPanel();
-		centerPane.setLayout(flowLayout);
+		centerPane.setLayout(new GridBagLayout());
+	    GridBagConstraints c = new GridBagConstraints();
+
+		//elements		
+		JLabel send = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.send"));
+		
+		JComboBox<KeyValueItem> action = new JComboBox<KeyValueItem>();
+		for (ActionType value : ActionType.values()) {
+			action.addItem(new KeyValueItem(value.getId(), messageHelper.getFormattedMessageI18N(value.getI18nKey())));
+		}
+		
+		JLabel asSoonAs = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.asSoonAs"));
+				
+		JComboBox<String> criptocurrency = new JComboBox<String>();
+		for (String actual : marketAdapter.findAllCryptocurrency()) {
+			criptocurrency.addItem(actual);
+		}
+
+		
+		JLabel goes = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.goes"));
+		
+		JComboBox<KeyValueItem> condition = new JComboBox<KeyValueItem>();
+		condition.addItem(new KeyValueItem(PriceVariationGlobalMarketAlert.ABOVE, messageHelper.getFormattedMessageI18N(PriceVariationGlobalMarketAlert.ABOVE_I18N)));
+		condition.addItem(new KeyValueItem(PriceVariationGlobalMarketAlert.BELOW, messageHelper.getFormattedMessageI18N(PriceVariationGlobalMarketAlert.BELOW_I18N)));		
 		
 		
-		//Add buttons to experiment with Grid Layout
-		centerPane.add(new JButton("5"));
-		centerPane.add(new JLabel("testo"));
-		centerPane.add(new JLabel(ImageIconFactory.getForTitle("priceVariationValue.png")));
-		centerPane.add(new JLabel("testo"));
-		centerPane.add(new JButton("5"));
+		JLabel thePriceOf = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.priceOf"));
+		JTextField price = new JTextField("0,0");
+
+		JComboBox<String> fiat = new JComboBox<String>();
+		for (String actual : marketAdapter.findAllFiat()) {
+			fiat.addItem(actual);
+		}
 		
+		//allert control elemetns
+		JCheckBox enableCoolDown = new JCheckBox(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.enableCoolDown"));
+		JTextField timeCoolDonw = new JTextField("60");		
+		JLabel minutes = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.minutes"));		
+		
+		JCheckBox disableAfterTrigger = new JCheckBox(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.disableAfterTrigger"));
+		JCheckBox disable = new JCheckBox(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.disable"));		
+		
+		//add the font
+		Font font = FontFactory.getPanelBodyFont();
+		send.setFont(font);
+		action.setFont(font);
+		asSoonAs.setFont(font);
+		criptocurrency.setFont(font);
+		goes.setFont(font);
+		condition.setFont(font);
+		thePriceOf.setFont(font);
+		price.setFont(font);
+		fiat.setFont(font);
+		
+		enableCoolDown.setFont(font);
+		timeCoolDonw.setFont(font);
+		minutes.setFont(font);
+		disableAfterTrigger.setFont(font);
+		disable.setFont(font);
+		
+		//Add the element to the layout
+		c.gridx = 0;
+		c.gridy = 0;
+		c.ipadx = 50;
+		c.insets= new Insets(0, 0, 0, 15);		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.LINE_START;	
+		centerPane.add(send,c);
+		c.gridx = 1;
+		c.gridy = 0;
+		centerPane.add(action,c);		
+		c.gridx = 2;
+		c.gridy = 0;		
+		centerPane.add(asSoonAs,c);		
+
+		c.gridx = 0;
+		c.gridy = 1;
+		centerPane.add(criptocurrency,c);
+		c.gridx = 1;
+		c.gridy = 1;
+		centerPane.add(goes,c);
+		c.gridx = 2;
+		c.gridy = 1;		
+		centerPane.add(condition,c);
+		
+		c.gridx = 0;
+		c.gridy = 2;
+		centerPane.add(thePriceOf,c);
+		c.gridx = 1;
+		c.gridy = 2;
+		price.setColumns(7);
+		centerPane.add(price,c);
+		c.gridx = 2;
+		c.gridy = 2;
+		centerPane.add(fiat,c);			
+		
+		//Add the controls to the layout
+		c.gridx = 0;
+		c.gridy = 3;
+		c.insets= new Insets(20, 0, 0, 15);
+		centerPane.add(enableCoolDown,c);		
+		c.gridx = 1;
+		c.gridy = 3;
+		timeCoolDonw.setColumns(5);
+		centerPane.add(timeCoolDonw,c);		
+		c.gridx = 2;
+		c.gridy = 3;
+		centerPane.add(minutes,c);				
+		c.gridx = 0;
+		c.gridy = 4;
+		c.insets= new Insets(0, 0, 0, 15);		
+		centerPane.add(disableAfterTrigger,c);		
+		c.gridx = 1;
+		c.gridy = 4;
+		centerPane.add(disable,c);		
 		
 		
 		return centerPane;
+	}
+
+	
+	private JPanel createControl() {
+		//SOUTH set the controls here
+		//Lay out the buttons from left to right.
+		JPanel buttonPane = new JPanel();
+		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+		buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+		buttonPane.add(Box.createHorizontalGlue());
+		buttonPane.add(new JButton("Save"));
+//		buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
+//		buttonPane.add(new JButton("bottone 2"));
+		return buttonPane;
 	}
 
 

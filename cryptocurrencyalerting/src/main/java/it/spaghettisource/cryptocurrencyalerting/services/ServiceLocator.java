@@ -92,7 +92,10 @@ public class ServiceLocator {
 		return messageHelper;
 	}
 
-	
-	
+	public MarketAdapter getMarketAdapter() {
+		return marketAdapter;
+	}
+
+		
 
 }

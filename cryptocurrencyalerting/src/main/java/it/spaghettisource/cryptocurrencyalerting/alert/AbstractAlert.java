@@ -26,10 +26,10 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	protected boolean disableAfterTrigger;	
 	protected boolean coolDown;	//is in coolDown mode
 	protected boolean enableCoolDown; //is requested to go in coolDown after the trigger		
-	protected long coolDownSeconds;	
+	protected long coolDownMinuts;	
 	
-	protected long lastTriggerSecond;
-	protected long timePassSinceLastTriggerSecond;	
+	protected long lastTriggerMinutes;
+	protected long timePassSinceLastTriggerMinutes;	
 	
 	@JsonIgnore
 	protected MarketAdapter adapter;
@@ -47,9 +47,9 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 		disableAfterTrigger = false;
 		coolDown = false;
 		enableCoolDown = true;
-		coolDownSeconds = 900L; //15 minuts by default		
-		lastTriggerSecond=-1;
-		timePassSinceLastTriggerSecond=-1;
+		coolDownMinuts = 60L; //60 minuts by default		
+		lastTriggerMinutes=-1;
+		timePassSinceLastTriggerMinutes=-1;
 	}
 	
 	
@@ -72,9 +72,9 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 			//check if in coolDown 
 			if(enableCoolDown && coolDown) {
 				
-				timePassSinceLastTriggerSecond = (System.currentTimeMillis()/1000L) - lastTriggerSecond;
+				timePassSinceLastTriggerMinutes = ((System.currentTimeMillis()/1000L)/60L) - lastTriggerMinutes;
 				
-				if(timePassSinceLastTriggerSecond>coolDownSeconds) {
+				if(timePassSinceLastTriggerMinutes>coolDownMinuts) {
 					coolDown = false;	//the coolDown period is finish
 				}
 				
@@ -82,7 +82,7 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 				
 				boolean triggered = checkAndTrigger();
 				
-				lastTriggerSecond = System.currentTimeMillis()/1000L;
+				lastTriggerMinutes = ((System.currentTimeMillis()/1000L)/60L);
 				
 				if(enableCoolDown) {
 					coolDown = true;
@@ -119,15 +119,15 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	}
 
 	@Override
-	public void enableCoolDown(long seconds) {
+	public void enableCoolDown(long minuts) {
 		enableCoolDown = true;
-		coolDownSeconds = seconds;
+		coolDownMinuts = minuts;
 	}
 
 	@Override
 	public void disableCoolDown() {
 		enableCoolDown = false;
-		coolDownSeconds = -1;
+		coolDownMinuts = -1;
 	}
 		
 	public boolean isDisableAfterTrigger() {
@@ -159,34 +159,33 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 		this.enableCoolDown = enableCoolDown;
 	}
 
-
-	public long getCoolDownSeconds() {
-		return coolDownSeconds;
+	public long getCoolDownMinuts() {
+		return coolDownMinuts;
 	}
 
 
-	public void setCoolDownSeconds(long coolDownSeconds) {
-		this.coolDownSeconds = coolDownSeconds;
+	public void setCoolDownMinuts(long coolDownMinuts) {
+		this.coolDownMinuts = coolDownMinuts;
 	}
 
 
 	public long getLastTriggerSecond() {
-		return lastTriggerSecond;
+		return lastTriggerMinutes;
 	}
 
 
 	public void setLastTriggerSecond(long lastTriggerSecond) {
-		this.lastTriggerSecond = lastTriggerSecond;
+		this.lastTriggerMinutes = lastTriggerSecond;
 	}
 
 
 	public long getTimePassSinceLastTriggerSecond() {
-		return timePassSinceLastTriggerSecond;
+		return timePassSinceLastTriggerMinutes;
 	}
 
 
 	public void setTimePassSinceLastTriggerSecond(long timePassSinceLastTriggerSecond) {
-		this.timePassSinceLastTriggerSecond = timePassSinceLastTriggerSecond;
+		this.timePassSinceLastTriggerMinutes = timePassSinceLastTriggerSecond;
 	}
 
 	public ActionType getActionType() {

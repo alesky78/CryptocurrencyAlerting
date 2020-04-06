@@ -65,7 +65,7 @@ public class AppSwingUIManager{
 		JFrame frame = new JFrame();
 		frame.setIconImage(ImageIconFactory.getAppImage());
 		frame.setTitle("cryptocurrency alerting");
-		frame.setSize(800, 600);
+		frame.setSize(600, 400);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);

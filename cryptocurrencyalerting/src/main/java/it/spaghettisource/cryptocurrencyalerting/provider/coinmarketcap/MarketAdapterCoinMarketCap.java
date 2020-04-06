@@ -79,7 +79,7 @@ public class MarketAdapterCoinMarketCap extends MarketAdapterAbstract {
 		
 		List<String> response = new ArrayList<String>();
 		for (Fiat fiat : data.getData()) {
-			response.add(fiat.getName());
+			response.add(fiat.getSymbol());
 		}
 		
 		return response;
