@@ -28,10 +28,11 @@ import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
 import it.spaghettisource.cryptocurrencyalerting.provider.MarketAdapter;
 import it.spaghettisource.cryptocurrencyalerting.repository.PriceVariationGlobalMarketAlertRepository;
 import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
+import it.spaghettisource.cryptocurrencyalerting.ui.utils.FilterInteger;
+import it.spaghettisource.cryptocurrencyalerting.ui.utils.FilterPrice;
 import it.spaghettisource.cryptocurrencyalerting.ui.utils.FontFactory;
 import it.spaghettisource.cryptocurrencyalerting.ui.utils.ImageIconFactory;
 import it.spaghettisource.cryptocurrencyalerting.ui.utils.KeyValueItem;
-import it.spaghettisource.cryptocurrencyalerting.ui.utils.PriceFilter;
 
 /**
  * UI to manage the creation of the Price Alert for {@link#PriceVariationGlobalMarketAlert} 
@@ -144,9 +145,9 @@ public class PanelPriceAlertPriceVariation extends JPanel implements ActionListe
 		
 		
 		JLabel thePriceOf = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.priceOf"));
-		price = new JTextField("0.0");
+		price = new JTextField("0");
 		PlainDocument doc = (PlainDocument) price.getDocument();
-	    doc.setDocumentFilter(new PriceFilter());
+	    doc.setDocumentFilter(new FilterPrice());
 	     
 
 		fiat = new JComboBox<String>();
@@ -156,7 +157,10 @@ public class PanelPriceAlertPriceVariation extends JPanel implements ActionListe
 		
 		//allert control elemetns
 		enableCoolDown = new JCheckBox(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.enableCoolDown"));
-		timeCoolDonw = new JTextField("60");		
+		timeCoolDonw = new JTextField("60");
+		PlainDocument doc2 = (PlainDocument) timeCoolDonw.getDocument();
+	    doc2.setDocumentFilter(new FilterInteger());
+		
 		JLabel minutes = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.minutes"));		
 		
 		disableAfterTrigger = new JCheckBox(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.disableAfterTrigger"));
