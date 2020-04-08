@@ -7,6 +7,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
 import it.spaghettisource.cryptocurrencyalerting.ui.AppSwingUIManager;
 
 /**
@@ -40,9 +41,13 @@ public class Application {
 			log.error("Nimbus is not available, default GUI look and feel will be used",e);
 		}
 
-		//start the UI application
+		//start theapplication
 		try {
 			
+			//start the services
+			ServiceLocator.initialize();
+			
+			//start the UI
 			AppSwingUIManager uiManager = new AppSwingUIManager();
 			uiManager.startUI();
 			

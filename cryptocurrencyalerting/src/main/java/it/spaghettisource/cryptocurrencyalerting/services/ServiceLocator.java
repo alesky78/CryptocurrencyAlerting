@@ -40,16 +40,19 @@ public class ServiceLocator {
 	}
 
 	public static ServiceLocator getInstance() {
-		if(serviceLocator==null) {
-			serviceLocator = new ServiceLocator();
-			serviceLocator.init();
-		}
 		return serviceLocator;
 	}
+	
+
+	public static void initialize() {
+			serviceLocator = new ServiceLocator();
+			serviceLocator.init();
+	}
+	
 
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void init() {
+	private void init() {
 
 
 		//load the specific property configuration file
