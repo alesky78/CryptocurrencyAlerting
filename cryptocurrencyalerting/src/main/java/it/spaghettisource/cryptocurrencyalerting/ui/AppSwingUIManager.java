@@ -28,15 +28,30 @@ public class AppSwingUIManager{
 
 	static Log log = LogFactory.getLog(AppSwingUIManager.class.getName());
 
+	public static final int FRAME_WIDTH = 800;
+	public static final int FRAME_HEIGHT = 400;	
+	
 	/**
 	 * this are the TAB used in the main page
 	 */
-	public final static String TAB_PRICEALERT_PRICE_VARIATION = "ui.panel.PanelPriceAlertPriceVariation.title";		
+	public final static String TAB_PRICEALERT_PRICE_VARIATION = "ui.panel.PanelPriceAlertPriceVariation.title";
+	public final static String TAB_ALERT_MANAGEMETN = "ui.panel.PanelAlertManagement.title";			
 
 
 	private JFrame mainFrame;
 	
-	private JPanel PanelPriceAlertPriceVariation;	
+	private PanelPriceAlertPriceVariation PanelPriceAlertPriceVariation;
+	private PanelAlertManagement PanelAlertManagement;		
+
+
+	public PanelPriceAlertPriceVariation getPanelPriceAlertPriceVariation() {
+		return PanelPriceAlertPriceVariation;
+	}
+
+
+	public PanelAlertManagement getPanelAlertManagement() {
+		return PanelAlertManagement;
+	}
 
 
 	public void startUI(){
@@ -65,7 +80,7 @@ public class AppSwingUIManager{
 		JFrame frame = new JFrame();
 		frame.setIconImage(ImageIconFactory.getAppImage());
 		frame.setTitle("cryptocurrency alerting");
-		frame.setSize(600, 400);
+		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
@@ -78,9 +93,11 @@ public class AppSwingUIManager{
 		tabbedPane.addChangeListener(new TabModelChangeListener());	//refresh the model when enter in the tab model
 
 		
-		PanelPriceAlertPriceVariation = new PanelPriceAlertPriceVariation();
+		PanelPriceAlertPriceVariation = new PanelPriceAlertPriceVariation(this);
+		PanelAlertManagement = new PanelAlertManagement(this);
 
-		tabbedPane.addTab(messageHelper.getFormattedMessageI18N(TAB_PRICEALERT_PRICE_VARIATION), ImageIconFactory.getForTab("priceVariationValue.png"),PanelPriceAlertPriceVariation);	
+		tabbedPane.addTab(messageHelper.getFormattedMessageI18N(TAB_PRICEALERT_PRICE_VARIATION), ImageIconFactory.getForTab("priceVariationValue.png"),PanelPriceAlertPriceVariation);
+		tabbedPane.addTab(messageHelper.getFormattedMessageI18N(TAB_ALERT_MANAGEMETN), ImageIconFactory.getForTab("controls.png"),PanelAlertManagement);			
 
 
 		frame.getContentPane().add(tabbedPane);

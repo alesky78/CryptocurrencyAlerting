@@ -43,6 +43,8 @@ import it.spaghettisource.cryptocurrencyalerting.ui.utils.KeyValueItem;
 public class PanelPriceAlertPriceVariation extends JPanel implements ActionListener{
 
 	private static String EVENT_SAVE="SAVE";
+
+	private AppSwingUIManager appSwingUIManager;  
 	
 	private StringMessageHelper messageHelper;
 	private MarketAdapter marketAdapter;
@@ -59,8 +61,10 @@ public class PanelPriceAlertPriceVariation extends JPanel implements ActionListe
 	private JCheckBox disable;
 	
 	
-	public PanelPriceAlertPriceVariation() {
+	public PanelPriceAlertPriceVariation(AppSwingUIManager appSwingUIManager) {
 		super();
+		
+		this.appSwingUIManager = appSwingUIManager;
 		
 		messageHelper = ServiceLocator.getInstance().getMessageHelper();
 		marketAdapter = ServiceLocator.getInstance().getMarketAdapter();
@@ -281,6 +285,7 @@ public class PanelPriceAlertPriceVariation extends JPanel implements ActionListe
 			
 			alertRepository.save(alert);
 			
+			appSwingUIManager.getPanelAlertManagement().fireNewAllertCreated(alert);
 			
 		}
 		
