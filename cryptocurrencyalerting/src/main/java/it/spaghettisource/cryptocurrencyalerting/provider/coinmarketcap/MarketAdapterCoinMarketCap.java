@@ -46,7 +46,7 @@ public class MarketAdapterCoinMarketCap extends MarketAdapterAbstract {
 		}
 		
 		//configure the properties
-		refreshRateMilliseconds = Integer.parseInt(prop.getProperty("refreshRate")); 
+		refreshRateMilliseconds = Integer.parseInt(prop.getProperty("refreshRateMilliseconds")); 
 		
 	}
 

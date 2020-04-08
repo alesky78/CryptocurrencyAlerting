@@ -61,7 +61,7 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 			//check if in coolDown 
 			if(enableCoolDown && coolDown) {
 				
-				timePassSinceLastTriggerMinutes = ((System.currentTimeMillis()/1000L)/60L) - lastTriggerMinutes;
+				timePassSinceLastTriggerMinutes = getCurrentTimeInmiuntes() - lastTriggerMinutes;
 				
 				if(timePassSinceLastTriggerMinutes>coolDownMinuts) {
 					coolDown = false;	//the coolDown period is finish
@@ -69,22 +69,27 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 				
 			}else {
 				
-				boolean triggered = checkAndTrigger();
-				
-				lastTriggerMinutes = ((System.currentTimeMillis()/1000L)/60L);
-				
-				if(enableCoolDown) {
-					coolDown = true;
+				if(checkAndTrigger()) {
+					lastTriggerMinutes = getCurrentTimeInmiuntes();
+					
+					if(enableCoolDown) {
+						coolDown = true;
+					}
+					
+					if(disableAfterTrigger) {
+						disable = true;
+					}
 				}
 				
-				if(triggered && disableAfterTrigger) {
-					disable = true;
-				}				
 			}
 		}
 
 	}
 	
+	
+	private long getCurrentTimeInmiuntes() {
+		return System.currentTimeMillis()/1000L/60L;
+	}
 	
 	protected Action getAction() {
 		return actionService.findAction(actionType);
