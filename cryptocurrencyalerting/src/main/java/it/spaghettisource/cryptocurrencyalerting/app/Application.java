@@ -4,8 +4,8 @@ package it.spaghettisource.cryptocurrencyalerting.app;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
 import it.spaghettisource.cryptocurrencyalerting.ui.AppSwingUIManager;
@@ -19,7 +19,7 @@ import it.spaghettisource.cryptocurrencyalerting.ui.AppSwingUIManager;
  */
 public class Application {
 
-	static Log log = LogFactory.getLog(Application.class.getName());
+	static Logger log = LoggerFactory.getLogger(Application.class);
 
 	private Application(){
 	}
@@ -28,6 +28,8 @@ public class Application {
 
 	public static void main(String[] args) throws Exception{
 
+    	log.info("start the application");
+		
 		//set the look and feel of swing
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -41,7 +43,7 @@ public class Application {
 			log.error("Nimbus is not available, default GUI look and feel will be used",e);
 		}
 
-		//start theapplication
+		//start the application
 		try {
 			
 			//start the services
@@ -51,10 +53,17 @@ public class Application {
 			AppSwingUIManager uiManager = new AppSwingUIManager();
 			uiManager.startUI();
 			
+			//start the agent that check the allert
+			ServiceLocator.getInstance().getAgentController().start();
+			
+			
+			
 		} catch (Exception ex) {
-			log.fatal("unexpected error starting the application", ex);
+			log.error("errro statring the application",ex);
 			System.exit(-1);
 		}
+		
+    	log.info("start succesfully");
 
 	}
 

@@ -6,12 +6,20 @@ import java.util.List;
 import it.spaghettisource.cryptocurrencyalerting.exception.BaseException;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 
+/**
+ * Implementation of the {@link MarketAdapter} that simulate the behavior of a real market adapter
+ * it is used for test purpose configuring the marketAdapter.class in the configuration.properties file
+ * 
+ * @author Alessandro D'Ottavio
+ * @version 1.0
+ */
 public class TestMarketAdapter extends MarketAdapterAbstract {
 
 	public TestMarketAdapter(ExceptionFactory exceptionFactory) {
 		super(exceptionFactory);
-
+		refreshRateMilliseconds = 60000;
 	}
+	
 
 	@Override
 	public List<String> findAllFiat() throws BaseException {
@@ -34,8 +42,8 @@ public class TestMarketAdapter extends MarketAdapterAbstract {
 
 	@Override
 	public Double quoteLatest(String cryptocurrency, String fiat) throws BaseException {
-
-		return null;
+		
+		return 1000D;
 	}
 
 }

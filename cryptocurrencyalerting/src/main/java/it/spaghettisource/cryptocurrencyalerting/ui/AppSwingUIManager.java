@@ -4,14 +4,13 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
 import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
@@ -26,7 +25,7 @@ import it.spaghettisource.cryptocurrencyalerting.ui.utils.ImageIconFactory;
  */
 public class AppSwingUIManager{
 
-	static Log log = LogFactory.getLog(AppSwingUIManager.class.getName());
+	static Logger  log = LoggerFactory.getLogger(AppSwingUIManager.class);
 
 	public static final int FRAME_WIDTH = 800;
 	public static final int FRAME_HEIGHT = 400;	

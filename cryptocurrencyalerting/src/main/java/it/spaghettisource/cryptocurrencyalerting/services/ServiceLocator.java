@@ -3,6 +3,7 @@ package it.spaghettisource.cryptocurrencyalerting.services;
 import java.lang.reflect.Constructor;
 import java.util.Properties;
 
+import it.spaghettisource.cryptocurrencyalerting.agent.AgentController;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.i18n.MessageRepository;
 import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
@@ -29,6 +30,9 @@ public class ServiceLocator {
 	private StringMessageHelper messageHelper;
 	private ExceptionFactory exceptionFactory;
 	private MarketAdapter marketAdapter;
+	
+	
+	private AgentController agentController;
 	
 	//services
 	private ActionService actionService;
@@ -83,6 +87,10 @@ public class ServiceLocator {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		//prepare the agent
+		agentController = new AgentController(marketAdapter.getRefreshRate(),exceptionFactory);
 
 		//prepare the action manager
 		actionService = new ActionService(exceptionFactory);
@@ -102,6 +110,18 @@ public class ServiceLocator {
 	public MarketAdapter getMarketAdapter() {
 		return marketAdapter;
 	}
+
+	public AgentController getAgentController() {
+		return agentController;
+	}
+
+	public ActionService getActionService() {
+		return actionService;
+	}
+	
+	
+	
+	
 
 		
 

@@ -7,8 +7,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utility used to create the icons in the UI 
@@ -19,7 +19,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ImageIconFactory {
 
-	static Log log = LogFactory.getLog(ImageIconFactory.class.getName());
+	static Logger log = LoggerFactory.getLogger(ImageIconFactory.class);
 
 	public final static String ICON_LOCATION = "/icon/";
 

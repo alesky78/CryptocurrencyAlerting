@@ -10,7 +10,7 @@ package it.spaghettisource.cryptocurrencyalerting.repository;
  */
 public class CommonEntity implements Entity<String> {
 
-	private String id;
+	protected String id;
 	
 	@Override
 	public String getId() {

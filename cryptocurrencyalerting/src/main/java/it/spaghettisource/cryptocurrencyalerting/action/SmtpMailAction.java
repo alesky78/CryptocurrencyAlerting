@@ -10,6 +10,10 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import it.spaghettisource.cryptocurrencyalerting.agent.Agent;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.utils.FileUtil;
 
@@ -22,22 +26,24 @@ import it.spaghettisource.cryptocurrencyalerting.utils.FileUtil;
  */
 public class SmtpMailAction extends AbstractAction {
 
+	static Logger log = LoggerFactory.getLogger(SmtpMailAction.class);
+	
 	public static String CONFIG_FILE_PATH = System.getProperty("user.dir")+ System.getProperty("file.separator")+"configuration\\action\\";
 	public static String CONFIG_FILE_NAME = "mail.properties";
-	
-	
+
+
 	private Properties prop;
 
 	public SmtpMailAction(ExceptionFactory exceptionFactory) {
 		super();
 		init(exceptionFactory, CONFIG_FILE_PATH, CONFIG_FILE_NAME);
-				
+
 	}
 
 	public SmtpMailAction(ExceptionFactory exceptionFactory,String configFilePath,String configFileName) {
 		super();
 		init(exceptionFactory, configFilePath, configFileName);
-				
+
 	}
 
 	private void init(ExceptionFactory exceptionFactory,String configFilePath,String configFileName) {
@@ -50,7 +56,7 @@ public class SmtpMailAction extends AbstractAction {
 		}catch (Exception cause) {
 			throw exceptionFactory.getImpossibleReadFileException(cause, configFilePath, configFileName);
 		}
-		
+
 	}
 
 
@@ -58,7 +64,6 @@ public class SmtpMailAction extends AbstractAction {
 	public void trigger(String message) {
 
 		Session session = null;
-		Properties prop = new Properties();
 
 		//server info
 		prop.put("mail.smtp.host", prop.getProperty("host"));
@@ -86,22 +91,41 @@ public class SmtpMailAction extends AbstractAction {
 			session = Session.getInstance(prop);
 		}
 
-		//send the message
-		try {
-
-			Message mailMessage = new MimeMessage(session);
-			mailMessage.setFrom(new InternetAddress(prop.getProperty("username")));
-			mailMessage.setRecipients(Message.RecipientType.TO,InternetAddress.parse(prop.getProperty("username")));
-			mailMessage.setSubject("Cryptocurrency Alert!!!!");
-			mailMessage.setText(message);
-
-			Transport.send(mailMessage);
-
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}		 
+		Thread thread = new Thread(new SendAsyncMail(session, message), "Thread send mail");
+		thread.start();
 
 	}
 
+
+
+	class SendAsyncMail implements Runnable{
+
+		private Session session;
+		private String message;
+
+
+		public SendAsyncMail(Session session,String message) {
+			super();
+			this.session = session;
+			this.message = message;
+		}
+
+		@Override
+		public void run() {
+			//send the message
+			try {
+				Message mailMessage = new MimeMessage(session);
+				mailMessage.setFrom(new InternetAddress(prop.getProperty("username")));
+				mailMessage.setRecipients(Message.RecipientType.TO,InternetAddress.parse(prop.getProperty("username")));
+				mailMessage.setSubject("Cryptocurrency Alert!!!!");
+				mailMessage.setText(message);
+				Transport.send(mailMessage);
+			} catch (MessagingException e) {
+				log.error("error sending a mail alert", e);
+			}
+
+		}
+
+	}
 
 }

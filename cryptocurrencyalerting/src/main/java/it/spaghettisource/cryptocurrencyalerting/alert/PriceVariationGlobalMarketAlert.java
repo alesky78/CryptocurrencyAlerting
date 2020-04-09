@@ -2,6 +2,11 @@ package it.spaghettisource.cryptocurrencyalerting.alert;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
+import it.spaghettisource.cryptocurrencyalerting.provider.MarketAdapter;
+import it.spaghettisource.cryptocurrencyalerting.repository.PriceVariationGlobalMarketAlertRepository;
+import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
+
 /**
  * this Alert is used to verify if the price of a specific criptocurrency goes above or below 
  * a certain price in a specific fiat on the global market  
@@ -28,6 +33,9 @@ public class PriceVariationGlobalMarketAlert extends AbstractAlert{
 	public PriceVariationGlobalMarketAlert() {
 		super();
 		alertType = AlertType.PriceVariationGlobalMarketAlert;
+		
+
+		
 	}
 
 	public PriceVariationGlobalMarketAlert(String criptocurency, String fiat, double price, String mode) {
@@ -74,7 +82,9 @@ public class PriceVariationGlobalMarketAlert extends AbstractAlert{
 
 	@Override
 	protected boolean checkAndTrigger() {
-
+		
+		MarketAdapter adapter = ServiceLocator.getInstance().getMarketAdapter();
+		
 		Double actualQuote = adapter.quoteLatest(criptocurency, fiat);
 		if(mode.equals(ABOVE)) {
 			if(actualQuote>price) {
@@ -93,6 +103,8 @@ public class PriceVariationGlobalMarketAlert extends AbstractAlert{
 	
 	private String createAlertMessage(Double actualQuote) {
 		
+		StringMessageHelper messageHelper  = ServiceLocator.getInstance().getMessageHelper();
+		
 		String modeMessage = null;
 		
 		if(mode.equals(ABOVE)) {
@@ -103,6 +115,15 @@ public class PriceVariationGlobalMarketAlert extends AbstractAlert{
 		
 		Object[] parameters = new Object[] {criptocurency,fiat,actualQuote,modeMessage,price};
 		return messageHelper.getFormattedMessageI18N("alert.pricevariationglobalmarketalert.message", parameters);
+	}
+
+	
+	@Override
+	protected void storeUpdatedData() {
+
+		PriceVariationGlobalMarketAlertRepository repository = new PriceVariationGlobalMarketAlertRepository(ServiceLocator.getInstance().getExceptionFactory());
+		repository.update(this);
+		
 	}
 	
 }

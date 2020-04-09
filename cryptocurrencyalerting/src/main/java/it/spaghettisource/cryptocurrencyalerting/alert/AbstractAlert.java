@@ -1,13 +1,12 @@
 package it.spaghettisource.cryptocurrencyalerting.alert;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.spaghettisource.cryptocurrencyalerting.action.Action;
 import it.spaghettisource.cryptocurrencyalerting.action.ActionType;
-import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
-import it.spaghettisource.cryptocurrencyalerting.provider.MarketAdapter;
 import it.spaghettisource.cryptocurrencyalerting.repository.CommonEntity;
-import it.spaghettisource.cryptocurrencyalerting.services.ActionService;
+import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
 
 
 /**
@@ -20,6 +19,8 @@ import it.spaghettisource.cryptocurrencyalerting.services.ActionService;
  */
 public abstract class AbstractAlert extends CommonEntity implements Alert {
 
+	static Logger log = LoggerFactory.getLogger(AbstractAlert.class);
+	
 	protected AlertType alertType;
 	
 	protected boolean disable;
@@ -28,15 +29,8 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	protected boolean enableCoolDown; //is requested to go in coolDown after the trigger		
 	protected long coolDownMinuts;	
 	
-	protected long lastTriggerMinutes;
-	protected long timePassSinceLastTriggerMinutes;	
-	
-	@JsonIgnore
-	protected MarketAdapter adapter;
-	@JsonIgnore
-	protected ActionService actionService;
-	@JsonIgnore	
-	protected StringMessageHelper messageHelper;
+	protected long lastTrigger;
+	protected long timePassSinceLastTrigger;	
 	
 	protected ActionType actionType;
 	
@@ -47,8 +41,8 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 		coolDown = false;
 		enableCoolDown = true;
 		coolDownMinuts = 60L; //60 minuts by default		
-		lastTriggerMinutes=-1;
-		timePassSinceLastTriggerMinutes=-1;
+		lastTrigger=-1;
+		timePassSinceLastTrigger=-1;
 	}
 	
 	
@@ -60,39 +54,52 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 		if(!disable) {
 			//check if in coolDown 
 			if(enableCoolDown && coolDown) {
+								
+				timePassSinceLastTrigger = System.currentTimeMillis() - lastTrigger;
 				
-				timePassSinceLastTriggerMinutes = getCurrentTimeInmiuntes() - lastTriggerMinutes;
-				
-				if(timePassSinceLastTriggerMinutes>coolDownMinuts) {
+				if(timePassSinceLastTrigger > (coolDownMinuts*60*1000) ) {
 					coolDown = false;	//the coolDown period is finish
+					log.debug("alert-"+id+"coolDown mode completed");
+				}else {
+					log.debug("alert-"+id+" in collDown mode");
 				}
 				
 			}else {
 				
 				if(checkAndTrigger()) {
-					lastTriggerMinutes = getCurrentTimeInmiuntes();
+					lastTrigger = System.currentTimeMillis();
 					
 					if(enableCoolDown) {
+						log.debug("alert-"+id+"activate coolDown after trigger");
 						coolDown = true;
+
 					}
 					
 					if(disableAfterTrigger) {
 						disable = true;
+						log.debug("alert-"+id+"disable after trigger");
 					}
 				}
 				
 			}
+			
+			storeUpdatedData();
+			
+		}else {
+			log.debug("alert-"+id+"alert disable");
 		}
 
 	}
 	
 	
+	
+
 	private long getCurrentTimeInmiuntes() {
 		return System.currentTimeMillis()/1000L/60L;
 	}
 	
 	protected Action getAction() {
-		return actionService.findAction(actionType);
+		return  ServiceLocator.getInstance().getActionService().findAction(actionType);
 	}
 
 	
@@ -162,22 +169,22 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 
 
 	public long getLastTriggerSecond() {
-		return lastTriggerMinutes;
+		return lastTrigger;
 	}
 
 
 	public void setLastTriggerSecond(long lastTriggerSecond) {
-		this.lastTriggerMinutes = lastTriggerSecond;
+		this.lastTrigger = lastTriggerSecond;
 	}
 
 
 	public long getTimePassSinceLastTriggerSecond() {
-		return timePassSinceLastTriggerMinutes;
+		return timePassSinceLastTrigger;
 	}
 
 
 	public void setTimePassSinceLastTriggerSecond(long timePassSinceLastTriggerSecond) {
-		this.timePassSinceLastTriggerMinutes = timePassSinceLastTriggerSecond;
+		this.timePassSinceLastTrigger = timePassSinceLastTriggerSecond;
 	}
 
 	public ActionType getActionType() {
@@ -206,5 +213,14 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	 * @return true if the trigger is activated
 	 */
 	protected abstract boolean checkAndTrigger();
+	
+	
+	/**
+	 * The {@link#Agent} get alwasy the data from the repository and don't use the data in memory
+	 * so every time the propreties are changed, the data must be store again in the file system, to be sure that the Agent will take alwasy the last version
+	 * but ot is responsibility of the specific alert know what is its repository where to store itself
+	 */
+	protected abstract void storeUpdatedData();
+		
 
 }

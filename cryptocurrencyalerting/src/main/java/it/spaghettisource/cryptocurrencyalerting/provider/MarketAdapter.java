@@ -19,7 +19,7 @@ public interface MarketAdapter {
 
 	
 	/**
-	 * get the refresh rate supported
+	 * get the refresh rate supported by the provide in milliseconds
 	 * 
 	 * @return
 	 */

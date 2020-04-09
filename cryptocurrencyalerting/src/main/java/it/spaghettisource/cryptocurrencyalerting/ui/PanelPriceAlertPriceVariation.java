@@ -278,7 +278,7 @@ public class PanelPriceAlertPriceVariation extends JPanel implements ActionListe
 			
 			alert.setDisable(disable.isSelected());
 			alert.disableAfterTrigger(disableAfterTrigger.isSelected());
-			alert.setCoolDown(enableCoolDown.isSelected());
+			alert.setEnableCoolDown(enableCoolDown.isSelected());
 			alert.setCoolDownMinuts( Long.valueOf(timeCoolDonw.getText()));
 			
 			PriceVariationGlobalMarketAlertRepository alertRepository = new PriceVariationGlobalMarketAlertRepository(exceptionFactory);
