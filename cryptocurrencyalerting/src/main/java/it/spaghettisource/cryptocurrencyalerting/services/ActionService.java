@@ -1,8 +1,13 @@
 package it.spaghettisource.cryptocurrencyalerting.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import it.spaghettisource.cryptocurrencyalerting.action.Action;
 import it.spaghettisource.cryptocurrencyalerting.action.ActionType;
+import it.spaghettisource.cryptocurrencyalerting.action.PopupAction;
 import it.spaghettisource.cryptocurrencyalerting.action.SmtpMailAction;
+import it.spaghettisource.cryptocurrencyalerting.exception.BaseException;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 
 /**
@@ -16,6 +21,8 @@ import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
  */
 public class ActionService {
 	
+	static Logger log = LoggerFactory.getLogger(ActionService.class);
+	
 	private ExceptionFactory exceptionFactory;
 	
 	public ActionService(ExceptionFactory exceptionFactory) {
@@ -27,13 +34,17 @@ public class ActionService {
 	
 	public Action findAction(ActionType actionType) {
 		
-		Action action = null;
 		
 		if(actionType.equals(ActionType.SmtpMailAction)) {
-			action = new SmtpMailAction(exceptionFactory);
+			return new SmtpMailAction(exceptionFactory);
+		}else if(actionType.equals(ActionType.PopupAction)) {
+			return new PopupAction(exceptionFactory);
 		}
 		
-		return action;
+		BaseException exception = exceptionFactory.getActionNotExsist(actionType);
+		log.error(exception.getMessage(),exception);
+		throw exception;
+		
 	}
 	
 	

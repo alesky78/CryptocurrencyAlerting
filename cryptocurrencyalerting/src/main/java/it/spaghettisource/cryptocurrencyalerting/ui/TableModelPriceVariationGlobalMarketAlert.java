@@ -12,7 +12,8 @@ import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
 
 public class TableModelPriceVariationGlobalMarketAlert extends AbstractTableModel {
 
-	private String[] columnNames = new String[] {"alertType","actionType","disable","disableAfterTrigger","enableCoolDown","coolDownMinuts"};
+
+	private String[] columnNames = new String[] {"alertType","actionType","disable","disableAfterTrigger","enableCoolDown","coolDownMinuts"}; 	//TODO internazionalize the name of the columns
 	private PriceVariationGlobalMarketAlertRepository repository;
 	private List<PriceVariationGlobalMarketAlert> data;
 	

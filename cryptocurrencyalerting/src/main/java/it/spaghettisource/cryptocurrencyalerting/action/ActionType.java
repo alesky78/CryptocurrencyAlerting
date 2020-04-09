@@ -2,7 +2,8 @@ package it.spaghettisource.cryptocurrencyalerting.action;
 
 public enum ActionType {
 	
-	SmtpMailAction("SmtpMailAction","action.type.SmtpMailAction");
+	SmtpMailAction("SmtpMailAction","action.type.SmtpMailAction"),
+	PopupAction("PopupAction","action.type.PopupAction");
 	
 	private String i18nKey;
 	private String id;	

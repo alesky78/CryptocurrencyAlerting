@@ -1,6 +1,7 @@
 package it.spaghettisource.cryptocurrencyalerting.exception;
 
 
+import it.spaghettisource.cryptocurrencyalerting.action.ActionType;
 import it.spaghettisource.cryptocurrencyalerting.i18n.I18NMessageHelper;
 
 
@@ -49,7 +50,13 @@ public class ExceptionFactory {
 	public BaseException getEntityNotExsist() {
 		return getException("exception.repostiory.entityNotExsist", EMPTY_PARAMETERS);
 	}
-	
+
+
+	///////////SERVICES//////////////////
+	public BaseException getActionNotExsist(ActionType actionType) {
+		return getException("exception.action.notexist",  new Object[]{actionType});
+	}
+
 	
 	///////////HTTP ERRORS/////////////////
 	public BaseException getSSLProtocolNotSupported(Exception cause) {

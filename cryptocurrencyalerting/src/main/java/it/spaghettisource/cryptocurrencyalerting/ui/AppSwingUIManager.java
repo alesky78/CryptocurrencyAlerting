@@ -28,7 +28,9 @@ public class AppSwingUIManager{
 	static Logger  log = LoggerFactory.getLogger(AppSwingUIManager.class);
 
 	public static final int FRAME_WIDTH = 800;
-	public static final int FRAME_HEIGHT = 400;	
+	public static final int FRAME_HEIGHT = 400;
+	
+	public static final String MAIN_FRAME_TITLE = "Cryptocurrency alerting";
 	
 	/**
 	 * this are the TAB used in the main page
@@ -37,6 +39,9 @@ public class AppSwingUIManager{
 	public final static String TAB_ALERT_MANAGEMETN = "ui.panel.PanelAlertManagement.title";			
 
 
+	/**
+	 * we have a unique frame in this application that can be referenced wherever 
+	 */
 	private JFrame mainFrame;
 	
 	private PanelPriceAlertPriceVariation PanelPriceAlertPriceVariation;
@@ -78,7 +83,7 @@ public class AppSwingUIManager{
 		////////////////////////
 		JFrame frame = new JFrame();
 		frame.setIconImage(ImageIconFactory.getAppImage());
-		frame.setTitle("cryptocurrency alerting");
+		frame.setTitle(MAIN_FRAME_TITLE);
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

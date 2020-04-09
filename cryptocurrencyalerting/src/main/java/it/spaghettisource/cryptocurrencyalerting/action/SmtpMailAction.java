@@ -13,7 +13,6 @@ import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import it.spaghettisource.cryptocurrencyalerting.agent.Agent;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.utils.FileUtil;
 
@@ -79,7 +78,7 @@ public class SmtpMailAction extends AbstractAction {
 		}
 
 		//authentication
-		if("true".equals(Boolean.getBoolean(prop.getProperty("authentication")))) {
+		if("true".equals(prop.getProperty("authentication"))) {
 			prop.put("mail.smtp.auth", true);
 			session = Session.getInstance(prop, 
 					new javax.mail.Authenticator() {
@@ -114,6 +113,7 @@ public class SmtpMailAction extends AbstractAction {
 		public void run() {
 			//send the message
 			try {
+				log.debug("try to send the mail");
 				Message mailMessage = new MimeMessage(session);
 				mailMessage.setFrom(new InternetAddress(prop.getProperty("username")));
 				mailMessage.setRecipients(Message.RecipientType.TO,InternetAddress.parse(prop.getProperty("username")));
