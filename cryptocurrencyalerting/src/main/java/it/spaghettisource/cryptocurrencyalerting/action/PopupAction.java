@@ -2,6 +2,9 @@ package it.spaghettisource.cryptocurrencyalerting.action;
 
 import java.awt.Frame;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -48,6 +51,7 @@ public class PopupAction extends AbstractAction {
 	class OpenAsyncPopup implements Runnable{
 
 		private String message;
+		private Clip clip;
 
 
 		public OpenAsyncPopup(String message) {
@@ -63,27 +67,38 @@ public class PopupAction extends AbstractAction {
 			for (int i = 0; i < frames.length; i++) {
 				if(AppSwingUIManager.MAIN_FRAME_TITLE.equals(frames[i].getTitle())) {
 
-					log.debug("open the popup");
-					
-					//move to foreground and deiconize
-					if (!frames[i].isActive()) {
-						frames[i].setState(JFrame.ICONIFIED);
-						frames[i].setState(JFrame.NORMAL);
-					}					
+					try {
+						clip = AudioSystem.getClip();
+						AudioInputStream inputStream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream("/sound/beep.wav"));           
+						clip.open(inputStream);
+						clip.loop(clip.LOOP_CONTINUOUSLY);
+						clip.start();
 
-					JOptionPane.showMessageDialog(frames[i],
-							message,
-							"Alert !!!!",
-							JOptionPane.WARNING_MESSAGE);
+						log.debug("open the popup");
+
+						//move to foreground
+						if (!frames[i].isActive()) {
+							frames[i].setState(JFrame.ICONIFIED);
+							frames[i].setState(JFrame.NORMAL);
+						}					
+
+						JOptionPane.showMessageDialog(frames[i],
+								message,
+								"Alert !!!!",
+								JOptionPane.WARNING_MESSAGE);
+
+
+						clip.stop();
+
+					}catch (Exception e) {
+						log.error("error reproducing audio",e);
+					}
+
 				}
 			}
 
 		}
 
 	}
-
-
-
-
 
 }
