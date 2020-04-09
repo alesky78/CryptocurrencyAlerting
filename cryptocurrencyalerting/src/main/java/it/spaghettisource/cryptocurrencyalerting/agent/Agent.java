@@ -81,7 +81,7 @@ public class Agent implements Runnable {
 					}
 
 				} catch (Exception e) {
-					log.error("error doring the loop",e);
+					log.error("error executing the loop",e);
 				}
 				
 			}else{

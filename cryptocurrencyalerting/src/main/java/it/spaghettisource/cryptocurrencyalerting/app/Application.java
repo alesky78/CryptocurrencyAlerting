@@ -12,12 +12,14 @@ import it.spaghettisource.cryptocurrencyalerting.ui.AppSwingUIManager;
 
 /**
  * entry point of the application
+ * 
+ * it is responsible to start up and shutdown all the services 
  *
  * @author Alessandro D'Ottavio
  * @version 1.0
  *
  */
-public class Application {
+public class Application  implements Runnable {
 
 	static Logger log = LoggerFactory.getLogger(Application.class);
 
@@ -28,6 +30,8 @@ public class Application {
 
 	public static void main(String[] args) throws Exception{
 
+		Application application = new Application();
+		
     	log.info("start the application");
 		
 		//set the look and feel of swing
@@ -65,6 +69,20 @@ public class Application {
 		
     	log.info("start succesfully");
 
+
+    	//register a shutdown Handle
+        Runtime.getRuntime().addShutdownHook(new Thread(application));
+        
+	}
+
+
+
+	/**
+	 * execute when the application shutdown
+	 * 
+	 */
+	public void run() {
+		ServiceLocator.getInstance().getAgentController().shutdown();
 	}
 
 
