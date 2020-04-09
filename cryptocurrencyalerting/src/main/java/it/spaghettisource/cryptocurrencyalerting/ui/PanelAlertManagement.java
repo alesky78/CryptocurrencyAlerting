@@ -35,7 +35,8 @@ import it.spaghettisource.cryptocurrencyalerting.ui.utils.ImageIconFactory;
  */
 public class PanelAlertManagement extends JPanel implements ActionListener{
 
-	private static String EVENT_DELETE_ROW= "DELETE_ROW";	
+	private static String EVENT_DELETE_ROW = "DELETE_ROW";
+	private static String EVENT_REFRESH_TABLE = "REFRESH_TABLE";	
 	
 	private AppSwingUIManager appSwingUIManager;
 	
@@ -135,11 +136,17 @@ public class PanelAlertManagement extends JPanel implements ActionListener{
 		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
 		buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 		buttonPane.add(Box.createHorizontalGlue());
-		JButton save =  new JButton(messageHelper.getFormattedMessageI18N("ui.panel.PanelAlertManagement.delete"));
-		save.addActionListener(this);
-		save.setActionCommand(EVENT_DELETE_ROW);
-		buttonPane.add(save);
+		
+		JButton deleteRow =  new JButton(messageHelper.getFormattedMessageI18N("ui.panel.PanelAlertManagement.delete"));
+		deleteRow.addActionListener(this);
+		deleteRow.setActionCommand(EVENT_DELETE_ROW);
+		buttonPane.add(deleteRow);
 
+		JButton refreshTable =  new JButton(messageHelper.getFormattedMessageI18N("ui.panel.PanelAlertManagement.refresh"));
+		refreshTable.addActionListener(this);
+		refreshTable.setActionCommand(EVENT_REFRESH_TABLE);
+		buttonPane.add(refreshTable);
+		
 		return buttonPane;
 	}
 
@@ -156,8 +163,9 @@ public class PanelAlertManagement extends JPanel implements ActionListener{
 	        if (priceAlertTable.getSelectedRow() != -1) {
 	        	tableModel.removeRow(priceAlertTable.getSelectedRow());	         
 	        }
+		}else if(event.getActionCommand().equals(EVENT_REFRESH_TABLE)) {
+	        	tableModel.refreshFullTable();	         
 		}
-
 
 	}
 

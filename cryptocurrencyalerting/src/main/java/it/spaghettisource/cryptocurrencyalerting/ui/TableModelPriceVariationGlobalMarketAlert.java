@@ -137,5 +137,11 @@ public class TableModelPriceVariationGlobalMarketAlert extends AbstractTableMode
     	repository.delete(toDelete);
         fireTableRowsDeleted(row, row);
     }
+    
+    
+    public void refreshFullTable() {
+    	data = repository.getAll();
+    	fireTableDataChanged();
+    }
 
 }
