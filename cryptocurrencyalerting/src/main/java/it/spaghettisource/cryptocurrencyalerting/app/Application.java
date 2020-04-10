@@ -82,7 +82,10 @@ public class Application  implements Runnable {
 	 * 
 	 */
 	public void run() {
+
 		ServiceLocator.getInstance().getAgentController().shutdown();
+    	log.info("shutdown the application");
+    	log.info("bye");
 	}
 
 
