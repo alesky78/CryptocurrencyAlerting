@@ -53,11 +53,11 @@ configuration\marketprovider\coinmarketcap\CoinMarketCap.properties
 ```
 
 ## Configuration of the actions
-as described before, actually there are the action already implemented
+as described before, actually these are the actions already implemented
  - send a mail 
  - create a popup on the desktop and emit a sound
  
- this actions can be configured in the way to tailor the way you are notified.
+ these actions can be configured in the way to tailor the way you are notified.
 
 ### configure the mail provide action - mandatory step if you intend send mail
 This application rely on the Smtp protocol to send the mails, the implementation is done on the way to support the majority of the Use cases: Encrypt by TLS or SSL, authentication, etc... 
@@ -68,11 +68,11 @@ configuration\action\mail.properties
 ```
 
 ### configure the popup action - not mandatory step
-I will give a litle by of space, to discuss about the popup alert. 
+I will dedicate a litle by of time to discuss about the popup alert. 
 Pratically it will generate a Dialog with the alert message and will emit a sound.
-It can be configure to move it in foreground in case you are working on another application, this is very usefull functionality becouse you can continue to do your work and then the popup will apper magically on top of your desktop! you cannot avoid to note it
+It can be configure to move the Dialog generated in foreground of your desktop in case you are working on another application, this is very usefull functionality becouse you can continue to do your work and then the popup will apper magically on top of your desktop, you cannot avoid to note it!
 Also the sound can be configured, you can remove it or you can disable the loop.
-Any specific configuration can be find on the file
+Any specific configuration can be done alterating the file
 ```
 configuration\action\popup.properties
 ```
@@ -80,13 +80,15 @@ configuration\action\popup.properties
 
 ## Start the application
 the prerequirement is that the javaw command is accesible wherever on your pc.
-then in Windows OS the bin folder of your JVM is part of the Path in the environment variables
-
-the generate folder contain in the root folder the script, it will take to start the application
+then in Windows OS the bin folder of your JVM is part of the Path in the environment variables.
+the generate folder contain in the root folder the script that must be execute to start the application.
 
 ```
 startApplication.bat 
 ``` 
+
+In case you want to start the application in adifferent way, analize **startApplication.bat** will give you enought information to understand how is working the start of the application and then create a 
+start more appropriate on your needs.
  
 
  
