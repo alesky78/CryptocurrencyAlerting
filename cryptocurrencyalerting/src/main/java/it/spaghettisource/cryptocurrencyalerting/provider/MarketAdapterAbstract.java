@@ -13,17 +13,11 @@ import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 public abstract class MarketAdapterAbstract implements MarketAdapter {
 
 	protected ExceptionFactory exceptionFactory;
-	protected int refreshRateMilliseconds;
 
 	
 	public MarketAdapterAbstract(ExceptionFactory exceptionFactory) {
 		super();
 		this.exceptionFactory = exceptionFactory;
-	}
-	
-	
-	public int getRefreshRate() {
-		return refreshRateMilliseconds;
 	}
 	
 

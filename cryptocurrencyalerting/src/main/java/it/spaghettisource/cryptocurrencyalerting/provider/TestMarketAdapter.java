@@ -17,7 +17,6 @@ public class TestMarketAdapter extends MarketAdapterAbstract {
 
 	public TestMarketAdapter(ExceptionFactory exceptionFactory) {
 		super(exceptionFactory);
-		refreshRateMilliseconds = 20000;
 	}
 	
 

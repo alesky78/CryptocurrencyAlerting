@@ -45,9 +45,6 @@ public class MarketAdapterCoinMarketCap extends MarketAdapterAbstract {
 			throw exceptionFactory.getImpossibleReadFileException(cause, ConstantCoinMarketCap.CONFIG_FILE_PATH, ConstantCoinMarketCap.CONFIG_FILE_NAME);
 		}
 		
-		//configure the properties
-		refreshRateMilliseconds = Integer.parseInt(prop.getProperty("refreshRateMilliseconds")); 
-		
 	}
 
 	public MarketAdapterCoinMarketCap(ExceptionFactory exceptionFactory,HttpClientCoinMarketCap httpClient,Properties prop) {
@@ -58,9 +55,6 @@ public class MarketAdapterCoinMarketCap extends MarketAdapterAbstract {
 
 		//set the specific configuration
 		this.prop = prop;
-		
-		//configure the properties
-		refreshRateMilliseconds = Integer.parseInt(prop.getProperty("refreshRate")); 
 		
 	}	
 	
