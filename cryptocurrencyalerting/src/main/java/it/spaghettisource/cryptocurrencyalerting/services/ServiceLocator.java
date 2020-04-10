@@ -90,7 +90,7 @@ public class ServiceLocator {
 		
 		
 		//prepare the agent
-		agentController = new AgentController(marketAdapter.getRefreshRate(),exceptionFactory);
+		agentController = new AgentController(Long.parseLong( configuration.getProperty("agent.refreshrate")),exceptionFactory);
 
 		//prepare the action manager
 		actionService = new ActionService(exceptionFactory);
