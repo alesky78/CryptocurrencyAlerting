@@ -1,7 +1,6 @@
 package it.spaghettisource.cryptocurrencyalerting.ui;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -28,7 +27,7 @@ public class AppSwingUIManager{
 
 	static Logger  log = LoggerFactory.getLogger(AppSwingUIManager.class);
 
-	public static final int FRAME_WIDTH = 800;
+	public static final int FRAME_WIDTH = 850;
 	public static final int FRAME_HEIGHT = 400;
 
 	public static final String MAIN_FRAME_TITLE = "Cryptocurrency alerting";

@@ -19,21 +19,22 @@ public class TableModelPriceVariationGlobalMarketAlert extends AbstractTableMode
 	private PriceVariationGlobalMarketAlertRepository repository;
 	private List<PriceVariationGlobalMarketAlert> data;
 	
+	private StringMessageHelper messageHelper;
 	
-		
 	public TableModelPriceVariationGlobalMarketAlert() {
 		super();
 		repository = new PriceVariationGlobalMarketAlertRepository(ServiceLocator.getInstance().getExceptionFactory());
 		data = repository.getAll();
 		
-		StringMessageHelper messageHelper = ServiceLocator.getInstance().getMessageHelper();
+		messageHelper = ServiceLocator.getInstance().getMessageHelper();
 		columnNames = new String[6];
-		columnNames[0] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"alertType");
-		columnNames[1] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"actionType");
-		columnNames[2] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"diasble");
-		columnNames[3] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"diasbleAfterTrigger");
-		columnNames[4] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"coolDonw");
-		columnNames[5] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"coolDonwTime");
+		columnNames[0] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"actionType");
+		columnNames[1] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"diasble");
+		columnNames[2] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"diasbleAfterTrigger");
+		columnNames[3] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"coolDonw");
+		columnNames[4] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"coolDonwTime");
+		columnNames[5] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"description");
+		
 		
 	}
 
@@ -59,17 +60,17 @@ public class TableModelPriceVariationGlobalMarketAlert extends AbstractTableMode
 	@Override
     public Class getColumnClass(int c) {
 		if(c == 0) {
-			return AlertType.class;	
-		}else if(c == 1) {
 			return ActionType.class;			
+		}else if(c == 1) {
+			return Boolean.class;
 		}else if(c == 2) {
 			return Boolean.class;
 		}else if(c == 3) {
 			return Boolean.class;
 		}else if(c == 4) {
-			return Boolean.class;
-		}else if(c == 5) {
 			return Long.class;
+		}else if(c == 5) {
+			return String.class;
 		}
 		
 		return String.class;
@@ -80,20 +81,20 @@ public class TableModelPriceVariationGlobalMarketAlert extends AbstractTableMode
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		
 		
-		PriceVariationGlobalMarketAlert alert =data.get(rowIndex);
+		PriceVariationGlobalMarketAlert alert = data.get(rowIndex);
 		
 		if(columnIndex == 0) {
-			return alert.getAlertType();	
+			return messageHelper.getFormattedMessageI18N(alert.getActionType().getI18nKey());			
 		}else if(columnIndex == 1) {
-			return alert.getActionType();			
-		}else if(columnIndex == 2) {
 			return alert.isDisable();	
-		}else if(columnIndex == 3) {
+		}else if(columnIndex == 2) {
 			return alert.isDisableAfterTrigger();
-		}else if(columnIndex == 4) {
+		}else if(columnIndex == 3) {
 			return alert.isEnableCoolDown();
-		}else if(columnIndex == 5) {
+		}else if(columnIndex == 4) {
 			return alert.getCoolDownMinuts();
+		}else if(columnIndex == 5) {
+			return alert.createShortMessage();
 		}
 		
 		return null;
@@ -102,13 +103,13 @@ public class TableModelPriceVariationGlobalMarketAlert extends AbstractTableMode
 	
     public boolean isCellEditable(int row, int col) {
 
-        if (col == 2) {
+        if (col == 1) {
+            return true;
+        } else if(col == 2) {
             return true;
         } else if(col == 3) {
             return true;
         } else if(col == 4) {
-            return true;
-        } else if(col == 5) {
             return true;
         }
 
@@ -122,13 +123,13 @@ public class TableModelPriceVariationGlobalMarketAlert extends AbstractTableMode
     	
 		PriceVariationGlobalMarketAlert alert = data.get(row);
 		
-        if (col == 2) {
+        if (col == 1) {
         	alert.setDisable((boolean) value);
-        } else if(col == 3) {
+        } else if(col == 2) {
         	alert.setDisableAfterTrigger((boolean)value); 
-        } else if(col == 4) {
+        } else if(col == 3) {
         	alert.setEnableCoolDown((boolean)value);
-        } else if(col == 5) {
+        } else if(col == 4) {
         	alert.setCoolDownMinuts((long) value);
         }
 

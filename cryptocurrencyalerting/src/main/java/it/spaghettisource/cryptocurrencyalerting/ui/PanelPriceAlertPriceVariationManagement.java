@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableColumnModel;
 
 import it.spaghettisource.cryptocurrencyalerting.alert.PriceVariationGlobalMarketAlert;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
@@ -114,11 +115,18 @@ public class PanelPriceAlertPriceVariationManagement extends JPanel implements A
 	    
 	    tableModel = new TableModelPriceVariationGlobalMarketAlert();
 		priceAlertTable = new JTable(tableModel);
-		
 		priceAlertTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-		//priceAlertTable.setPreferredScrollableViewportSize(new Dimension(AppSwingUIManager.FRAME_WIDTH-50, 200));
-	    JScrollPane scrollPane = new JScrollPane(priceAlertTable);
-	    priceAlertTable.setFillsViewportHeight(false);
+		priceAlertTable.setFillsViewportHeight(false);
+		
+		TableColumnModel columnModel = priceAlertTable.getColumnModel();
+		columnModel.getColumn(0).setPreferredWidth(70);
+		columnModel.getColumn(1).setPreferredWidth(40);
+		columnModel.getColumn(2).setPreferredWidth(60);
+		columnModel.getColumn(3).setPreferredWidth(40);
+		columnModel.getColumn(4).setPreferredWidth(60);
+		columnModel.getColumn(5).setPreferredWidth(300);
+		
+		JScrollPane scrollPane = new JScrollPane(priceAlertTable);
 	    scrollPane.setPreferredSize(new Dimension(AppSwingUIManager.FRAME_WIDTH-50, 150));
 	    
 		//Add the element to the layout

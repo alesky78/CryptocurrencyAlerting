@@ -2,9 +2,9 @@
 
 ## Welcome to CryptocurrencyAlerting
 
-CryptocurrencyAlerting Desktop allows you to monitoring the cryptocurrency price and generate an alert when specific conditions are meet.
+CryptocurrencyAlerting is a Desktop application allows you to monitoring the cryptocurrency price and generate an alert when specific conditions are meet.
 
-this software is implemented by java swing application
+this software is implemented using java swing technology
   
 the CryptocurrencyAlerting allow the user to monitor:
  - if the price of the cryptocurrency goes above or below a certain price and then trigger an action

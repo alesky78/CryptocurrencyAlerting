@@ -101,7 +101,7 @@ public class PriceVariationGlobalMarketAlert extends AbstractAlert{
 		return false;
 	}
 	
-	private String createAlertMessage(Double actualQuote) {
+	public String createAlertMessage(Double actualQuote) {
 		
 		StringMessageHelper messageHelper  = ServiceLocator.getInstance().getMessageHelper();
 		
@@ -117,6 +117,21 @@ public class PriceVariationGlobalMarketAlert extends AbstractAlert{
 		return messageHelper.getFormattedMessageI18N("alert.pricevariationglobalmarketalert.message", parameters);
 	}
 
+	public String createShortMessage() {
+		
+		StringMessageHelper messageHelper  = ServiceLocator.getInstance().getMessageHelper();
+		
+		String modeMessage = null;
+		
+		if(mode.equals(ABOVE)) {
+			modeMessage = messageHelper.getFormattedMessageI18N(ABOVE_I18N, null); 
+		}else {
+			modeMessage = messageHelper.getFormattedMessageI18N(BELOW_I18N, null); 			
+		}
+		
+		Object[] parameters = new Object[] {criptocurency,modeMessage,price, fiat};
+		return messageHelper.getFormattedMessageI18N("alert.pricevariationglobalmarketalert.shortmessage", parameters);
+	}
 	
 	@Override
 	protected void storeUpdatedData() {
