@@ -69,7 +69,7 @@ public class ServiceLocator {
 
 		//prepare the messages repository
 		MessageRepository messageRepository = new MessageRepository();
-		messageRepository.setMessageRepositoryBundleBaseName("it.spaghettisource.cryptocurrencyalerting.i18n.message");
+		messageRepository.setMessageRepositoryBundleBaseName("i18n.message");
 		messageHelper = new StringMessageHelper();
 		messageHelper.setMessageRepository(messageRepository);
 
