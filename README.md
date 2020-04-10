@@ -35,7 +35,7 @@ It is requrested a minimal configuration before to start the application:
  - configure the provider for the api of the market criptocurrency prices (mandatory step)
  - configure the provide to send mail (not mandatory in case you want to use just the popup alert)
 
-### Configuration of the market price adapter
+## Configuration of the market price adapter  - mandatory step
 Obviusly the value of the cryptocurrencies must be obtained by a specific provider.
 The application is based on interfaces, then it is possible to implement a specific adpter, for any provide that is able to expose the interface that give bach the price of the cryptocurrency,
 and configure the application to use it.
@@ -44,7 +44,7 @@ In this Actual version the application is shipped wiht the follow adapter alread
  - testAdapter --> used for test purpose in case you want to test or extend the application
  - coinmarketcap
 
-### coinmarketcap api cofiguration - mandatory step
+### coinmarketcap api cofiguration
 This provider has different pricing to use its api, but the basic usage is for free.
 Aniway it is requested to login in the applicatiom https://pro.coinmarketcap.com/login/  and generate an API key to use its services.
 After the API key is gerenate, it must be introduced in the configuration file 
@@ -52,7 +52,14 @@ After the API key is gerenate, it must be introduced in the configuration file
 configuration\marketprovider\coinmarketcap\CoinMarketCap.properties
 ```
 
-### configure the mail provide action - not mandatory step
+## Configuration of the actions
+as described before, actually there are the action already implemented
+ - send a mail 
+ - create a popup on the desktop and emit a sound
+ 
+ this actions can be configured in the way to tailor the way you are notified.
+
+### configure the mail provide action - mandatory step if you intend send mail
 This application rely on the Smtp protocol to send the mails, the implementation is done on the way to support the majority of the Use cases: Encrypt by TLS or SSL, authentication, etc... 
 On internet there are thousand of provided that give you for free the opportunity to send mail, i will not advice any one of them, they are more or less all valid.
 You have just to chose one, verify what is its integartion stategy and configure accrodly the configuration file 
