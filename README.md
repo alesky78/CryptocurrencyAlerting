@@ -92,8 +92,8 @@ the generate folder contain in the root folder the script that must be execute t
 startApplication.bat 
 ``` 
 
-In case you want to start the application in adifferent way, analize **startApplication.bat** will give you enought information to understand how is working the start of the application and then create a 
-start more appropriate on your needs.
+In case you want to start the application in adifferent way, analizing **startApplication.bat** will give you enought information to understand how is working the start of the application and then create a 
+start more appropriate for your needs.
  
 
  
