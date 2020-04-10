@@ -44,6 +44,11 @@ In this Actual version the application is shipped wiht the follow adapter alread
  - testAdapter --> used for test purpose in case you want to test or extend the application
  - coinmarketcap
 
+to define the market Adapter that the application must use, configure the main configuration file,
+```
+configuration\configuration.properties
+```
+
 ### coinmarketcap api cofiguration
 This provider has different pricing to use its api, but the basic usage is for free.
 Aniway it is requested to login in the applicatiom https://pro.coinmarketcap.com/login/  and generate an API key to use its services.
