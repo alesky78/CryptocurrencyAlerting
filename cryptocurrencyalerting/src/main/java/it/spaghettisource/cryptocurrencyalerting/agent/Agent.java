@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import it.spaghettisource.cryptocurrencyalerting.alert.PriceVariationGlobalMarketAlert;
+import it.spaghettisource.cryptocurrencyalerting.exception.BaseException;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.repository.PriceVariationGlobalMarketAlertRepository;
 import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
@@ -70,7 +71,15 @@ public class Agent implements Runnable {
 						//check all the alerts
 						List<PriceVariationGlobalMarketAlert> alerts =  repository.getAll();
 						for (PriceVariationGlobalMarketAlert alert : alerts) {
-							alert.checkAlert();
+							try {
+								alert.checkAlert();								
+							}catch (BaseException e) {
+								String message = "error executing the allert "+alert.getId();
+								log.error(message, e);
+							}catch (Exception e) {
+								String message = "unexpected error not managed in the code executing the allert "+alert.getId();
+								log.error(message, e);
+							}
 						}
 
 
