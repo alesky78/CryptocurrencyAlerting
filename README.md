@@ -37,10 +37,10 @@ It is requrested a minimal configuration before to start the application:
 
 ## Configuration of the market price adapter  - mandatory step
 Obviusly the value of the cryptocurrencies must be obtained by a specific provider.
-The application is based on interfaces, then it is possible to implement a specific adpter, for any provide that is able to expose the interface that give bach the price of the cryptocurrency,
+The application is based on interfaces, then it is possible to implement a specific adpter, for any provide that is able to expose the interface that give back the price of the cryptocurrency,
 and configure the application to use it.
 
-In this Actual version the application is shipped wiht the follow adapter already implemented:
+In this Actual version the application is shipped wiht the follow adapters already implemented:
  - testAdapter --> used for test purpose in case you want to test or extend the application
  - coinmarketcap
 
@@ -51,7 +51,7 @@ configuration\configuration.properties
 
 ### coinmarketcap api cofiguration
 This provider has different pricing to use its api, but the basic usage is for free.
-Aniway it is requested to login in the applicatiom https://pro.coinmarketcap.com/login/  and generate an API key to use its services.
+Aniway it is requested to login in the applicatiom https://pro.coinmarketcap.com/login/ and generate an API key to use its services.
 After the API key is gerenate, it must be introduced in the configuration file 
 ```
 configuration\marketprovider\coinmarketcap\CoinMarketCap.properties
