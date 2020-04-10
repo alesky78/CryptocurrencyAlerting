@@ -18,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 import it.spaghettisource.cryptocurrencyalerting.alert.PriceVariationGlobalMarketAlert;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
@@ -33,8 +32,12 @@ import it.spaghettisource.cryptocurrencyalerting.ui.utils.ImageIconFactory;
  * @author Alessandro D'Ottavio
  * @version 1.0
  */
-public class PanelAlertManagement extends JPanel implements ActionListener{
+public class PanelPriceAlertPriceVariationManagement extends JPanel implements ActionListener{
 
+	private static String I18N_ROOT = "ui.panel.PanelPriceAlertPriceVariationManagement.";
+	public static String I18N_TITLE = I18N_ROOT+"title";	
+	
+	
 	private static String EVENT_DELETE_ROW = "DELETE_ROW";
 	private static String EVENT_REFRESH_TABLE = "REFRESH_TABLE";	
 	
@@ -46,7 +49,7 @@ public class PanelAlertManagement extends JPanel implements ActionListener{
 	private TableModelPriceVariationGlobalMarketAlert tableModel;
 	private JTable priceAlertTable;
 	
-	public PanelAlertManagement(AppSwingUIManager appSwingUIManager) {
+	public PanelPriceAlertPriceVariationManagement(AppSwingUIManager appSwingUIManager) {
 		super();
 		
 		this.appSwingUIManager = appSwingUIManager;
@@ -59,9 +62,9 @@ public class PanelAlertManagement extends JPanel implements ActionListener{
 		
 		//NOTH set title of the panel
 		JPanel northPane = createHeader(
-									messageHelper.getFormattedMessageI18N(AppSwingUIManager.TAB_ALERT_MANAGEMETN), 
+									messageHelper.getFormattedMessageI18N(I18N_TITLE), 
 									"controls.png",  
-									messageHelper.getFormattedMessageI18N("ui.panel.PanelAlertManagement.description")); 
+									messageHelper.getFormattedMessageI18N(I18N_ROOT+"description")); 
 		
 		add(northPane, BorderLayout.NORTH);
 
@@ -137,12 +140,12 @@ public class PanelAlertManagement extends JPanel implements ActionListener{
 		buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 		buttonPane.add(Box.createHorizontalGlue());
 		
-		JButton deleteRow =  new JButton(messageHelper.getFormattedMessageI18N("ui.panel.PanelAlertManagement.delete"));
+		JButton deleteRow =  new JButton(messageHelper.getFormattedMessageI18N(I18N_ROOT+"delete"));
 		deleteRow.addActionListener(this);
 		deleteRow.setActionCommand(EVENT_DELETE_ROW);
 		buttonPane.add(deleteRow);
 
-		JButton refreshTable =  new JButton(messageHelper.getFormattedMessageI18N("ui.panel.PanelAlertManagement.refresh"));
+		JButton refreshTable =  new JButton(messageHelper.getFormattedMessageI18N(I18N_ROOT+"refresh"));
 		refreshTable.addActionListener(this);
 		refreshTable.setActionCommand(EVENT_REFRESH_TABLE);
 		buttonPane.add(refreshTable);

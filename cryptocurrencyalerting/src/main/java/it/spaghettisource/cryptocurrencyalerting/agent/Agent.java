@@ -72,6 +72,7 @@ public class Agent implements Runnable {
 						List<PriceVariationGlobalMarketAlert> alerts =  repository.getAll();
 						for (PriceVariationGlobalMarketAlert alert : alerts) {
 							try {
+								log.debug ("check alert "+alert.getId());
 								alert.checkAlert();								
 							}catch (BaseException e) {
 								String message = "error executing the allert "+alert.getId();

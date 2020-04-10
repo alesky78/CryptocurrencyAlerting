@@ -42,6 +42,9 @@ import it.spaghettisource.cryptocurrencyalerting.ui.utils.KeyValueItem;
  */
 public class PanelPriceAlertPriceVariation extends JPanel implements ActionListener{
 
+	private static String I18N_ROOT = "ui.panel.PanelPriceAlertPriceVariation.";
+	public static String I18N_TITLE = I18N_ROOT+"title";	
+	
 	private static String EVENT_SAVE="SAVE";
 
 	private AppSwingUIManager appSwingUIManager;  
@@ -75,9 +78,9 @@ public class PanelPriceAlertPriceVariation extends JPanel implements ActionListe
 		
 		//NOTH set title of the panel
 		JPanel northPane = createHeader(
-									messageHelper.getFormattedMessageI18N(AppSwingUIManager.TAB_PRICEALERT_PRICE_VARIATION), 
+									messageHelper.getFormattedMessageI18N(I18N_TITLE), 
 									"priceVariationValue.png",  
-									messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.description")); 
+									messageHelper.getFormattedMessageI18N(I18N_ROOT+"description")); 
 		
 		add(northPane, BorderLayout.NORTH);
 
@@ -126,14 +129,14 @@ public class PanelPriceAlertPriceVariation extends JPanel implements ActionListe
 	    GridBagConstraints c = new GridBagConstraints();
 
 		//elements		
-		JLabel send = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.send"));
+		JLabel send = new JLabel(messageHelper.getFormattedMessageI18N(I18N_ROOT+"send"));
 		
 		action = new JComboBox<KeyValueItem>();
 		for (ActionType value : ActionType.values()) {
 			action.addItem(new KeyValueItem(value.getId(), messageHelper.getFormattedMessageI18N(value.getI18nKey())));
 		}
 		
-		JLabel asSoonAs = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.asSoonAs"));
+		JLabel asSoonAs = new JLabel(messageHelper.getFormattedMessageI18N(I18N_ROOT+"asSoonAs"));
 				
 		criptocurrency = new JComboBox<String>();
 		for (String actual : marketAdapter.findAllCryptocurrency()) {
@@ -141,14 +144,14 @@ public class PanelPriceAlertPriceVariation extends JPanel implements ActionListe
 		}
 
 		
-		JLabel goes = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.goes"));
+		JLabel goes = new JLabel(messageHelper.getFormattedMessageI18N(I18N_ROOT+"goes"));
 		
 		condition = new JComboBox<KeyValueItem>();
 		condition.addItem(new KeyValueItem(PriceVariationGlobalMarketAlert.ABOVE, messageHelper.getFormattedMessageI18N(PriceVariationGlobalMarketAlert.ABOVE_I18N)));
 		condition.addItem(new KeyValueItem(PriceVariationGlobalMarketAlert.BELOW, messageHelper.getFormattedMessageI18N(PriceVariationGlobalMarketAlert.BELOW_I18N)));		
 		
 		
-		JLabel thePriceOf = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.priceOf"));
+		JLabel thePriceOf = new JLabel(messageHelper.getFormattedMessageI18N(I18N_ROOT+"priceOf"));
 		price = new JTextField("0");
 		PlainDocument doc = (PlainDocument) price.getDocument();
 	    doc.setDocumentFilter(new FilterPrice());
@@ -159,16 +162,16 @@ public class PanelPriceAlertPriceVariation extends JPanel implements ActionListe
 			fiat.addItem(actual);
 		}
 		
-		//allert control elemetns
-		enableCoolDown = new JCheckBox(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.enableCoolDown"));
+		//alert control elements
+		enableCoolDown = new JCheckBox(messageHelper.getFormattedMessageI18N(I18N_ROOT+"enableCoolDown"));
 		timeCoolDonw = new JTextField("60");
 		PlainDocument doc2 = (PlainDocument) timeCoolDonw.getDocument();
 	    doc2.setDocumentFilter(new FilterInteger());
 		
-		JLabel minutes = new JLabel(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.minutes"));		
+		JLabel minutes = new JLabel(messageHelper.getFormattedMessageI18N(I18N_ROOT+"minutes"));		
 		
-		disableAfterTrigger = new JCheckBox(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.disableAfterTrigger"));
-		disable = new JCheckBox(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.disable"));		
+		disableAfterTrigger = new JCheckBox(messageHelper.getFormattedMessageI18N(I18N_ROOT+"disableAfterTrigger"));
+		disable = new JCheckBox(messageHelper.getFormattedMessageI18N(I18N_ROOT+"disable"));		
 		
 		//add the font
 		Font font = FontFactory.getPanelBodyFont();
@@ -255,7 +258,7 @@ public class PanelPriceAlertPriceVariation extends JPanel implements ActionListe
 		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
 		buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 		buttonPane.add(Box.createHorizontalGlue());
-		JButton save =  new JButton(messageHelper.getFormattedMessageI18N("ui.panel.PanelPriceAlertPriceVariation.save"));
+		JButton save =  new JButton(messageHelper.getFormattedMessageI18N(I18N_ROOT+"save"));
 		save.addActionListener(this);
 		save.setActionCommand(EVENT_SAVE);
 		buttonPane.add(save);
@@ -285,7 +288,7 @@ public class PanelPriceAlertPriceVariation extends JPanel implements ActionListe
 			
 			alertRepository.save(alert);
 			
-			appSwingUIManager.getPanelAlertManagement().fireNewAllertCreated(alert);
+			appSwingUIManager.getPanelPriceAlertPriceVariationManagement().fireNewAllertCreated(alert);
 			
 		}
 		

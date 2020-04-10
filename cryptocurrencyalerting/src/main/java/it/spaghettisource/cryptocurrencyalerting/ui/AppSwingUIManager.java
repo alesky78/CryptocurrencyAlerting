@@ -32,31 +32,24 @@ public class AppSwingUIManager{
 	
 	public static final String MAIN_FRAME_TITLE = "Cryptocurrency alerting";
 	
-	/**
-	 * this are the TAB used in the main page
-	 */
-	public final static String TAB_PRICEALERT_PRICE_VARIATION = "ui.panel.PanelPriceAlertPriceVariation.title";
-	public final static String TAB_ALERT_MANAGEMETN = "ui.panel.PanelAlertManagement.title";			
-
 
 	/**
 	 * we have a unique frame in this application that can be referenced wherever 
 	 */
 	private JFrame mainFrame;
 	
-	private PanelPriceAlertPriceVariation PanelPriceAlertPriceVariation;
-	private PanelAlertManagement PanelAlertManagement;		
+	private PanelPriceAlertPriceVariation panelPriceAlertPriceVariation;
+	private PanelPriceAlertPriceVariationManagement panelPriceAlertPriceVariationManagement;		
 
 
 	public PanelPriceAlertPriceVariation getPanelPriceAlertPriceVariation() {
-		return PanelPriceAlertPriceVariation;
+		return panelPriceAlertPriceVariation;
 	}
+	
 
-
-	public PanelAlertManagement getPanelAlertManagement() {
-		return PanelAlertManagement;
+	public PanelPriceAlertPriceVariationManagement getPanelPriceAlertPriceVariationManagement() {
+		return panelPriceAlertPriceVariationManagement;
 	}
-
 
 	public void startUI(){
 
@@ -97,11 +90,11 @@ public class AppSwingUIManager{
 		tabbedPane.addChangeListener(new TabModelChangeListener());	//refresh the model when enter in the tab model
 
 		
-		PanelPriceAlertPriceVariation = new PanelPriceAlertPriceVariation(this);
-		PanelAlertManagement = new PanelAlertManagement(this);
+		panelPriceAlertPriceVariation = new PanelPriceAlertPriceVariation(this);
+		panelPriceAlertPriceVariationManagement = new PanelPriceAlertPriceVariationManagement(this);
 
-		tabbedPane.addTab(messageHelper.getFormattedMessageI18N(TAB_PRICEALERT_PRICE_VARIATION), ImageIconFactory.getForTab("priceVariationValue.png"),PanelPriceAlertPriceVariation);
-		tabbedPane.addTab(messageHelper.getFormattedMessageI18N(TAB_ALERT_MANAGEMETN), ImageIconFactory.getForTab("controls.png"),PanelAlertManagement);			
+		tabbedPane.addTab(messageHelper.getFormattedMessageI18N(PanelPriceAlertPriceVariation.I18N_TITLE), ImageIconFactory.getForTab("priceVariationValue.png"),panelPriceAlertPriceVariation);
+		tabbedPane.addTab(messageHelper.getFormattedMessageI18N(PanelPriceAlertPriceVariationManagement.I18N_TITLE), ImageIconFactory.getForTab("controls.png"),panelPriceAlertPriceVariationManagement);			
 
 
 		frame.getContentPane().add(tabbedPane);
@@ -137,8 +130,8 @@ public class AppSwingUIManager{
 					int selectedTabIndex = tabbedPane.getSelectedIndex();
 					String tabName = tabbedPane.getTitleAt(selectedTabIndex);
 
-
-					if(tabName.equals(TAB_PRICEALERT_PRICE_VARIATION)){
+					//logic for tab selection
+					if(tabName.equals("")){
 					}
 
 
