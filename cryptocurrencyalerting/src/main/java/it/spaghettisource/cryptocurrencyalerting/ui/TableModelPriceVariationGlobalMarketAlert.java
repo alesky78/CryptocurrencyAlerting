@@ -7,13 +7,15 @@ import javax.swing.table.AbstractTableModel;
 import it.spaghettisource.cryptocurrencyalerting.action.ActionType;
 import it.spaghettisource.cryptocurrencyalerting.alert.AlertType;
 import it.spaghettisource.cryptocurrencyalerting.alert.PriceVariationGlobalMarketAlert;
+import it.spaghettisource.cryptocurrencyalerting.i18n.StringMessageHelper;
 import it.spaghettisource.cryptocurrencyalerting.repository.PriceVariationGlobalMarketAlertRepository;
 import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
 
 public class TableModelPriceVariationGlobalMarketAlert extends AbstractTableModel {
 
-
-	private String[] columnNames = new String[] {"alertType","actionType","disable","disableAfterTrigger","enableCoolDown","coolDownMinuts"}; 	//TODO internazionalize the name of the columns
+	private static String I18N_ROOT = "ui.tablemodel.TableModelPriceVariationGlobalMarketAlert.header.";
+	
+	private String[] columnNames; 
 	private PriceVariationGlobalMarketAlertRepository repository;
 	private List<PriceVariationGlobalMarketAlert> data;
 	
@@ -23,6 +25,16 @@ public class TableModelPriceVariationGlobalMarketAlert extends AbstractTableMode
 		super();
 		repository = new PriceVariationGlobalMarketAlertRepository(ServiceLocator.getInstance().getExceptionFactory());
 		data = repository.getAll();
+		
+		StringMessageHelper messageHelper = ServiceLocator.getInstance().getMessageHelper();
+		columnNames = new String[6];
+		columnNames[0] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"alertType");
+		columnNames[1] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"actionType");
+		columnNames[2] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"diasble");
+		columnNames[3] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"diasbleAfterTrigger");
+		columnNames[4] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"coolDonw");
+		columnNames[5] = messageHelper.getFormattedMessageI18N(I18N_ROOT+"coolDonwTime");
+		
 	}
 
 
