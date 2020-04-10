@@ -1,6 +1,7 @@
 package it.spaghettisource.cryptocurrencyalerting.action;
 
 import java.awt.Frame;
+import java.util.Properties;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -13,9 +14,10 @@ import org.slf4j.LoggerFactory;
 
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.ui.AppSwingUIManager;
+import it.spaghettisource.cryptocurrencyalerting.utils.FileUtil;
 
 /**
- * create a Dialogs on the screen
+ * create a Dialogs on the screen and emit sound
  * 
  * 
  * @author Alessandro D'Ottavio
@@ -24,17 +26,31 @@ import it.spaghettisource.cryptocurrencyalerting.ui.AppSwingUIManager;
 public class PopupAction extends AbstractAction {
 
 	static Logger log = LoggerFactory.getLogger(PopupAction.class);
+	
+	public static String CONFIG_FILE_PATH = System.getProperty("user.dir")+ System.getProperty("file.separator")+"configuration\\action\\";
+	public static String CONFIG_FILE_NAME = "popup.properties";
+
+	private Properties prop;
+
 
 
 	public PopupAction(ExceptionFactory exceptionFactory) {
 		super();
-		init(exceptionFactory);
+		init(exceptionFactory, CONFIG_FILE_PATH, CONFIG_FILE_NAME);
 	}
 
 
-	private void init(ExceptionFactory exceptionFactory) {
+	private void init(ExceptionFactory exceptionFactory, String configFilePath, String configFileName) {
 		actionType = ActionType.PopupAction;
 
+		//load the specific property configuration file
+		prop = new Properties();
+		try {
+			prop.load(FileUtil.readFileToInputStream(exceptionFactory, configFilePath, configFileName));	
+		}catch (Exception cause) {
+			throw exceptionFactory.getImpossibleReadFileException(cause, configFilePath, configFileName);
+		}
+		
 	}
 
 
@@ -52,11 +68,18 @@ public class PopupAction extends AbstractAction {
 
 		private String message;
 		private Clip clip;
+		private boolean makeSound;
+		private boolean loopSound;
+		private boolean foregroundPopup;
+		
 
 
 		public OpenAsyncPopup(String message) {
 			super();
 			this.message = message;
+			makeSound = Boolean.valueOf(prop.getProperty("makeSound"));
+			loopSound = Boolean.valueOf(prop.getProperty("loopSound"));
+			foregroundPopup = Boolean.valueOf(prop.getProperty("foregroundPopup"));
 		}
 
 		@Override
@@ -68,30 +91,41 @@ public class PopupAction extends AbstractAction {
 				if(AppSwingUIManager.MAIN_FRAME_TITLE.equals(frames[i].getTitle())) {
 
 					try {
-						clip = AudioSystem.getClip();
-						AudioInputStream inputStream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream("/sound/beep.wav"));           
-						clip.open(inputStream);
-						clip.loop(clip.LOOP_CONTINUOUSLY);
-						clip.start();
+						
+						if(makeSound) {
+							clip = AudioSystem.getClip();
+							AudioInputStream inputStream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream("/sound/beep.wav"));           
+							clip.open(inputStream);
+							if(loopSound) {
+								clip.loop(clip.LOOP_CONTINUOUSLY);								
+							}
+							clip.start();							
+						}
+
 
 						log.debug("open the popup");
 
 						//move to foreground
-						if (!frames[i].isActive()) {
-							frames[i].setState(JFrame.ICONIFIED);
-							frames[i].setState(JFrame.NORMAL);
-						}					
+						if(foregroundPopup) {
+							if (!frames[i].isActive()) {
+								frames[i].setState(JFrame.ICONIFIED);
+								frames[i].setState(JFrame.NORMAL);
+							}							
+						}
+					
 
 						JOptionPane.showMessageDialog(frames[i],
 								message,
 								"Alert !!!!",
 								JOptionPane.WARNING_MESSAGE);
 
+						if(makeSound) {
+							clip.stop();							
+						}
 
-						clip.stop();
 
 					}catch (Exception e) {
-						log.error("error reproducing audio",e);
+						log.error("error executing the PopupAction",e);
 					}
 
 				}

@@ -1,6 +1,7 @@
 package it.spaghettisource.cryptocurrencyalerting.ui;
 
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -29,9 +30,9 @@ public class AppSwingUIManager{
 
 	public static final int FRAME_WIDTH = 800;
 	public static final int FRAME_HEIGHT = 400;
-	
+
 	public static final String MAIN_FRAME_TITLE = "Cryptocurrency alerting";
-	
+
 	public AppSwingUIManager() {
 		super();
 		startUICompleted = false;
@@ -45,7 +46,7 @@ public class AppSwingUIManager{
 	private JFrame mainFrame;
 	private boolean  startUICompleted;
 	private boolean  startUIError;	
-	
+
 	private PanelPriceAlertPriceVariation panelPriceAlertPriceVariation;
 	private PanelPriceAlertPriceVariationManagement panelPriceAlertPriceVariationManagement;		
 
@@ -53,18 +54,19 @@ public class AppSwingUIManager{
 	public PanelPriceAlertPriceVariation getPanelPriceAlertPriceVariation() {
 		return panelPriceAlertPriceVariation;
 	}
-	
+
 
 	public PanelPriceAlertPriceVariationManagement getPanelPriceAlertPriceVariationManagement() {
 		return panelPriceAlertPriceVariationManagement;
 	}
 
 	public void startUI(){
-		
+
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				
+
+
 				try {
 					mainFrame = buildFrame();
 					mainFrame.setVisible(true);					
@@ -72,25 +74,26 @@ public class AppSwingUIManager{
 					log.error("error initializing the UI",e);
 					startUIError = true;
 				}
-				
+
 				startUICompleted=true;
+				log.debug("initializing the UI competed");
 			}
 		});
-		
-		
+
+
 		while (!startUICompleted) {
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 			}
 		}
-		
+
 		if(startUIError) {
 			log.error("starting the UI interface failed");
 			throw new RuntimeException();
 		}
-		
-		log.info("initializing the UI completed succesfully");
+
+		log.info("starting the UI completed succesfully");
 
 	}
 
@@ -120,25 +123,23 @@ public class AppSwingUIManager{
 
 		tabbedPane.addChangeListener(new TabModelChangeListener());	//refresh the model when enter in the tab model
 
-		
 		panelPriceAlertPriceVariation = new PanelPriceAlertPriceVariation(this);
 		panelPriceAlertPriceVariationManagement = new PanelPriceAlertPriceVariationManagement(this);
 
 		tabbedPane.addTab(messageHelper.getFormattedMessageI18N(PanelPriceAlertPriceVariation.I18N_TITLE), ImageIconFactory.getForTab("priceVariationValue.png"),panelPriceAlertPriceVariation);
-		tabbedPane.addTab(messageHelper.getFormattedMessageI18N(PanelPriceAlertPriceVariationManagement.I18N_TITLE), ImageIconFactory.getForTab("controls.png"),panelPriceAlertPriceVariationManagement);			
-
+		tabbedPane.addTab(messageHelper.getFormattedMessageI18N(PanelPriceAlertPriceVariationManagement.I18N_TITLE), ImageIconFactory.getForTab("controls.png"),panelPriceAlertPriceVariationManagement);
 
 		frame.getContentPane().add(tabbedPane);
 
 		////////////////////////////////
 		//Center the frame in the screen
 		////////////////////////////////
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
-        log.debug("center the frame");
-        log.debug("monitor width:"+dim.width+" height:"+dim.height);
-        log.debug("frame width:"+frame.getSize().width+" height:"+frame.getSize().height);
-		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+		log.debug("center the frame");
+		log.debug("monitor width:"+dim.width+" height:"+dim.height);
+		log.debug("frame width:"+frame.getSize().width+" height:"+frame.getSize().height);
+
 		return frame;
 
 	}
@@ -170,6 +171,6 @@ public class AppSwingUIManager{
 			}
 		}
 	}
-	
-	
+
+
 }
