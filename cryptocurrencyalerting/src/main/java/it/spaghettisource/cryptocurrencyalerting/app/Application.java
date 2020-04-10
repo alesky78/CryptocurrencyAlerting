@@ -7,6 +7,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import it.spaghettisource.cryptocurrencyalerting.agent.AgentController;
 import it.spaghettisource.cryptocurrencyalerting.services.ServiceLocator;
 import it.spaghettisource.cryptocurrencyalerting.ui.AppSwingUIManager;
 
@@ -47,6 +48,11 @@ public class Application  implements Runnable {
 			log.error("Nimbus is not available, default GUI look and feel will be used",e);
 		}
 
+		
+    	//register a shutdown Handle
+        Runtime.getRuntime().addShutdownHook(new Thread(application));
+
+		
 		//start the application
 		try {
 			
@@ -61,7 +67,6 @@ public class Application  implements Runnable {
 			ServiceLocator.getInstance().getAgentController().start();
 			
 			
-			
 		} catch (Exception ex) {
 			log.error("errro statring the application",ex);
 			System.exit(-1);
@@ -70,11 +75,10 @@ public class Application  implements Runnable {
     	log.info("start succesfully");
 
 
-    	//register a shutdown Handle
-        Runtime.getRuntime().addShutdownHook(new Thread(application));
+
+
         
 	}
-
 
 
 	/**
@@ -83,9 +87,15 @@ public class Application  implements Runnable {
 	 */
 	public void run() {
 
-		ServiceLocator.getInstance().getAgentController().shutdown();
-    	log.info("shutdown the application");
-    	log.info("bye");
+		AgentController agent = ServiceLocator.getInstance().getAgentController();
+		if(agent!=null) {
+			agent.shutdown();
+			log.info("shutdown the agent");
+		}
+		
+    	log.info("shutdown completed");
+    	log.info("bye");			
+
 	}
 
 

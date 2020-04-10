@@ -29,7 +29,8 @@ public class AgentController {
 	
 	
 	public void shutdown() {
-		agent.shutdown();
+		if(agent!=null)
+			agent.shutdown();
 	}
 	
 	

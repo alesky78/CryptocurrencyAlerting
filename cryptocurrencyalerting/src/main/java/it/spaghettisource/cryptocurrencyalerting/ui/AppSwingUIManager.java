@@ -32,11 +32,19 @@ public class AppSwingUIManager{
 	
 	public static final String MAIN_FRAME_TITLE = "Cryptocurrency alerting";
 	
+	public AppSwingUIManager() {
+		super();
+		startUICompleted = false;
+		startUIError = false;
+	}
+
 
 	/**
 	 * we have a unique frame in this application that can be referenced wherever 
 	 */
 	private JFrame mainFrame;
+	private boolean  startUICompleted;
+	private boolean  startUIError;	
 	
 	private PanelPriceAlertPriceVariation panelPriceAlertPriceVariation;
 	private PanelPriceAlertPriceVariationManagement panelPriceAlertPriceVariationManagement;		
@@ -52,14 +60,37 @@ public class AppSwingUIManager{
 	}
 
 	public void startUI(){
-
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				mainFrame = buildFrame();
-				mainFrame.setVisible(true);
+				
+				try {
+					mainFrame = buildFrame();
+					mainFrame.setVisible(true);					
+				}catch (Exception e) {
+					log.error("error initializing the UI",e);
+					startUIError = true;
+				}
+				
+				startUICompleted=true;
 			}
 		});
+		
+		
+		while (!startUICompleted) {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+			}
+		}
+		
+		if(startUIError) {
+			log.error("starting the UI interface failed");
+			throw new RuntimeException();
+		}
+		
+		log.info("initializing the UI completed succesfully");
 
 	}
 
