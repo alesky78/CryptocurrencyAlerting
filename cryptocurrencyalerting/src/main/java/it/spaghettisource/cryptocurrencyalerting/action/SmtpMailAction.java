@@ -27,7 +27,7 @@ public class SmtpMailAction extends AbstractAction {
 
 	static Logger log = LoggerFactory.getLogger(SmtpMailAction.class);
 	
-	public static String CONFIG_FILE_PATH = System.getProperty("user.dir")+ System.getProperty("file.separator")+"configuration\\action\\";
+	public static String CONFIG_FILE_PATH = System.getProperty("user.dir")+ System.getProperty("file.separator")+"configuration/action/";
 	public static String CONFIG_FILE_NAME = "mail.properties";
 
 

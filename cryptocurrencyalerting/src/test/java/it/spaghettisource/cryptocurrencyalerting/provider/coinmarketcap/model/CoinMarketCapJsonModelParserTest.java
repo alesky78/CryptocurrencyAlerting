@@ -32,7 +32,7 @@ public class CoinMarketCapJsonModelParserTest {
 		
 		converter = new JsonConverter();
 		
-		filePath = System.getProperty("user.dir")+"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\provider\\coinmarketcap\\model";
+		filePath = System.getProperty("user.dir")+"/src/test/resources/it/spaghettisource/cryptocurrencyalerting/provider/coinmarketcap/model";
 
 		
 	}

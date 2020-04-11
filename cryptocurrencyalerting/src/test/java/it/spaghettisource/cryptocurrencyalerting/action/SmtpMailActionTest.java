@@ -24,7 +24,7 @@ public class SmtpMailActionTest {
 		exceptionFactory.setMessageHelper(helper);
 		
 		//create the mail configuration
-		configFilePath = System.getProperty("user.dir") +"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\action\\";
+		configFilePath = System.getProperty("user.dir") +"/src/test/resources/it/spaghettisource/cryptocurrencyalerting/action/";
 		configFileName = "SmtpMailActionTestMail.properties";
 		
 	}

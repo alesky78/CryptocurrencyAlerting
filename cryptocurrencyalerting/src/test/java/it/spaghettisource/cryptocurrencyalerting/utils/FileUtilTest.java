@@ -27,7 +27,7 @@ public class FileUtilTest {
 		exceptionFactory = new ExceptionFactory();
 		exceptionFactory.setMessageHelper(helper);
 		
-		filePath = System.getProperty("user.dir")+"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\utils";
+		filePath = System.getProperty("user.dir")+"/src/test/resources/it/spaghettisource/cryptocurrencyalerting/utils";
 		
 	}
 	

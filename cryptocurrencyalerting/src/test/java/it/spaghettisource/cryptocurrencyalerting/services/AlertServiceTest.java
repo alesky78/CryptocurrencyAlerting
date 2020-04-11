@@ -40,7 +40,7 @@ public class AlertServiceTest {
 		
 		//overwrite to put the data in the test resources
 		//this is not needed in the code, the repository keep internally its configuration
-		repositoryFilePath = System.getProperty("user.dir")+"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\services";
+		repositoryFilePath = System.getProperty("user.dir")+"/src/test/resources/it/spaghettisource/cryptocurrencyalerting/services";
 		repositoryFileName = "alertServiceTest_priceVariationGlobalMarketAlertRepository.json";
 				
 		priceVariationGlobalMarketAlertRepository.setFilePath(repositoryFilePath);

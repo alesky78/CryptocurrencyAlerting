@@ -37,7 +37,7 @@ public class MarketAdapterCoinMarketCapTest {
 		
 		
 		//create the CoinMarketCap client
-		String cofigFilePath = System.getProperty("user.dir") +"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\provider\\coinmarketcap";	//configure in this resource the apiKey
+		String cofigFilePath = System.getProperty("user.dir") +"/src/test/resources/it/spaghettisource/cryptocurrencyalerting/provider/coinmarketcap";	//configure in this resource the apiKey
 		String cofigFileName = "CoinMarketCap.properties";
 		HttpClientCoinMarketCap httpClient = new HttpClientCoinMarketCap(exceptionFactory, cofigFilePath, cofigFileName);
 		

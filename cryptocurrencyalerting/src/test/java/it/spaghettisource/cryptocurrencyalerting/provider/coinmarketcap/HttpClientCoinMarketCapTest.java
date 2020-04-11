@@ -36,7 +36,7 @@ public class HttpClientCoinMarketCapTest {
 		exceptionFactory.setMessageHelper(helper);
 		
 		//create the CoinMarketCap client
-		String cofigFilePath = System.getProperty("user.dir") +"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\provider\\coinmarketcap";	//configure in this resource the apiKey
+		String cofigFilePath = System.getProperty("user.dir") +"/src/test/resources/it/spaghettisource/cryptocurrencyalerting/provider/coinmarketcap";	//configure in this resource the apiKey
 		String cofigFileName = "CoinMarketCap.properties";
 		client = new HttpClientCoinMarketCap(exceptionFactory, cofigFilePath, cofigFileName);
 		
@@ -93,7 +93,7 @@ public class HttpClientCoinMarketCapTest {
 	
 	
 	private void writeResponseToFile(String response,String fileName) {
-		String cofigFilePath = System.getProperty("user.dir") +"\\src\\test\\resources\\it\\spaghettisource\\cryptocurrencyalerting\\provider\\coinmarketcap";		
+		String cofigFilePath = System.getProperty("user.dir") +"/src/test/resources/it/spaghettisource/cryptocurrencyalerting/provider/coinmarketcap";		
 		FileUtil.writeStringToFile(exceptionFactory, cofigFilePath, fileName,response);		
 	}
 	

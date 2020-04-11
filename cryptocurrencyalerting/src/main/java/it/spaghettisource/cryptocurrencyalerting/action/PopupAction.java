@@ -27,7 +27,7 @@ public class PopupAction extends AbstractAction {
 
 	static Logger log = LoggerFactory.getLogger(PopupAction.class);
 	
-	public static String CONFIG_FILE_PATH = System.getProperty("user.dir")+ System.getProperty("file.separator")+"configuration\\action\\";
+	public static String CONFIG_FILE_PATH = System.getProperty("user.dir")+ System.getProperty("file.separator")+"configuration/action/";
 	public static String CONFIG_FILE_NAME = "popup.properties";
 
 	private Properties prop;
