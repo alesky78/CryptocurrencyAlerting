@@ -12,22 +12,12 @@ the CryptocurrencyAlerting allow the user to monitor:
  - send a mail
  - create a popup on the desktop and emit a sound
 
-## How to build
-when downloaded this repository, in the main folder  **CryptocurrencyAlerting** run the bat file 
+## Where to get the application
 
-```
-compile.bat
-```
-in alternative run the maven command on the root of the project
-
-```
-mvn clean compile install
-```
-
-the build will create in the target folder zip file  **cryptocurrencyalerting-version-x.x.zip**
-that is the package ready to start
-
-unziping this file will create the folder cryptocurrencyalerting-version-x.x that you can move wherever you prefere
+this application is usually released and ready to be downloaded directly by github,
+then go to the [release](https://github.com/alesky78/CryptocurrencyAlerting/releases) and get the latest version.
+I proposed a version already compiled and ready to be used, anyway is always possible to compile by yourself.
+Whatevere way you get the software the **Configuration** step is always mandatory.
 
 
 ## Configuration
@@ -108,6 +98,24 @@ In case you want to start the application in adifferent way, analizing **startAp
 start more appropriate for your needs.
  
 
+
+## How to build
+when downloaded this repository, in the main folder  **CryptocurrencyAlerting** run the bat file 
+
+```
+compile.bat
+```
+attention this script works in offline mode, then it is requested that all the dependences are already downloaded
+in alternative run the maven command on the root of the project
+
+```
+mvn clean compile install
+```
+
+the build will create in the target folder zip file  **cryptocurrencyalerting-version-x.x.zip**
+that is the package ready to start
+
+unziping this file will create the folder cryptocurrencyalerting-version-x.x that you can move wherever you prefere
  
  
 
