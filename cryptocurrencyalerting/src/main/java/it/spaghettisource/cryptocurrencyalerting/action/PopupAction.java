@@ -1,6 +1,7 @@
 package it.spaghettisource.cryptocurrencyalerting.action;
 
 import java.awt.Frame;
+import java.io.BufferedInputStream;
 import java.util.Properties;
 
 import javax.sound.sampled.AudioInputStream;
@@ -94,7 +95,9 @@ public class PopupAction extends AbstractAction {
 						
 						if(makeSound) {
 							clip = AudioSystem.getClip();
-							AudioInputStream inputStream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream("/sound/beep.wav"));           
+							//add buffer for mark/reset support
+							BufferedInputStream bufferedIn = new BufferedInputStream(this.getClass().getResourceAsStream("/sound/beep.wav"));
+							AudioInputStream inputStream = AudioSystem.getAudioInputStream(bufferedIn);           
 							clip.open(inputStream);
 							if(loopSound) {
 								clip.loop(clip.LOOP_CONTINUOUSLY);								
