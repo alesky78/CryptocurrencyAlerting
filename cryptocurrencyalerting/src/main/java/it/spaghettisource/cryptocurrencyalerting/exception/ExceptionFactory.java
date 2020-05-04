@@ -90,6 +90,10 @@ public class ExceptionFactory {
 		return getException("exception.http.coinmarketcap.code.500", EMPTY_PARAMETERS);
 	}	
 	
+	/////////COIN MARKET CAP ERRORS////////////////
+	public BaseException getAlternativeMeHttpError(int httpCode) {
+		return getException("exception.http.alternativeme.code.any",  new Object[]{httpCode});
+	}	
 	
 	///////////internal methods/////////////////
 	private BaseException getException(String errorCode,Object... messageParameters ){

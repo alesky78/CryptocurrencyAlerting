@@ -6,16 +6,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import it.spaghettisource.cryptocurrencyalerting.exception.BaseException;
 import it.spaghettisource.cryptocurrencyalerting.exception.ExceptionFactory;
 import it.spaghettisource.cryptocurrencyalerting.provider.MarketAdapter;
 import it.spaghettisource.cryptocurrencyalerting.provider.MarketAdapterAbstract;
 import it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap.model.Criptocurrency;
 import it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap.model.Fiat;
+import it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap.model.Quote.CustomQuoteDeserializer;
 import it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap.model.ResponseCriptocurrencyMap;
 import it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap.model.ResponseCriptocurrencyQuoteLatest;
 import it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap.model.ResponseFiatMap;
-import it.spaghettisource.cryptocurrencyalerting.provider.coinmarketcap.model.Quote.CustomQuoteDeserializer;
 import it.spaghettisource.cryptocurrencyalerting.utils.FileUtil;
 import it.spaghettisource.cryptocurrencyalerting.utils.JsonConverter;
 
@@ -27,6 +30,8 @@ import it.spaghettisource.cryptocurrencyalerting.utils.JsonConverter;
  * @version 1.0
  */
 public class MarketAdapterCoinMarketCap extends MarketAdapterAbstract {
+	
+	static Logger log = LoggerFactory.getLogger(MarketAdapterCoinMarketCap.class);
 
 	private HttpClientCoinMarketCap httpClient;
 	private Properties prop;
@@ -68,6 +73,8 @@ public class MarketAdapterCoinMarketCap extends MarketAdapterAbstract {
 		
 		String json = httpClient.doGet("https://pro-api.coinmarketcap.com/v1/fiat/map",params);
 		
+		log.debug("json response:"+json);
+		
 		JsonConverter converter = new JsonConverter();
 		ResponseFiatMap data = converter.jsonToObject(exceptionFactory, json, ResponseFiatMap.class);
 		
@@ -88,6 +95,8 @@ public class MarketAdapterCoinMarketCap extends MarketAdapterAbstract {
 		
 		String json = httpClient.doGet("https://pro-api.coinmarketcap.com/v1/cryptocurrency/map",params);
 		
+		log.debug("json response:"+json);
+		
 		JsonConverter converter = new JsonConverter();
 		ResponseCriptocurrencyMap data = converter.jsonToObject(exceptionFactory, json, ResponseCriptocurrencyMap.class);
 		
@@ -107,6 +116,8 @@ public class MarketAdapterCoinMarketCap extends MarketAdapterAbstract {
 		params.put("convert",fiat);
 		
 		String json = httpClient.doGet("https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest",params);
+		
+		log.debug("json response:"+json);
 		
 		CustomQuoteDeserializer deserializer = new CustomQuoteDeserializer();
 		deserializer.setQuotePropertyName(fiat);

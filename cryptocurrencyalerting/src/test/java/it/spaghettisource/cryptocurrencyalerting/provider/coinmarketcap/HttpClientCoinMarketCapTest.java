@@ -82,8 +82,6 @@ public class HttpClientCoinMarketCapTest {
 		params.put("convert","EUR");
 		
 		String response = client.doGet("https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest",params);
-		
-		//the model is not properly generic, then we substitute two variable name 
 
 		//writeResponseToFile(response, "HttpClientCoinMarketCapTest_CryptocurrencyQuatoLatest.json");
 		Assert.assertNotNull(response);
