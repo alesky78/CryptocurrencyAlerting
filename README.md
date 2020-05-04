@@ -15,17 +15,17 @@ the CryptocurrencyAlerting allow the user to monitor:
 ## Where to get the application
 
 this application is usually released and ready to be downloaded directly by github,
-then go to the [release](https://github.com/alesky78/CryptocurrencyAlerting/releases) and get the latest version.
+then go to the [release](https://github.com/alesky78/CryptocurrencyAlerting/releases) section and get the latest version.
 I proposed a version already compiled and ready to be used, anyway is always possible to compile by yourself.
-Whatevere way you get the software the **Configuration** step is always mandatory.
+Whatevere way you get the software the **Configuration** step could be needed if you want to use advanced functionality.
 
 
 ## Configuration
 It is requrested a minimal configuration before to start the application:
- - configure the provider for the api of the market criptocurrency prices (mandatory step)
+ - configure the provider for the api of the market criptocurrency prices (not mandatory in case you use the default one)
  - configure the provide to send mail (not mandatory in case you want to use just the popup alert)
 
-### Configuration of the market price adapter  - mandatory step
+### Configuration of the market price adapter
 Obviusly the value of the cryptocurrencies must be obtained by a specific provider.
 The application is based on interfaces, then it is possible to implement a specific adpter, for any provide that is able to expose the interface that give back the price of the cryptocurrency,
 and configure the application to use it.
@@ -34,6 +34,8 @@ In this Actual version the application is shipped wiht the follow adapters alrea
  - testAdapter --> used for test purpose in case you want to test or extend the application
  - coinmarketcap --> https://coinmarketcap.com/api/documentation/v1/
  - alternative.me --> https://alternative.me/crypto/api/
+
+by default the **alternative.me** adapter is configured becouse it doesnt required any configruation and the user can start to use immediately the application wihtout any configuration
 
 to define the market Adapter that the application must use, configure the main configuration file,
 ```
@@ -50,7 +52,7 @@ configuration\marketprovider\coinmarketcap\CoinMarketCap.properties
 
 #### Alternative.me api cofiguration
 This provider has a free service so it doesnt required any specific action from the user: you don't have to create any account the api are accesible to everybody just using the url.
-The only limitation consiste that the api don't provide the list of the fiat, then in the configuration file of the adapter you have to configure the FIAT you want ot use.
+The only limitation consist that the api don't provide the list of the fiat, then in the configuration file of the adapter you have to configure the FIAT you want ot use.
 by default I have already configured the most used FIATs, if you want to add others you have to configured it in the configuration file
 ```
 configuration\marketprovider\alternativeme\AlternativeMe.properties
