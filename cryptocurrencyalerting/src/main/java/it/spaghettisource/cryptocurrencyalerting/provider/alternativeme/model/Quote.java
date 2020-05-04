@@ -99,13 +99,27 @@ public class Quote {
 			
 			quote.setPrice(quoteNode.get("price").asDouble());
 			quote.setVolume_24h(quoteNode.get("volume_24h").asDouble());
-			
-			
-			quote.setPercent_change_1h(quoteNode.get("percentage_change_1h").asDouble());
-			quote.setPercent_change_24h(quoteNode.get("percentage_change_24h").asDouble());
-			quote.setPercent_change_7d(quoteNode.get("percentage_change_7d").asDouble());			
 			quote.setMarket_cap(quoteNode.get("market_cap").asDouble());
 			
+			//FIX issue in the web service sometime the percentage arrive with the name percent
+			JsonNode node = quoteNode.get("percentage_change_1h");
+			if(node==null) {
+				node = quoteNode.get("percent_change_1h");
+			}
+			quote.setPercent_change_1h(node.asDouble());
+			
+			node = quoteNode.get("percentage_change_24h");
+			if(node==null) {
+				node = quoteNode.get("percent_change_24h");
+			}
+			quote.setPercent_change_24h(node.asDouble());
+			
+			node = quoteNode.get("percentage_change_7d");
+			if(node==null) {
+				node = quoteNode.get("percent_change_7d");
+			}
+			quote.setPercent_change_7d(node.asDouble());
+								
 			return quote;
 		}
 		
