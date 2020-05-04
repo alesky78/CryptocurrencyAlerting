@@ -32,7 +32,8 @@ and configure the application to use it.
 
 In this Actual version the application is shipped wiht the follow adapters already implemented:
  - testAdapter --> used for test purpose in case you want to test or extend the application
- - coinmarketcap
+ - coinmarketcap --> https://coinmarketcap.com/api/documentation/v1/
+ - alternative.me --> https://alternative.me/crypto/api/
 
 to define the market Adapter that the application must use, configure the main configuration file,
 ```
@@ -45,6 +46,14 @@ Aniway it is requested to login in the applicatiom https://pro.coinmarketcap.com
 After the API key is gerenate, it must be introduced in the configuration file 
 ```
 configuration\marketprovider\coinmarketcap\CoinMarketCap.properties
+```
+
+#### Alternative.me api cofiguration
+This provider has a free service so it doesnt required any specific action from the user: you don't have to create any account the api are accesible to everybody just using the url.
+The only limitation consiste that the api don't provide the list of the fiat, then in the configuration file of the adapter you have to configure the FIAT you want ot use.
+by default I have already configured the most used FIATs, if you want to add others you have to configured it in the configuration file
+```
+configuration\marketprovider\alternativeme\AlternativeMe.properties
 ```
 
 ### Configuration of the actions
