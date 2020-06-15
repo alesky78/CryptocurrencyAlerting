@@ -93,11 +93,6 @@ public abstract class AbstractAlert extends CommonEntity implements Alert {
 	
 	
 	
-
-	private long getCurrentTimeInmiuntes() {
-		return System.currentTimeMillis()/1000L/60L;
-	}
-	
 	protected Action getAction() {
 		return  ServiceLocator.getInstance().getActionService().findAction(actionType);
 	}

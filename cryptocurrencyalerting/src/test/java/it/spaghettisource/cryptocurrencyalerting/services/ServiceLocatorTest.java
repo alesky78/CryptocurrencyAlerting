@@ -9,7 +9,7 @@ public class ServiceLocatorTest {
 	@Test
 	public void test_OK_getInsance() {
 		
-		ServiceLocator locator = ServiceLocator.getInstance();
+		ServiceLocator.getInstance();
 		
 	}
 		

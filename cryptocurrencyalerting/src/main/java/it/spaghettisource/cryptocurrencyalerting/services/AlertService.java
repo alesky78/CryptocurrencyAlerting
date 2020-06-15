@@ -3,8 +3,6 @@ package it.spaghettisource.cryptocurrencyalerting.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.spaghettisource.cryptocurrencyalerting.action.Action;
-import it.spaghettisource.cryptocurrencyalerting.action.ActionType;
 import it.spaghettisource.cryptocurrencyalerting.alert.Alert;
 import it.spaghettisource.cryptocurrencyalerting.alert.AlertType;
 import it.spaghettisource.cryptocurrencyalerting.alert.PriceVariationGlobalMarketAlert;

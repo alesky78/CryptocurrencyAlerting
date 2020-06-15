@@ -108,9 +108,9 @@ public class PriceVariationGlobalMarketAlert extends AbstractAlert{
 		String modeMessage = null;
 		
 		if(mode.equals(ABOVE)) {
-			modeMessage = messageHelper.getFormattedMessageI18N(ABOVE_I18N, null); 
+			modeMessage = messageHelper.getFormattedMessageI18N(ABOVE_I18N); 
 		}else {
-			modeMessage = messageHelper.getFormattedMessageI18N(BELOW_I18N, null); 			
+			modeMessage = messageHelper.getFormattedMessageI18N(BELOW_I18N); 			
 		}
 		
 		Object[] parameters = new Object[] {criptocurency,fiat,actualQuote,modeMessage,price};
@@ -124,9 +124,9 @@ public class PriceVariationGlobalMarketAlert extends AbstractAlert{
 		String modeMessage = null;
 		
 		if(mode.equals(ABOVE)) {
-			modeMessage = messageHelper.getFormattedMessageI18N(ABOVE_I18N, null); 
+			modeMessage = messageHelper.getFormattedMessageI18N(ABOVE_I18N); 
 		}else {
-			modeMessage = messageHelper.getFormattedMessageI18N(BELOW_I18N, null); 			
+			modeMessage = messageHelper.getFormattedMessageI18N(BELOW_I18N); 			
 		}
 		
 		Object[] parameters = new Object[] {criptocurency,modeMessage,price, fiat};

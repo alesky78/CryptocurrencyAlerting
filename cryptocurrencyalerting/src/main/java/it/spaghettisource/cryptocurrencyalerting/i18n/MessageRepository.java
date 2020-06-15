@@ -34,7 +34,6 @@ public class MessageRepository {
 	 */
 	public  String getMessageById(String messageId){
 
-		Locale currentLocale;
         ResourceBundle messages;
         
         messages = ResourceBundle.getBundle(resourceBundleFile);
