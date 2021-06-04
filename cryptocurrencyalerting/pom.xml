@@ -31,7 +31,7 @@
 
 	<properties>
 		<com.sun.jersey>1.19.4</com.sun.jersey>
-		<apache-httpclient>4.5.12</apache-httpclient>
+		<apache-httpclient>4.5.13</apache-httpclient>
 	</properties>
 
 
