@@ -1,3 +1,4 @@
+![GitHub release](https://img.shields.io/github/v/release/alesky78/CryptocurrencyAlerting)
 ![Build Status](https://github.com/alesky78/CryptocurrencyAlerting/actions/workflows/maven.yml/badge.svg?branch=master)
 
 # Welcome to CryptocurrencyAlerting
