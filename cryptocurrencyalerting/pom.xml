@@ -5,7 +5,7 @@
 
 	<groupId>it.spaghettisource.cryptocurrencyalerting</groupId>
 	<artifactId>cryptocurrencyalerting</artifactId>
-	<version>1.1</version>
+	<version>1.2</version>
 	<name>cryptocurrencyalerting</name>
 
 	<licenses>
@@ -20,7 +20,6 @@
 		<developer>
 			<id>alesky</id>
 			<name>Alessndro D'Ottavio</name>
-			<email>alessandro.dottavio@gmail.com</email>
 			<roles>
 				<role>architect</role>
 				<role>developer</role>
@@ -30,6 +29,8 @@
 	</developers>
 
 	<properties>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>		
 		<com.sun.jersey>1.19.4</com.sun.jersey>
 		<apache-httpclient>4.5.13</apache-httpclient>
 	</properties>
@@ -92,31 +93,44 @@
 
 
 	<build>
+		
+		<!--Note: 	this final name is used in the start scipt startApplication.bat
+		    		if modified, also the script shold be changed  --> 
+		<finalName>cryptocurrencyalerting</finalName>
+		
 		<plugins>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>	
 			</plugin>
-			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-			</plugin>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-jar-plugin</artifactId>
+	        </plugin>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-assembly-plugin</artifactId>
+	        </plugin>
 		</plugins>
+		
 		<pluginManagement>
 			<plugins>
+				
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>					
 					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.11.0</version>								
 					<configuration>
 						<source>1.8</source>
 						<target>1.8</target>
 					</configuration>
 				</plugin>
+				
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>2.6</version>
+					<version>3.3.0</version>
 					<configuration>
-						<finalName>cryptocurrencyalerting</finalName>
 						<excludes>
 							<exclude>**/log4j.properties</exclude>
 						</excludes>
@@ -136,11 +150,15 @@
 
 				<!-- BUILD CONFIGURATION -->
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-assembly-plugin</artifactId>
+					<version>3.6.0</version>
 					<configuration>
 						<appendAssemblyId>false</appendAssemblyId>
-						<finalName>cryptocurrencyalerting-version-${version}</finalName>
-						<descriptor>assembly/assembly.xml</descriptor>
+						<finalName>cryptocurrencyalerting-version-${project.version}</finalName>
+						<descriptors>
+							<descriptor>assembly/assembly.xml</descriptor>
+						</descriptors>
 					</configuration>
 					<executions>
 						<execution>
@@ -152,6 +170,7 @@
 						</execution>
 					</executions>
 				</plugin>
+				
 			</plugins>
 		</pluginManagement>
 	</build>
