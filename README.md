@@ -1,4 +1,3 @@
-![Java CI with Maven](https://github.com/alesky78/CryptocurrencyAlerting/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
 ![Build Status](https://github.com/alesky78/CryptocurrencyAlerting/actions/workflows/maven.yml/badge.svg?branch=master)
 
 # Welcome to CryptocurrencyAlerting
